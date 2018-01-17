@@ -1,0 +1,9 @@
+var config = {
+    db: {
+        connection: "server:port/databasename",
+        user: "account_name",
+        password: "password"
+    }
+};
+
+module.exports = config;
