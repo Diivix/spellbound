@@ -1,8 +1,10 @@
-var mongoose = require('mongoose');  
+import mongoose from 'mongoose';
+
 var users = new mongoose.Schema({  
   name: String,
   email: String,
   password: String
 });
-mongoose.model('User', users);
-module.exports = mongoose.model('User');
+mongoose.model('user', users);
+//module.exports = mongoose.model('User');
+export default mongoose.model('user');

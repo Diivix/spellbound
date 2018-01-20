@@ -4,13 +4,20 @@
   "description": "Rest web api for (with database) the Spellbound-React project.",
   "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "rm -rf ./build && webpack --config webpack.config.server.js"
   },
   "author": "Diivix2590",
   "license": "ISC",
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "mongoose": "^4.13.9"
+    "mongoose": "^5.0.0",
+    "start-server-webpack-plugin": "^2.2.0",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
   }
 }

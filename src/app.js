@@ -1,8 +1,11 @@
-var express = require('express');
-var db = require('./db');
-var config = require('./config');
-var userController = require('./controllers/userController');
+import express from 'express';
+import db from './db';
+import config from './config';
+import userController from './controllers/userController';
+import spellController from './controllers/spellController';
 
-var app = express();
+const app = express();
 app.use('/users', userController);
-module.exports = app;
+app.use('/spells', spellController);
+
+export default app;

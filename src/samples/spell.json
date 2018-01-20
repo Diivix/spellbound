@@ -1,0 +1,21 @@
+{
+    "name": "Fire Bolt",
+    "school": "Destruction",
+    "level": 6,
+    "classes": [
+        "Sorcerer",
+        "Wizard"
+    ],
+    "castingTime": "1",
+    "castingTimeDescription": "Action",
+    "range": "20",
+    "rangeDescription": "feet",
+    "components": [
+        "V",
+        "S"
+    ],
+    "duration": "action",
+    "durationDescription": "",
+    "description": "",
+    "atHigherLevels": ""
+}
