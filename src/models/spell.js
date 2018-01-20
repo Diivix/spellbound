@@ -16,5 +16,5 @@ var spells = new mongoose.Schema({
   atHigherLevels: String
 });
 mongoose.model('spell', spells);
-//module.exports = mongoose.model('Spell');
+
 export default mongoose.model('spell');
