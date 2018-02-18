@@ -38,10 +38,11 @@ function buildFindQuery(filters) {
         filters.hasOwnProperty("name") && { name: _.toLower(filters.name) },
         filters.hasOwnProperty("schools") && { school: { $in: filters.schools.map(value => (_.toLower(value))) } },
         filters.hasOwnProperty("levels") && { level: { $in: filters.levels.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("classes") && { class: { $in: filters.classes.map(value => (_.toLower(value))) } },
+        filters.hasOwnProperty("classes") && { classes: { $in: filters.classes.map(value => (_.toLower(value))) } },
         filters.hasOwnProperty("ranges") && { range: { $in: filters.ranges.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("components") && { components: { $in: components.schools.map(value => (_.toLower(value))) } }
-    )      
+        filters.hasOwnProperty("components") && { components: { $in: filters.components.map(value => (_.toLower(value))) } }
+    )
+    return query;      
 }
 
 
@@ -89,11 +90,10 @@ router.get('/withfilters', function (req, res) {
 //       }
 // Note, All properties in the filters object are optional.
 router.post('/withfilters', function (req, res) {
-    if(!req.body.hasOwnProperty("filters")) {
-        return res.status(500).send("No Filters defined.");
-    } 
+    console.log(req.body);
 
-    const filters = buildFindQuery(req.body.filters);
+    const filters = buildFindQuery(req.body);
+    console.log(filters);
     spell.find(filters, function (err, spells) {
         if (err) {
             return res.status(500).send("There was a problem finding the Spells.");
@@ -109,22 +109,22 @@ router.post('/withfilters', function (req, res) {
 
 // CREATE //
 // CREATES A NEW SPELL
-router.post('/create', function (req, res) {
-    spell.create(req.body, function (err, spell) {
-        if (err) return res.status(500).send("There was a problem adding the information to the database.");
-        res.status(200).send(spell);
-    }
-    );
-});
+// router.post('/create', function (req, res) {
+//     spell.create(req.body, function (err, spell) {
+//         if (err) return res.status(500).send("There was a problem adding the information to the database.");
+//         res.status(200).send(spell);
+//     }
+//     );
+// });
 
 // CREATES AN ARRAY SPELLS
-router.post('/create/batch', function (req, res) {
-    spell.insertMany(req.body.spells, function (err, spells) {
-        if (err) return res.status(500).send("There was a problem adding the information to the database.");
-        res.status(200).send(spells);
-    }
-    );
-});
+// router.post('/create/batch', function (req, res) {
+//     spell.insertMany(req.body.spells, function (err, spells) {
+//         if (err) return res.status(500).send("There was a problem adding the information to the database.");
+//         res.status(200).send(spells);
+//     }
+//     );
+// });
 
 // UPDATE //
 // UPDATES A SINGLE SPELL IN THE DATABASE
