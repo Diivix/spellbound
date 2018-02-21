@@ -5,7 +5,8 @@ import spell from '../models/spell';
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json())
+router.use(bodyParser.json({limit: '5mb'}));
+router.use(bodyParser.urlencoded({limit: '5mb', extended: true,   parameterLimit: 50000}));
 
 // METHODS
 function getAllPossibleFilters(spells) {
@@ -118,13 +119,13 @@ router.post('/withfilters', function (req, res) {
 // });
 
 // CREATES AN ARRAY SPELLS
-// router.post('/create/batch', function (req, res) {
-//     spell.insertMany(req.body.spells, function (err, spells) {
-//         if (err) return res.status(500).send("There was a problem adding the information to the database.");
-//         res.status(200).send(spells);
-//     }
-//     );
-// });
+router.post('/create/batch', function (req, res) {
+    spell.insertMany(req.body.spells, function (err, spells) {
+        if (err) return res.status(500).send("There was a problem adding the information to the database.");
+        res.status(200).send(spells);
+    }
+    );
+});
 
 // UPDATE //
 // UPDATES A SINGLE SPELL IN THE DATABASE
@@ -145,12 +146,12 @@ router.post('/withfilters', function (req, res) {
 // });
 
 // DELETES ALL SPELLS FROM THE DATABASE
-// router.delete('/', function (req, res) {
-//     spell.deleteMany({}, function (err, spell) {
-//         if (err) return res.status(500).send("There was a problem deleting the spell.");
-//         res.status(200).send("spell " + spell.name + " was deleted.");
-//     });
-// });
+router.delete('/', function (req, res) {
+    spell.deleteMany({}, function (err, spell) {
+        if (err) return res.status(500).send("There was a problem deleting the spell.");
+        res.status(200).send("spell " + spell.name + " was deleted.");
+    });
+});
 
 
 
