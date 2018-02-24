@@ -4,7 +4,6 @@ import _ from 'lodash'
 import spell from '../models/spell';
 
 const router = express.Router();
-router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json({ limit: '5mb' }));
 router.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 

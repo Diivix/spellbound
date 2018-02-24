@@ -62,7 +62,7 @@ router.put('/:id', function (req, res) {
 router.delete('/:id', function (req, res) {
     user.findByIdAndRemove(req.params.id, function (err, user) {
         if (err) return res.status(500).send("There was a problem deleting the user.");
-        res.status(200).send("user " + user.name + " was deleted.");
+        res.status(200).send("User was deleted.");
     });
 });
 
