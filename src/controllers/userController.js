@@ -7,15 +7,25 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 // CREATES A NEW USER
 router.post('/', function (req, res) {
-    user.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    },
-        function (err, user) {
-            if (err) return res.status(500).send("There was a problem adding the information to the database.");
-            res.status(200).send(user);
-        });
+    console.log(req.body.email, ' + ', req.body.username, ' + ', req.body.password, ' + ', req.body.passwordConf)
+    if (req.body.email && req.body.username && req.body.password && req.body.passwordConf) {
+        if (req.body.password !== req.body.passwordConf) {
+            return res.status(400).send("Passwords do not match.");
+          }
+
+        user.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            passwordConf: req.body.passwordConf
+        },
+            function (err, user) {
+                if (err) return res.status(500).send("There was a problem adding the information to the database.");
+                res.status(200).send("Congratulations!");
+            });
+    } else {
+        return res.status(500).send("There was a problem with your request.");
+    }
 });
 
 // RETURNS ALL THE USERS IN THE DATABASE
