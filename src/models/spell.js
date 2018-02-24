@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
 
 var spells = new mongoose.Schema({  
-  name: String,
-  school: String,
+  name: { type: String, lowercase: true },
+  school: { type: String, lowercase: true },
   level: Number,
-  classes: [String],
-  castingTime: String,
-  castingTimeDescription: String,
-  range: String,
-  rangeDescription: String,
-  components: [String],
-  duration: String,
-  durationDescription: String,
+  classes: [{ type: String, lowercase: true }],
+  castingTime: { type: String, lowercase: true },
+  castingTimeDescription: { type: String, lowercase: true },
+  range: { type: String, lowercase: true },
+  rangeDescription: { type: String, lowercase: true },
+  components: [{ type: String, lowercase: true }],
+  duration: { type: String, lowercase: true },
+  durationDescription: { type: String, lowercase: true },
   description: String,
   atHigherLevels: String
 });
 mongoose.model('spell', spells);
-//module.exports = mongoose.model('Spell');
+
 export default mongoose.model('spell');
