@@ -1,4 +1,6 @@
 import express from 'express';
+import session from 'express-session';
+import mongoStore from 'connect-mongo'
 import db from './db';
 import config from './config';
 import userController from './controllers/userController';
@@ -25,6 +27,17 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+//use sessions for tracking logins
+const store = mongoStore(session);
+app.use(session({
+    secret: 'work hard',
+    resave: true,
+    saveUninitialized: false,
+    store: new store({
+        mongooseConnection: db
+    })
+}));
 
 // Define routes
 app.use('/api/users', userController);

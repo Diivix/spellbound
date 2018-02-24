@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-var spells = new mongoose.Schema({  
+const spells = new mongoose.Schema({  
   name: { type: String, lowercase: true },
   school: { type: String, lowercase: true },
   level: Number,
