@@ -1,13 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import user from '../models/user';
+import { requireLogin } from '../utils/auth';
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 // READ
 // RETURNS ALL THE USERS IN THE DATABASE
-router.get('/', function (req, res, next) {
+router.get('/', requireLogin, function (req, res, next) {
     user.find({}, function (err, users) {
         if (err) {
             const err = new Error("There was a problem finding the users.");
@@ -19,7 +20,7 @@ router.get('/', function (req, res, next) {
 });
 
 // GETS A SINGLE USER FROM THE DATABASE
-router.get('/:id', function (req, res, next) {
+router.get('/:id', requireLogin, function (req, res, next) {
     user.findById(req.params.id, function (err, user) {
         if (err) {
             const err = new Error("There was a problem finding the user.");
@@ -39,7 +40,7 @@ router.get('/:id', function (req, res, next) {
 
 // CREATE
 // CREATES A NEW USER
-router.post('/create', function (req, res, next) {
+router.post('/create', requireLogin, function (req, res, next) {
     if (!req.body.email || !req.body.username || !req.body.password || !req.body.passwordConf) {
         return res.status(500).send("There was a problem with your request.");
     }
@@ -66,7 +67,7 @@ router.post('/create', function (req, res, next) {
 
 // UPDATE 
 // UPDATES A SINGLE USER IN THE DATABASE
-router.put('/:id', function (req, res, next) {
+router.put('/:id', requireLogin, function (req, res, next) {
 
     user.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, user) {
         if (err) {
@@ -81,7 +82,7 @@ router.put('/:id', function (req, res, next) {
 
 // DELETE
 // DELETES A USER FROM THE DATABASE
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', requireLogin, function (req, res, next) {
     user.findByIdAndRemove(req.params.id, function (err, user) {
         if (err) {
             const err = new Error("There was a problem deleting the user.");
