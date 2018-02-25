@@ -4,7 +4,7 @@ import user from '../models/user';
 import { requireLogin } from '../utils/auth';
 
 const router = express.Router();
-router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
 
 // LOGIN A SINGLE USER FROM THE DATABASE
 router.post('/login', function (req, res, next) {
@@ -27,7 +27,7 @@ router.post('/login', function (req, res, next) {
 });
 
 // LOGOUT A SINGLE USER
-router.get('/logout', function (req, res, next) {
+router.get('/logout', requireLogin, function (req, res, next) {
     if (req.session) {
         // console.log(req.session)
         // delete session object
