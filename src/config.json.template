@@ -1,0 +1,13 @@
+{
+    "server": {
+        "http_port": some_port_to_run_on
+    },
+    "db": {
+        "connection": "localhost:27017/spellbound",
+        "user": "some_user",
+        "password": "some_password"
+    },
+    "session": {
+        "secret": "Some_secret_text"
+    }
+}
