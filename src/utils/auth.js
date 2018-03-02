@@ -1,11 +1,12 @@
 
-export function requireLogin (req, res, next) {
-  console.log(req.session.user);
-    if (!req.user) {
+export function requireLogin(req, res, next) {
+    if (!req.session.user) {
+        console.log("Not Authorised");
         const err = new Error('Unauthorised');
         err.status = 401;
         next(err);
     } else {
-      next();
+        console.log("Authorised");
+        next();
     }
-  };
+};

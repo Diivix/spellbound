@@ -21,7 +21,7 @@ router.post('/login', function (req, res, next) {
             return next(err);
         }
 
-        req.session.user = user
+        req.session.user = user;
         return res.status(200).send("Logged in!");
     });
 });
