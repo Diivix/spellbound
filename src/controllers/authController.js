@@ -22,21 +22,19 @@ router.post('/login', function (req, res, next) {
         }
 
         req.session.user = user;
-        return res.status(200).send("Logged in!");
+        return res.status(200).send();
     });
 });
 
 // LOGOUT A SINGLE USER
 router.get('/logout', requireLogin, function (req, res, next) {
     if (req.session) {
-        // console.log(req.session)
         // delete session object
         req.session.destroy(function (err) {
             if (err) {
-                console.log(err)
                 return next(err);
             } else {
-                return res.status(200).send("Logged out!");
+                return res.status(200).send();
             }
         });
     }

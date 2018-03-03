@@ -146,10 +146,7 @@ router.get('/light/withfilters', requireLogin, function (req, res, next) {
 
 // RETURNS LIGHTLY LOADED SPELLS WITH POSSIBLE FILTERS FROM SUPPLIED FILTERS INPUT
 router.post('/light/withfilters', requireLogin, function (req, res, next) {
-    console.log(req.body);
-
     const filters = buildFindQuery(req.body);
-    console.log(filters);
     spell.find(filters,
         'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
         function (err, spells) {
