@@ -1,12 +1,27 @@
-import http from 'http';
+//import http from 'http';
+import fs from 'fs';
+import https from 'https';
 import app from './app';
-import config from './config';
 
-const server = http.createServer(app)
+let server;
+if (process.env.NODE_ENV === 'production') {
+    // Ass SSL cert is provided. E.g zeit.co hosting.
+    server = https.createServer(app)
+} else {
+    var options = {
+        key: fs.readFileSync('./certificates/localhost.key'),
+        cert: fs.readFileSync('./certificates/localhost.cert'),
+        requestCert: false,
+        rejectUnauthorized: false
+    };
+
+    server = https.createServer(options, app)
+}
+
 let currentApp = app;
 
-server.listen(config.server.http_port, function () {
-    console.log('Express server listening on port ' + config.server.http_port);
+server.listen(process.env.SSL_PORT, function () {
+    console.log('Express server listening on port ' + process.env.SSL_PORT);
 });
 
 // Allow hot reloading of app

@@ -2,7 +2,6 @@ import express from 'express';
 import session from 'express-session';
 import mongoStore from 'connect-mongo'
 import db from './db';
-import config from './config.json';
 import user from './models/user';
 import authController from './controllers/authController';
 import userController from './controllers/userController';
@@ -10,10 +9,15 @@ import spellController from './controllers/spellController';
 
 const app = express();
 
+// // Express only serves static assets in production
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static("../client/build"));
+// }
+
 // Add headers
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -32,12 +36,20 @@ app.use(function (req, res, next) {
 //use sessions for tracking logins
 const store = mongoStore(session);
 app.use(session({
-    secret: config.session.secret,
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: false,
     store: new store({
         mongooseConnection: db
     }),
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        // domain: 'spellbound-react.com',
+        // path: '/foo/bar',
+        // Cookie will expire in 1 hour from when it's generated 
+        expires: new Date(Date.now() + 60 * 60 * 1000)
+    },
     ephemeral: true
 }));
 
@@ -49,7 +61,7 @@ app.use(function (req, res, next) {
                 const err = new Error("Wrong email or password.");
                 err.status = 401;
                 return next(err);
-            } 
+            }
 
             req.user = user;
             delete req.user.password; // delete the password from the session

@@ -1,7 +1,6 @@
-import config from './config';
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://' + config.db.user + ':' + config.db.password + '@' + config.db.connection);
+mongoose.connect(process.env.DB_CONNECTION);
 
 // Test connection
 var db = mongoose.connection;
