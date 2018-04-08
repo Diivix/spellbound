@@ -5,7 +5,7 @@ import app from './app';
 
 let server;
 if (process.env.NODE_ENV === 'production') {
-    // Ass SSL cert is provided. E.g zeit.co hosting..
+    // As SSL cert is provided. E.g zeit.co hosting..
     server = https.createServer(app)
 } else {
     var options = {
@@ -23,12 +23,3 @@ let currentApp = app;
 server.listen(process.env.SSL_PORT, function () {
     console.log('Express server listening on port ' + process.env.SSL_PORT);
 });
-
-// Allow hot reloading of app
-if (module.hot) {
-    module.hot.accept('./app', () => {
-        server.removeListener('request', currentApp)
-        server.on('request', app)
-        currentApp = app
-    })
-}

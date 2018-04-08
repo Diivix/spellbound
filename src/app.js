@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import mongoStore from 'connect-mongo'
+import morgan from 'morgan';
 import db from './db';
 import user from './models/user';
 import authController from './controllers/authController';
@@ -9,10 +10,10 @@ import spellController from './controllers/spellController';
 
 const app = express();
 
-// // Express only serves static assets in production
-// if (process.env.NODE_ENV === "production") {
-//     app.use(express.static("../client/build"));
-// }
+if (process.env.NODE_ENV !== "production") {
+    // HTTP request logger middleware for node.js
+    app.use(morgan('combined'));
+}
 
 // Add headers
 app.use(function (req, res, next) {
