@@ -1,4 +1,3 @@
-//import http from 'http';
 import fs from 'fs';
 import https from 'https';
 import app from './app';

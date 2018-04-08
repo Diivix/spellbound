@@ -1,19 +1,15 @@
-const webpack = require('webpack')
-const path = require('path')
-const nodeExternals = require('webpack-node-externals')
-const StartServerPlugin = require('start-server-webpack-plugin')
+const webpack = require('webpack');
+const path = require('path');
+// const StartServerPlugin = require('start-server-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: [
-        'webpack/hot/poll?1000',
-        './src/server'
+        './src/app'
     ],
-    watch: true,
     target: 'node',
-    externals: [nodeExternals({
-        whitelist: ['webpack/hot/poll?1000']
-    })],
     module: {
         rules: [{
             test: /\.js?$/,
@@ -22,19 +18,15 @@ module.exports = {
         }]
     },
     plugins: [
-        new StartServerPlugin('server.js'),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({
-            "process.env": {
-                "BUILD_TARGET": JSON.stringify('server')
-            }
-        }),
+        new CleanWebpackPlugin(['build']),
         new Dotenv({
             safe: true,
             systemvars: true
         })
+        // new StartServerPlugin('server.js')
     ],
     output: {
         path: path.join(__dirname, 'build'),

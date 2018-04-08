@@ -12,19 +12,31 @@
     "babel-preset-env": "^1.6.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "clean-webpack-plugin": "^0.1.19",
     "connect-mongo": "^2.0.1",
     "dotenv-webpack": "^1.5.5",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "html-webpack-plugin": "^3.0.6",
     "mongoose": "^5.0.7",
-    "start-server-webpack-plugin": "^2.2.0",
-    "webpack": "^3.10.0",
-    "webpack-node-externals": "^1.6.0"
+    "start-server-webpack-plugin": "^2.2.5"
+  },
+  "now": {
+    "alias": "spellbound-api",
+    "dotenv": true
   },
   "scripts": {
-    "start": "rm -rf ./build/* && webpack --config webpack.config.js",
-    "dev": "echo \"This command has been deprecated. Use 'yarn start'\" && exit 1",
-    "lint": "eslint ."
+    "start": "webpack-dev-server --mode development --open --config webpack.dev.js",
+    "lint": "eslint .",
+    "server": "node server2.js",
+    "build": "webpack --config webpack.prod.js",
+    "now-build": "cp .env.example .env"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12",
+    "webpack-dev-server": "^3.1.1",
+    "webpack-merge": "^4.1.2",
+    "webpack-node-externals": "^1.6.0"
+  }
 }
