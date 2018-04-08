@@ -1,5 +1,12 @@
 {
   "presets": [
-    "es2015"
+    "env"
+  ],
+  "ignore": [
+    "./node_modules",
+    "./.babelrc",
+    "./package.json",
+    "./*.log",
+    "./*.template"
   ]
 }
