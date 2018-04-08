@@ -1,0 +1,10 @@
+{
+    "env": {
+        "DEBUG" : "express:* node index.js",
+        "NODE_ENV" : "development",
+        "SSL_PORT" : "3443",
+        "DB_CONNECTION" : "mongodb://name:password@some_connection",
+        "SESSION_SECRET" : "some_secret_string",
+        "ALLOW_ORIGIN" : "http://localhost:3000"
+    }
+}

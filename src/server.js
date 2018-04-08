@@ -1,10 +1,11 @@
+
 import fs from 'fs';
 import https from 'https';
 import app from './app';
 
 let server;
 if (process.env.NODE_ENV === 'production') {
-    // Ass SSL cert is provided. E.g zeit.co hosting.
+    // Ass SSL cert is provided. E.g zeit.co hosting..
     server = https.createServer(app)
 } else {
     var options = {

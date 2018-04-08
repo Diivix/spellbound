@@ -40,9 +40,4 @@ router.get('/logout', requireLogin, function (req, res, next) {
     }
 });
 
-// Test auth
-router.post('/a', requireLogin, function (req, res) {
-    return res.status(200).send("Blah!!!!");
-});
-
 export default router;

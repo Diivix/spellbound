@@ -5,7 +5,7 @@ Watch mongo-connect issue with destroying a session, this only affect snew versi
 https://github.com/jdesboeufs/connect-mongo/issues/277
 https://github.com/jdesboeufs/connect-mongo/pull/282
 
-## Development
+# Development
 ### Setup SSL Cert
 1. Generate cert:
 ```
@@ -21,3 +21,5 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 1. The db is hosted at https://mlab.com/
 2. the application is hosted at https://zeit.co
 
+## Used Tutorials
+- https://www.codementor.io/iykyvic/writing-your-nodejs-apps-using-es6-6dh0edw2o

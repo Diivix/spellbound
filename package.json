@@ -9,7 +9,6 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "clean-webpack-plugin": "^0.1.19",
@@ -26,13 +25,18 @@
     "dotenv": true
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --config webpack.dev.js",
-    "lint": "eslint .",
-    "server": "node server2.js",
-    "build": "webpack --config webpack.prod.js",
-    "now-build": "cp .env.example .env"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./*.log --copy-files",
+    "start": "yarn build && node -r dotenv/config dist/src/server.js",
+    "babel-node": "babel-node",
+    "start-nodemon": "yarn build && nodemon --exec yarn babel-node -- dist/src/server.js"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "dotenv": "^5.0.1",
+    "nodemon": "^1.17.3",
+    "rimraf": "^2.6.2",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12",
     "webpack-dev-server": "^3.1.1",
