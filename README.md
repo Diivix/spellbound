@@ -32,6 +32,7 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - *Using ES6* - https://www.codementor.io/iykyvic/writing-your-nodejs-apps-using-es6-6dh0edw2o
 - *ES6 Modules* - https://medium.com/@giltayar/native-es-modules-in-nodejs-status-and-future-directions-part-i-ee5ea3001f71
 - *Express and React* - https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0
+- *Https with Express* - https://medium.com/@nileshsingh/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e
 
 ## TODO:
 

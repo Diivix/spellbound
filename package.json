@@ -11,6 +11,7 @@
     "body-parser": "^1.18.2",
     "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
+    "express-force-ssl": "^0.3.2",
     "express-session": "^1.15.6",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0"
@@ -21,10 +22,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
-    "start": "node --experimental-modules -r dotenv/config src/server.mjs"
+    "start": "node --experimental-modules -r dotenv/config src/server.mjs",
+    "client": "cd client && yarn start",
+    "server": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "dotenv": "^5.0.1",
     "nodemon": "^1.17.3"
   }

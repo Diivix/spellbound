@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import mongoStore from 'connect-mongo'
 import logger from 'morgan';
+import forceSsl from 'express-force-ssl';
 import db from './db';
 import user from './models/user';
 import authController from './controllers/authController';
@@ -14,6 +15,9 @@ if (process.env.NODE_ENV !== "production") {
     // HTTP request logger middleware for node.js
     app.use(logger('dev'));
 }
+
+// Force SSL to be used
+app.use(forceSsl);
 
 // Add headers
 app.use(function (req, res, next) {
@@ -77,9 +81,17 @@ app.use(function (req, res, next) {
 });
 
 // Define routes
+if (process.env.NODE_ENV === "production") {
+    // we only want to serve the static files on production
+    app.use('/', express.static(`${__dirname}/public`));
+}
 app.use('/api/auth', authController);
 app.use('/api/users', userController);
 app.use('/api/spells', spellController);
+// express will serve up index.html if it doesn't recognize the route
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 // error handler
 // define as the last app.use callback
