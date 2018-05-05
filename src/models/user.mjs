@@ -26,20 +26,20 @@ const users = new mongoose.Schema({
 // }
 
 // Validate user session
-users.statics.validate = function (email, callback) {
-    user.findOne({ email: email })
-        .exec(function (err, user) {
-            if (err) {
-                return callback(err)
-            } else if (!user) {
-                var err = new Error('User not found.');
-                err.status = 401;
-                return callback(err);
-            }
+// users.statics.validate = function (email, callback) {
+//     user.findOne({ email: email })
+//         .exec(function (err, user) {
+//             if (err) {
+//                 return callback(err)
+//             } else if (!user) {
+//                 var err = new Error('User not found.');
+//                 err.status = 401;
+//                 return callback(err);
+//             }
 
-            return callback(null, user)
-        });
-}
+//             return callback(null, user)
+//         });
+// }
 
 // Hashing a password before saving it to the database
 users.pre('save', function (next) {

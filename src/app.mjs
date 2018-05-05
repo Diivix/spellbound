@@ -57,20 +57,22 @@ app.use(session({
 // Auth - validate user if they already have a session
 app.use(function (req, res, next) {
     if (req.session && req.session.user) {
-        user.validate(req.session.user.email, function (error, user) {
+        user.findOne({ email: req.session.user.email }).exec(function (error, user) {
             if (error || !user) {
                 const err = new Error("Wrong email or password.");
                 err.status = 401;
                 return next(err);
             }
 
-            req.user = user;
-            delete req.user.password; // delete the password from the session
-            req.session.user = user;  //refresh the session value
-            res.locals.user = user;
+            if(req.user) {
+                req.user = user;
+                delete req.user.password; // delete the password from the session
+                req.session.user = user;  // refresh the session value
+                res.locals.user = user;
+            }
         });
     } 
-    
+
     return next();
 });
 

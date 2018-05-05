@@ -23,11 +23,11 @@ router.post('/login', function (req, res, next) {
             return next(err);
         }
 
-        bcrypt.compare(req.body.password, user.password, function (error2, result) {
-            if (error2 || !result) {
-                const err2 = new Error("Wrong email or password.");
-                err2.status = 401;
-                return next(err2);
+        bcrypt.compare(req.body.password, user.password, function (error, result) {
+            if (error || !result) {
+                const err = new Error("Wrong email or password.");
+                err.status = 401;
+                return next(err);
             }
         })
 
@@ -40,9 +40,9 @@ router.post('/login', function (req, res, next) {
 router.get('/logout', requireLogin, function (req, res, next) {
     if (req.session) {
         // delete session object
-        req.session.destroy(function (err) {
-            if (err) {
-                return next(err);
+        req.session.destroy(function (error) {
+            if (error) {
+                return next(error);
             } else {
                 return res.status(200).send();
             }
