@@ -15,6 +15,6 @@ const spells = new mongoose.Schema({
     description: String,
     atHigherLevels: String
 });
-mongoose.model('spell', spells);
 
-export default mongoose.model('spell');
+ export default mongoose.model('spell', spells);
+ 

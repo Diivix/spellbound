@@ -1,26 +1,31 @@
 {
-  "name": "spellbound-api",
-  "version": "1.0.0",
-  "description": "Rest web api for (with database) the Spellbound-React project.",
-  "main": "src/app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rm -rf ./build/* && webpack --config webpack.config.server.js"
-  },
-  "author": "Diivix2590",
-  "license": "ISC",
+  "name": "spellbound",
+  "version": "0.1.0",
+  "description": "The Spellbound project, containing the spellbound-react and soellbound-api projects.",
+  "main": "server.js",
+  "repository": "https://github.com/Diivix2590/spellbound.git",
+  "author": "Chris <chrisiivix@gmail.com>",
+  "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^v2.0.0",
     "body-parser": "^1.18.2",
     "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "mongoose": "^5.0.7",
-    "start-server-webpack-plugin": "^2.2.0",
-    "webpack": "^3.10.0",
-    "webpack-node-externals": "^1.6.0"
+    "mongoose": "^5.0.17",
+    "morgan": "^1.9.0"
+  },
+  "now": {
+    "alias": "spellbound-api",
+    "dotenv": true
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
+    "start": "node --experimental-modules -r dotenv/config src/server.mjs"
+  },
+  "devDependencies": {
+    "dotenv": "^5.0.1",
+    "nodemon": "^1.17.3"
   }
 }
