@@ -21,11 +21,15 @@
     "dotenv": true
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-modules -r dotenv/config src/server.mjs",
-    "client": "cd client && yarn start",
-    "server": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dotenv-copy": "cp .env.example .env",
+    "client-start": "cd client && yarn start",
+    "client-build": "cd client && yarn build",
+    "server-dev": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
+    "server-start": "node --experimental-modules -r dotenv/config src/server.mjs",
+    "server-test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently --kill-others-on-fail \"yarn server-dev\" \"yarn client-start\"",
+    "now-build": "yarn install && cd client && yarn install && yarn build",
+    "now-start": "yarn server-start"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
