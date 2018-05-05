@@ -2,7 +2,7 @@
 
 Epxress API for the spellbound-react application.
 
-Watch mongo-connect issue with destroying a session, this only affect snew version of MongoDB:
+Watch mongo-connect issue with destroying a session, this only affects new version of MongoDB:
 
 - https://github.com/jdesboeufs/connect-mongo/issues/277
 

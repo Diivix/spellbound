@@ -21,26 +21,9 @@ const users = new mongoose.Schema({
 });
 
 // Authenticate user
-users.statics.authenticate = function (email, password, callback) {
-    user.findOne({ email: email })
-        .exec(function (err, user) {
-            if (err) {
-                return callback(err)
-            } else if (!user) {
-                var err = new Error('User not found.');
-                err.status = 401;
-                return callback(err);
-            }
-
-            bcrypt.compare(password, user.password, function (err, result) {
-                if (result === true) {
-                    return callback(null, user);
-                } else {
-                    return callback();
-                }
-            })
-        });
-}
+// users.statics.authenticate = function (email, password, callback) {
+//     user.findOne({ email: email }).exec(callback);
+// }
 
 // Validate user session
 users.statics.validate = function (email, callback) {

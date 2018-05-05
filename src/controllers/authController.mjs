@@ -1,7 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
 import user from '../models/user';
 import { requireLogin } from '../utils/auth';
+
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -14,12 +16,20 @@ router.post('/login', function (req, res, next) {
         return next(err);
     }
 
-    user.authenticate(req.body.email, req.body.password, function (error, user) {
+    user.findOne({ email: req.body.email }).exec(function (error, user) {
         if (error || !user) {
             const err = new Error("Wrong email or password.");
             err.status = 401;
             return next(err);
         }
+
+        bcrypt.compare(req.body.password, user.password, function (error2, result) {
+            if (error2 || !result) {
+                const err2 = new Error("Wrong email or password.");
+                err2.status = 401;
+                return next(err2);
+            }
+        })
 
         req.session.user = user;
         return res.status(200).send();

@@ -17,8 +17,6 @@ if (process.env.NODE_ENV === 'production') {
     server = https.createServer(options, app)
 }
 
-let currentApp = app;
-
 server.listen(process.env.SSL_PORT, function () {
     console.log('Express server listening on port ' + process.env.SSL_PORT);
 });
