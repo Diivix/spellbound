@@ -2,7 +2,7 @@
   "name": "spellbound-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3443/",
+  "proxy": "http://localhost:3080/",
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^16.2.0",

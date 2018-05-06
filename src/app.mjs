@@ -2,7 +2,6 @@ import express from 'express';
 import session from 'express-session';
 import mongoStore from 'connect-mongo'
 import logger from 'morgan';
-// import forceSsl from 'express-force-ssl';
 import db from './db';
 import user from './models/user';
 import authController from './controllers/authController';
@@ -15,9 +14,6 @@ if (process.env.NODE_ENV !== "production") {
     // HTTP request logger middleware for node.js
     app.use(logger('dev'));
 }
-
-// Force SSL to be used
-// app.use(forceSsl);
 
 // Add headers
 app.use(function (req, res, next) {
