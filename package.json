@@ -21,14 +21,13 @@
     "dotenv": true
   },
   "scripts": {
-    "dotenv-copy": "cp .env.example .env",
+    "build-all": "yarn install --production && cd client && yarn install --production && yarn build",
     "client-start": "cd client && yarn start",
     "client-build": "cd client && yarn build",
     "server-dev": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
     "server-start": "node --experimental-modules -r dotenv/config src/server.mjs",
-    "server-test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently --kill-others-on-fail \"yarn server-dev\" \"yarn client-start\"",
-    "now-build": "yarn install && yarn dotenv-copy && cd client && yarn install && yarn build",
+    "now-build": "yarn build-all",
     "now-start": "yarn server-start"
   },
   "devDependencies": {
