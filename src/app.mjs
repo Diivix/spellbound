@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== "production") {
 // Add headers
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN);
+    // res.setHeader('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -36,6 +36,7 @@ app.use(function (req, res, next) {
 
 //use sessions for tracking logins
 const store = mongoStore(session);
+const useSecureCookie = process.env.NODE_ENV === "production" ? true : false;
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: true,
@@ -45,7 +46,7 @@ app.use(session({
     }),
     cookie: {
         httpOnly: true,
-        secure: true,
+        secure: useSecureCookie,
         // domain: 'spellbound-react.com',
         // path: '/foo/bar',
         // Cookie will expire in 1 hour from when it's generated 
@@ -77,6 +78,10 @@ app.use(function (req, res, next) {
 });
 
 // Define routes
+if (process.env.NODE_ENV === "production") {
+    // we only want to serve the static files on production
+    app.use('/', express.static('./client/build'));
+}
 app.use('/api/auth', authController);
 app.use('/api/users', userController);
 app.use('/api/spells', spellController);
