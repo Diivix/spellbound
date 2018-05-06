@@ -2,8 +2,7 @@
   "name": "spellbound-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://localhost:3443/",
-  "homepage" : "https://spellbound-react.herokuapp.com/",
+  "proxy": "http://localhost:3443/",
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^16.2.0",
@@ -19,7 +18,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
-    "start": "set HTTPS=true && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
