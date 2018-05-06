@@ -28,7 +28,8 @@
     "server-start": "node --experimental-modules -r dotenv/config src/server.mjs",
     "dev": "concurrently --kill-others-on-fail \"yarn server-dev\" \"yarn client-start\"",
     "now-build": "yarn build-all",
-    "now-start": "yarn server-start"
+    "now-start": "yarn server-start",
+    "now": "now --dotenv=.env.production"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
