@@ -1,7 +1,7 @@
 # docker build -t spellbound-react .
 # docker run -p 3000:3000 -d spellbound-react
 
-FROM node:alpine
+FROM node:9.11.1
 
 ENV NPM_CONFIG_LOGLEVEL warn
 

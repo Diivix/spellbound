@@ -35,3 +35,5 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - [Https with Express](https://medium.com/@nileshsingh/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e)
 
 ## TODO
+
+- Add TypeScript to client project.
