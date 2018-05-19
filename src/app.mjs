@@ -80,7 +80,7 @@ app.use(function (req, res, next) {
 // Define routes
 if (process.env.NODE_ENV === "production") {
     // we only want to serve the static files on production
-    app.use('/', express.static('./client/build'));
+    app.use('/', express.static('client/build'));
 }
 app.use('/api/auth', authController);
 app.use('/api/users', userController);
