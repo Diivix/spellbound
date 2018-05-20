@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Menu, Icon } from 'semantic-ui-react'
 import { authLogout } from '../actions';
 
-class LogoutButton extends React.Component {
+class LogoutButtonComponent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -39,7 +39,7 @@ class LogoutButton extends React.Component {
     }
 }
 
-LogoutButton.prototypes = {
+LogoutButtonComponent.prototypes = {
     changeRoute: PropTypes.func.isRequired,
     authStatus: PropTypes.string,
     authLogout: PropTypes.func
@@ -53,7 +53,9 @@ const mapDispatchToProps = (dispatch) => ({
     authLogout: () => dispatch(authLogout())
 })
 
-export default connect(
+const LogoutButton = connect(
     mapStateToProps,
     mapDispatchToProps
-)(LogoutButton)
+)(LogoutButtonComponent);
+
+export default LogoutButton;

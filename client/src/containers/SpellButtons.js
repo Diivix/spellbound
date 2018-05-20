@@ -5,7 +5,7 @@ import { fetchSpellFromId } from '../actions';
 import { Button } from 'semantic-ui-react';
 import SpellModal from '../components/SpellModal';
 
-class SpellButtons extends React.Component {
+class SpellButtonsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = { open: false }
@@ -52,7 +52,7 @@ class SpellButtons extends React.Component {
   }
 }
 
-SpellButtons.propTypes = {
+SpellButtonsComponent.propTypes = {
   spellId: PropTypes.string,
   spell: PropTypes.shape({
     _id: PropTypes.string,
@@ -82,7 +82,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSpellFromId: (spellId) => dispatch(fetchSpellFromId(spellId))
 })
 
-export default connect(
+const SpellButtons =  connect(
   mapStateToProps,
   mapDispatchToProps
-)(SpellButtons)
+)(SpellButtonsComponent);
+
+export default SpellButtons;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Form, Header, Icon, Image, Input, Modal, Responsive, Grid, Transition } from 'semantic-ui-react'
 import { authLogin } from '../actions';
 
-class LoginModal extends React.Component {
+class LoginModalComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = { email: '', password: '', isLoading: false, hasSumnittedForm: false };
@@ -87,7 +87,9 @@ const mapDispatchToProps = (dispatch) => ({
     authLogin: (credentials) => dispatch(authLogin(credentials))
 })
 
-export default connect(
+const LoginModal =  connect(
     mapStateToProps,
     mapDispatchToProps
-)(LoginModal)
+)(LoginModalComponent);
+
+export default LoginModal;

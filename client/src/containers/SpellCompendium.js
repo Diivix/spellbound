@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Card, Menu, Dropdown, Header, Icon, Responsive, Loader } from 'semantic-ui-react';
 import SpellCardWithPopup from '../components/SpellCard';
 
-class SpellCompendium extends React.Component {
+class SpellCompendiumComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -233,7 +233,7 @@ class SpellCompendium extends React.Component {
   }
 }
 
-SpellCompendium.propTypes = {
+SpellCompendiumComponent.propTypes = {
   changeRoute: PropTypes.func.isRequired,
   spells: PropTypes.arrayOf(
     PropTypes.shape({
@@ -276,7 +276,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchLightSpellsWithFiltersFromFilters: (filters) => dispatch(fetchLightSpellsWithFiltersFromFilters(filters))
 })
 
-export default connect(
+const SpellCompendium = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SpellCompendium)
+)(SpellCompendiumComponent);
+
+export default SpellCompendium;
