@@ -53,23 +53,23 @@ class SpellButtonsComponent extends React.Component {
 }
 
 SpellButtonsComponent.propTypes = {
-  spellId: PropTypes.string,
   spell: PropTypes.shape({
     _id: PropTypes.string,
-    name: PropTypes.string,
-    school: PropTypes.string,
-    level: PropTypes.number,
-    classes: PropTypes.arrayOf(PropTypes.string),
+    atHigherLevels: PropTypes.string,
     castingTime: PropTypes.string,
     castingTimeDescription: PropTypes.string,
-    range: PropTypes.string,
-    rangeDescription: PropTypes.string,
+    classes: PropTypes.arrayOf(PropTypes.string),
     components: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string,
     duration: PropTypes.string,
     durationDescription: PropTypes.string,
-    description: PropTypes.string,
-    atHigherLevels: PropTypes.string
+    level: PropTypes.number,
+    name: PropTypes.string,
+    range: PropTypes.string,
+    rangeDescription: PropTypes.string,
+    school: PropTypes.string,
   }),
+  spellId: PropTypes.string,
   spellStatus: PropTypes.string
 }
 

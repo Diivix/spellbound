@@ -40,9 +40,9 @@ class LogoutButtonComponent extends React.Component {
 }
 
 LogoutButtonComponent.prototypes = {
-    changeRoute: PropTypes.func.isRequired,
+    authLogout: PropTypes.func,
     authStatus: PropTypes.string,
-    authLogout: PropTypes.func
+    changeRoute: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({

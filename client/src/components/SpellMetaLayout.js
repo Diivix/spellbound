@@ -166,17 +166,17 @@ class SpellMetaLayout extends React.Component {
 SpellMetaLayout.propTypes = {
   spell: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    school: PropTypes.string.isRequired,
-    level: PropTypes.number.isRequired,
-    classes: PropTypes.arrayOf(PropTypes.string).isRequired,
     castingTime: PropTypes.string.isRequired,
     castingTimeDescription: PropTypes.string.isRequired,
-    range: PropTypes.string.isRequired,
-    rangeDescription: PropTypes.string.isRequired,
+    classes: PropTypes.arrayOf(PropTypes.string).isRequired,
     components: PropTypes.arrayOf(PropTypes.string).isRequired,
     duration: PropTypes.string.isRequired,
-    durationDescription: PropTypes.string.isRequired
+    durationDescription: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    range: PropTypes.string.isRequired,
+    rangeDescription: PropTypes.string.isRequired,
+    school: PropTypes.string.isRequired
   }).isRequired
 };
 

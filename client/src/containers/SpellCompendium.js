@@ -10,8 +10,8 @@ class SpellCompendiumComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortByValue: 'name',
-      filters: {}
+      filters: {},
+      sortByValue: 'name'
     };
 
     this.setSortByValue = this.setSortByValue.bind(this);
@@ -235,40 +235,40 @@ class SpellCompendiumComponent extends React.Component {
 
 SpellCompendiumComponent.propTypes = {
   changeRoute: PropTypes.func.isRequired,
+  fetchLightSpellsWithFilters: PropTypes.func.isRequired,
+  fetchLightSpellsWithFiltersFromFilters: PropTypes.func.isRequired,
+  filters: PropTypes.shape({
+    classes: PropTypes.arrayOf(PropTypes.string),
+    components: PropTypes.arrayOf(PropTypes.string),
+    levels: PropTypes.arrayOf(PropTypes.number),
+    name: PropTypes.arrayOf(PropTypes.string),
+    ranges: PropTypes.arrayOf(PropTypes.string),
+    schools: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired,
   spells: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      school: PropTypes.string.isRequired,
-      level: PropTypes.number.isRequired,
-      classes: PropTypes.arrayOf(PropTypes.string).isRequired,
       castingTime: PropTypes.string.isRequired,
       castingTimeDescription: PropTypes.string.isRequired,
-      range: PropTypes.string.isRequired,
-      rangeDescription: PropTypes.string.isRequired,
+      classes: PropTypes.arrayOf(PropTypes.string).isRequired,
       components: PropTypes.arrayOf(PropTypes.string).isRequired,
       duration: PropTypes.string.isRequired,
-      durationDescription: PropTypes.string.isRequired
+      durationDescription: PropTypes.string.isRequired,
+      level: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      range: PropTypes.string.isRequired,
+      rangeDescription: PropTypes.string.isRequired,
+      school: PropTypes.string.isRequired
     })
   ).isRequired,
-  filters: PropTypes.shape({
-    name: PropTypes.arrayOf(PropTypes.string),
-    schools: PropTypes.arrayOf(PropTypes.string),
-    levels: PropTypes.arrayOf(PropTypes.number),
-    classes: PropTypes.arrayOf(PropTypes.string),
-    ranges: PropTypes.arrayOf(PropTypes.string),
-    components: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-  spellsStatus: PropTypes.string.isRequired,
-  fetchLightSpellsWithFilters: PropTypes.func.isRequired,
-  fetchLightSpellsWithFiltersFromFilters: PropTypes.func.isRequired
+  spellsStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  spells: state.lightSpellsWithFilters.spells,
+  authStatus: state.authStatus,
   filters: state.lightSpellsWithFilters.filters,
-  spellsStatus: state.lightSpellsStatus,
-  authStatus: state.authStatus
+  spells: state.lightSpellsWithFilters.spells,
+  spellsStatus: state.lightSpellsStatus
 })
 
 const mapDispatchToProps = (dispatch) => ({

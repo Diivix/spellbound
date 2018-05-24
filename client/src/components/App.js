@@ -5,7 +5,6 @@ import { Icon, Menu, Segment } from 'semantic-ui-react';
 import SpellCompendium from '../containers/SpellCompendium';
 import LoginModal from '../containers/LoginModal';
 import LogoutButton from '../containers/LogoutButton';
-// import VisibleSpells from '../containers/VisibleSpells';
 
 class App extends React.Component {
     constructor() {
@@ -65,9 +64,9 @@ class App extends React.Component {
                         {/* <SpellCompendium /> */}
                         <Switch>
                             <Route path="/login" render={() => (<LoginModal changeRoute={this.changeRoute} />)} />
-                            <Route path="/spells" render={() => (<SpellCompendium changeRoute={this.changeRoute} />)} />
+                            {/* <Route path="/spells" render={() => (<SpellCompendium changeRoute={this.changeRoute} />)} /> */}
                             {/* <Route path="/items" component={ItemCompendium} /> */}
-                            <Route path="/" render={() => (<SpellCompendium changeRoute={this.changeRoute} />)} />
+                            {/* <Route path="/" render={() => (<SpellCompendium changeRoute={this.changeRoute} />)} /> */}
                         </Switch>
                     </Segment>
                 </div>

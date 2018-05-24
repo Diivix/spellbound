@@ -10,10 +10,10 @@ import {
 const rootReducer = combineReducers({
     // auth,
     authStatus,
-    spellFromIdStatus,
     lightSpellsStatus,
+    lightSpellsWithFilters,
     spellFromId,
-    lightSpellsWithFilters
+    spellFromIdStatus
 })
 
 export default rootReducer

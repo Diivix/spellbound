@@ -1,35 +1,35 @@
 export function authStatus(status) {
     return {
-        type: 'AUTH_STATUS',
-        status
+        status,
+        type: 'AUTH_STATUS'
     };
 }
 
 export function spellFromIdStatus(status) {
     return {
-        type: 'SPELL_STATUS',
-        status
+        status,
+        type: 'SPELL_STATUS'
     };
 }
 
 export function spellFromIdFetchDataSuccess(spell) {
     return {
-        type: 'SPELL_FETCH_DATA_SUCCESS',
-        spell
+        spell,
+        type: 'SPELL_FETCH_DATA_SUCCESS'
     };
 }
 
 export function lightlSpellsStatus(status) {
     return {
-        type: 'LIGHT_SPELLS_STATUS',
-        status
+        status,
+        type: 'LIGHT_SPELLS_STATUS'
     };
 }
 
 export function spellsWithFiltersFetchDataSuccess(lightSpellsWithFilters) {
     return {
-        type: 'SPELLS_WITH_FILTERS_FETCH_DATA_SUCCESS',
-        lightSpellsWithFilters
+        lightSpellsWithFilters,
+        type: 'SPELLS_WITH_FILTERS_FETCH_DATA_SUCCESS'
     };
 }
 
@@ -41,12 +41,12 @@ export function authLogin(credentials) {
 
     return (dispatch) => {
         fetch(url, {
-            method: 'POST',
+            body: JSON.stringify(credentials),
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include',
-            body: JSON.stringify(credentials)
+            method: 'POST'
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -74,8 +74,8 @@ export function authLogout(credentials) {
 
     return (dispatch) => {
         fetch(url, {
-            method: 'GET',
             credentials: 'include',
+            method: 'GET'
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -108,8 +108,8 @@ export function fetchSpellFromId(id) {
         dispatch(spellFromIdStatus('LOADING'));
 
         fetch(url, {
-            method: 'GET',
             credentials: 'include',
+            method: 'GET'
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -145,8 +145,8 @@ export function fetchLightSpellsWithFilters() {
         dispatch(lightlSpellsStatus('LOADING'));
 
         fetch(url, {
-            method: 'GET',
             credentials: 'include',
+            method: 'GET'
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -182,12 +182,12 @@ export function fetchLightSpellsWithFiltersFromFilters(filters) {
         dispatch(lightlSpellsStatus('LOADING'));
 
         fetch(url, {
-            method: 'POST',
+            body: JSON.stringify(filters),
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include',
-            body: JSON.stringify(filters)
+            method: 'POST'
         })
             .then((response) => {
                 if (response.status === 200) {
