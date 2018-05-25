@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchLightSpellsWithFilters, fetchLightSpellsWithFiltersFromFilters } from '../actions';
+// import { fetchLightSpellsWithFilters, fetchLightSpellsWithFiltersFromFilters } from '../actions';
 import _ from 'lodash';
 import { Card, Menu, Dropdown, Header, Icon, Responsive, Loader } from 'semantic-ui-react';
 import SpellCardWithPopup from '../components/SpellCard';

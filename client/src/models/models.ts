@@ -21,7 +21,7 @@ export interface ISpellCompendiumState {
 }
 
 export interface IAuthState {
-  state: string;
+  authStatus: string;
 }
 
 export interface ICredentials {

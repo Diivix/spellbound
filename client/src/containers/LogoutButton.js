@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Menu, Icon } from 'semantic-ui-react'
-import { authLogout } from '../actions';
+import { logout } from '../actions';
 
 class LogoutButtonComponent extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    authLogout: () => dispatch(authLogout())
+    logout: () => dispatch(logout())
 })
 
 const LogoutButton = connect(

@@ -3,8 +3,8 @@ import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Icon, Image, Input, InputOnChangeData, Modal, Responsive, Transition } from 'semantic-ui-react';
-// import { authLogin } from '../actions';
-import { AUTH_UPDATE } from '../actions/actionTypes';
+import { login } from '../actions';
+// import { AUTH_UPDATE } from '../actions/actionTypes';
 import { IAuthState, ICredentials } from '../models/models';
 
 // Props & State
@@ -132,14 +132,14 @@ class LoginModalComponent extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IAuthState): ILoginModalComponentStateProps {
   return {
-    authStatus: state.state
+    authStatus: state.authStatus
   };
 }
 
 function mapDispatchToProps(dispatch: any): ILoginModalComponentDispatchProps {
   return {
     login: (credentials: ICredentials) => {
-      dispatch({ type: AUTH_UPDATE, payload: credentials });
+      dispatch(login(credentials));
     }
   };
 }

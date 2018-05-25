@@ -1,14 +1,13 @@
 import { combineReducers } from 'redux'
 import { authStatus } from './auth'
 import {
-    spellFromIdStatus,
     lightSpellsStatus,
+    lightSpellsWithFilters,
     spellFromId,
-    lightSpellsWithFilters
+    spellFromIdStatus
 } from './spells'
 
 const rootReducer = combineReducers({
-    // auth,
     authStatus,
     lightSpellsStatus,
     lightSpellsWithFilters,

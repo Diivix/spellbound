@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchSpellFromId } from '../actions';
+// import { fetchSpellFromId } from '../actions';
 import { Button } from 'semantic-ui-react';
 import SpellModal from '../components/SpellModal';
 
