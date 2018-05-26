@@ -1,63 +1,77 @@
+import { signOut } from 'api/authenticationApi';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router';
+import { push } from 'react-router-redux';
 import { Icon, InputOnChangeData, Menu, Segment } from 'semantic-ui-react';
 import Routes from '../routes/Routes';
 import { isBusy } from '../selectors';
 import IStoreState from '../store/IStoreState';
 
-interface IAppProps {
+interface IAppStateProps {
   readonly isBusy: boolean;
   readonly isAuthenticated: boolean;
 }
 
-interface IAppState {
-    activeItem: string;
+interface IAppDispatchProps {
+  // tslint:disable-next-line:ban-types
+  readonly changeRoute: Function;
+  // tslint:disable-next-line:ban-types
+  readonly signOut: Function;
 }
 
-class App extends React.Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
+interface IAppState {
+  activeItem: string;
+}
+
+class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState> {
+  constructor(props: IAppStateProps & IAppDispatchProps) {
     super(props);
     this.state = { activeItem: '' };
-
-    // this.changeRoute = this.changeRoute.bind(this);
-    // this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-//   public changeRoute = (name: string) => {
-//     this.props.history.push('/' + name);
-//   };
-
   public handleItemClick = (e: any, data: InputOnChangeData) => {
-    // this.changeRoute(name);
+    this.props.changeRoute('/' + data.name);
     this.setState({ activeItem: data.name });
+  };
+
+  public handleSiginOut = () => {
+    this.props.signOut();
   };
 
   public render() {
     const { activeItem } = this.state;
     const menuStyle = { borderRadius: 0 };
 
+    // TODO: Move this header into its own component. Especially to hide it from the signin screen.
     return (
       <div>
         <Menu inverted={true} icon={true} color="violet" style={menuStyle}>
-            <Menu.Item>
-              <Icon name="book" size="large" link={true} />
-              SpellBound
+          <Menu.Item>
+            <Icon name="book" size="large" link={true} />
+            SpellBound
+          </Menu.Item>
+          <Menu.Item name="characters" active={activeItem === 'characters'} onClick={this.handleItemClick}>
+            <Icon name="users" />
+          </Menu.Item>
+          <Menu.Item name="spells" active={activeItem === 'spells'} onClick={this.handleItemClick}>
+            <Icon name="book" size="large" />
+          </Menu.Item>
+
+          <Menu.Menu position="right">
+            <Menu.Item name="auth" onClick={this.handleSiginOut}>
+              <Icon inverted={true} name="log out" size="large" />
+              {'Sign Out'}
             </Menu.Item>
-            <Menu.Item name="characters" active={activeItem === 'characters'} onClick={this.handleItemClick}>
-              <Icon name="users" />
-            </Menu.Item>
-            <Menu.Item name="spells" active={activeItem === 'spells'} onClick={this.handleItemClick}>
-              <Icon name="book" size="large" />
-            </Menu.Item>
+          </Menu.Menu>
         </Menu>
-          <div>
-            <Segment>
-              <Switch>
-                <Routes isAuthenticated={this.props.isAuthenticated} />
-              </Switch>
-            </Segment>
-          </div>
+        <div>
+          <Segment basic={true}>
+            <Switch>
+              <Routes isAuthenticated={this.props.isAuthenticated} />
+            </Switch>
+          </Segment>
+        </div>
       </div>
     );
   }
@@ -70,5 +84,12 @@ function mapStateToProps(state: IStoreState) {
   };
 }
 
+function mapDispatchToProps(dispatch: any) {
+  return {
+    changeRoute: (routeName: string) => dispatch(push(routeName)),
+    signOut: () => dispatch(signOut())
+  };
+}
+
 // export default withRouter(App);
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

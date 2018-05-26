@@ -51,6 +51,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   }
 
   public getLightSpellsWithFiltersFromFilters = (filters: IFilters) => {
+    // tslint:disable-next-line:no-console
+    console.log(filters)
     this.props.getLightSpellsWithFiltersFromFilters(filters);
   };
 
@@ -102,18 +104,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   };
 
   public render() {
-    // If we errored or the spells are empty, do not continue. The next section requires to be valid spells.
-    // if (this.props.isBusy === 'ERRORED') {
-    //   return (
-    //     <Header>
-    //       <Icon size="big" color="red" name="exclamation triangle" /> Something went wrong!
-    //     </Header>
-    //   );
-    // } else
-
-    // tslint:disable-next-line:no-console
-    console.log(this.props.filters);
-
+    // Return imediately if we're busy or the filters or spell are undefined.
     if (this.props.isBusy || isUndefined(this.props.filters) || isUndefined(this.props.lightSpells)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
@@ -171,7 +162,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     return (
       <div>
         {/* Sort Menu */}
-        <Responsive as={Menu} pointing={true} secondary={true} stackable={true} minWidth={Responsive.onlyTablet.minWidth}>
+        <Responsive as={Menu} borderless={true} pointing={true} secondary={true} stackable={true} minWidth={Responsive.onlyTablet.minWidth}>
           <Menu.Item disabled={true} name="Filters" position="left" icon="filter" />
           <Menu.Item name="Sort by" position="right" disabled={true} />
           <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
@@ -250,8 +241,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
         </Responsive>
 
         {/* Cards */}
-        {// Testing the LOADING status here, otherwise along pause occures instead of a nice loader.
-        this.props.isBusy ? (
+        {/* Testing the LOADING status here, otherwise along pause occures instead of a nice loader. */}
+        {this.props.isBusy ? (
           <Loader active={true} inline="centered" size="big" />
         ) : (
           <Card.Group doubling={true} stackable={true} itemsPerRow={4}>

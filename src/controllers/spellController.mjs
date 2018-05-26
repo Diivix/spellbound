@@ -166,6 +166,7 @@ router.post('/light/withfilters', requireLogin, function (req, res, next) {
                 filters: getAllPossibleFilters(spells),
                 spells: spells
             }
+            // TODO: Seems that no spells or filter are getting returned from the DB :(
             return res.status(200).send(spellsWithFilters);
         }
     );

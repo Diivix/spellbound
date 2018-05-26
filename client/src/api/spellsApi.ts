@@ -66,6 +66,8 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise
     })
     .then(response => response.json())
     .then((lightSpellsWithFilters: ILightSpellsWithFilters) => {
+      // tslint:disable-next-line:no-console
+      console.log(lightSpellsWithFilters)
       return lightSpellsWithFilters;
     });
 }

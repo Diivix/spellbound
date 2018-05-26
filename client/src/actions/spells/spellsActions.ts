@@ -51,7 +51,7 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): (dispat
 
     try {
       const spellsWithFilters: ILightSpellsWithFilters = await getLightSpellsWithFiltersFromFiltersFromApi(filters);
-
+      
       dispatch(lightSpellsWithFiltersSuccess(spellsWithFilters));
     } catch (err) {
       dispatch(lightSpellsWithFiltersFail(err));

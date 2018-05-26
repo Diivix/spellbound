@@ -37,7 +37,7 @@ router.post('/signin', function (req, res, next) {
 });
 
 // LOGOUT A SINGLE USER
-router.get('/singout', requireLogin, function (req, res, next) {
+router.get('/signout', requireLogin, function (req, res, next) {
     if (req.session) {
         // delete session object
         req.session.destroy(function (error) {
