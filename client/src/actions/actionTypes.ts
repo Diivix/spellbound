@@ -1,5 +1,20 @@
-export const AUTH_UPDATE = 'AUTH_UPDATE';
-export const SPELL_STATUS = 'SPELL_STATUS';
-export const SPELL_FETCH_DATA_SUCCESS = 'SPELL_FETCH_DATA_SUCCESS';
-export const LIGHT_SPELLS_STATUS = 'LIGHT_SPELLS_STATUS';
-export const SPELLS_WITH_FILTERS_FETCH_DATA_SUCCESS = 'SPELLS_WITH_FILTERS_FETCH_DATA_SUCCESS';
+import {
+  ISignInFailAction,
+  ISignInInProgressAction,
+  ISignInSuccessAction
+} from "./authentication/signin";
+import {
+  ISignOutFailAction,
+  ISignOutInProgressAction,
+  ISignOutSuccessAction
+} from "./authentication/signout";
+
+type ActionTypes =
+  | ISignInFailAction
+  | ISignInInProgressAction
+  | ISignInSuccessAction
+  | ISignOutFailAction
+  | ISignOutInProgressAction
+  | ISignOutSuccessAction;
+
+export default ActionTypes;

@@ -1,4 +1,4 @@
-import { ICredentials } from 'models/models';
+import { ICredentials } from 'models';
 import { Dispatch } from 'react-redux';
 import { AUTH_UPDATE } from './actionTypes';
 
