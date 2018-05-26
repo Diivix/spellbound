@@ -76,9 +76,7 @@ function lightSpellsWithFiltersInProgress(): IGetLightSpellsWithFiltersInProgres
 
 function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: ILightSpellsWithFilters): IGetLightSpellsWithFiltersSuccessAction {
   return {
-    payload: {
-      lightSpellsWithFilters
-    },
+    payload: lightSpellsWithFilters,
     type: keys.GETLIGHTSPELLSWITHFILTERS_SUCCESS
   };
 }
@@ -100,9 +98,7 @@ function spellInProgress(): IGetSpellInProgressAction {
 
 function spellSuccess(spell: ISpell): IGetSpellSuccessAction {
   return {
-    payload: {
-      spell
-    },
+    payload: spell,
     type: keys.GETSPELL_SUCCESS
   };
 }

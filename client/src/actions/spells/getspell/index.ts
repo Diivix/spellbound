@@ -3,9 +3,7 @@ import keys from "../../ActionTypeKeys";
 
 export interface IGetSpellSuccessAction {
   readonly type: keys.GETSPELL_SUCCESS;
-  readonly payload: {
-    readonly spell: ISpell;
-  };
+  readonly payload: ISpell;
 }
 
 export interface IGetSpellInProgressAction {

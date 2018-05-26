@@ -3,9 +3,7 @@ import keys from "../../ActionTypeKeys";
 
 export interface IGetLightSpellsWithFiltersSuccessAction {
   readonly type: keys.GETLIGHTSPELLSWITHFILTERS_SUCCESS;
-  readonly payload: {
-    readonly lightSpellsWithFilters: ILightSpellsWithFilters;
-  };
+  readonly payload: ILightSpellsWithFilters
 }
 
 export interface IGetLightSpellsWithFiltersInProgressAction {

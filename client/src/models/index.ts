@@ -1,5 +1,3 @@
-import { IGetLightSpellsWithFiltersFailAction } from "actions/spells/getlightspellswithfilters";
-
 export interface ISpellId {
   id: string;
 }
@@ -21,9 +19,10 @@ export interface ISpell {
 }
 
 export interface IFilters {
+  classes: string[];
   components: string[];
   levels: number[];
-  name: string[];
+  names: string[];
   ranges: string[];
   schools: string[];
 }
@@ -33,16 +32,13 @@ export interface ILightSpellsWithFilters {
   spells: ISpell[];
 }
 
-export interface ISpellCompendiumState {
-  // filters: IFilters;
-  spells: ISpell[];
-}
-
-export interface IAuthState {
-  authStatus: string;
-}
-
 export interface ICredentials {
   email: string;
   password: string;
+}
+
+export interface IDropdownCollection {
+  key: string;
+  text: string;
+  value: string;
 }

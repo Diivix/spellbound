@@ -33,8 +33,7 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - [ES6 Modules](https://medium.com/@giltayar/native-es-modules-in-nodejs-status-and-future-directions-part-i-ee5ea3001f71)
 - [Express and React](https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0)
 - [Https with Express](https://medium.com/@nileshsingh/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e)
-- [Redux with TypeScript (alternative)](https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e)
-- [Redux with TypeScript (alternative 2)](https://levelup.gitconnected.com/react-and-redux-with-typescript-da0c37537a79)
+- [Redux with TypeScript (alternative)](https://levelup.gitconnected.com/react-and-redux-with-typescript-da0c37537a79)
 
 ## TODO
 

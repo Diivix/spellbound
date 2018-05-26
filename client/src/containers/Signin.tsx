@@ -5,22 +5,21 @@ import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Image, Input, InputOnChangeData, Responsive } from 'semantic-ui-react';
 import IStoreState from 'store/IStoreState';
 import { signIn } from '../actions/authentication/authenticationActions';
-// import { AUTH_UPDATE } from '../actions/actionTypes';
 import { ICredentials } from '../models';
 import { isBusy } from '../selectors';
 
 // Props & State
-interface ILoginModalComponentStateProps {
+interface ISigninComponentStateProps {
   isAuthenticated: boolean;
   isBusy: boolean;
 }
 
-interface ILoginModalComponentDispatchProps {
+interface ISigninComponentDispatchProps {
   // tslint:disable-next-line:ban-types
   signin: Function;
 }
 
-interface IProps extends ILoginModalComponentStateProps, ILoginModalComponentDispatchProps {
+interface IProps extends ISigninComponentStateProps, ISigninComponentDispatchProps {
   // tslint:disable-next-line:ban-types
   changeRoute: Function;
 }
@@ -30,7 +29,7 @@ interface IState {
   password: string;
 }
 
-class LoginModalComponent extends React.Component<IProps, IState> {
+class SigninComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -113,14 +112,14 @@ class LoginModalComponent extends React.Component<IProps, IState> {
   }
 }
 
-function mapStateToProps(state: IStoreState): ILoginModalComponentStateProps {
+function mapStateToProps(state: IStoreState): ISigninComponentStateProps {
   return {
     isAuthenticated: state.isAuthenticated,
     isBusy: isBusy(state)
   };
 }
 
-function mapDispatchToProps(dispatch: any): ILoginModalComponentDispatchProps {
+function mapDispatchToProps(dispatch: any): ISigninComponentDispatchProps {
   return {
     signin: (credentials: ICredentials) => {
       dispatch(signIn(credentials));
@@ -128,6 +127,5 @@ function mapDispatchToProps(dispatch: any): ILoginModalComponentDispatchProps {
   };
 }
 
-const LoginModal = connect(mapStateToProps, mapDispatchToProps)(LoginModalComponent);
-
-export default LoginModal;
+const Signin = connect(mapStateToProps, mapDispatchToProps)(SigninComponent);
+export default Signin;
