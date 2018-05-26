@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Route } from 'react-router'
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux'
-import App from './components/App';
+import App from './containers/App';
 // import reducer from './reducers/combinedReducers';
 import registerServiceWorker from './registerServiceWorker';
 // import { configureStore } from './store/configureStore';

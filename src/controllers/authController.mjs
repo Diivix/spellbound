@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 // LOGIN A SINGLE USER FROM THE DATABASE
-router.post('/login', function (req, res, next) {
+router.post('/signin', function (req, res, next) {
     if (!req.body.email || !req.body.password) {
         const err = new Error("There was a problem with your request.");
         err.status = 500;
@@ -37,7 +37,7 @@ router.post('/login', function (req, res, next) {
 });
 
 // LOGOUT A SINGLE USER
-router.get('/logout', requireLogin, function (req, res, next) {
+router.get('/singout', requireLogin, function (req, res, next) {
     if (req.session) {
         // delete session object
         req.session.destroy(function (error) {

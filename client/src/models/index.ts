@@ -1,11 +1,16 @@
+import { IGetLightSpellsWithFiltersFailAction } from "actions/spells/getlightspellswithfilters";
+
+export interface ISpellId {
+  id: string;
+}
 export interface ISpell {
   _id: string;
-  atHigherLevels: string;
+  atHigherLevels?: string;
   castingTime: string;
   castingTimeDescription: string;
   classes: string[];
   components: string[];
-  description: string;
+  description?: string;
   duration: string;
   durationDescription: string;
   level: number;
@@ -13,6 +18,19 @@ export interface ISpell {
   range: string;
   rangeDescription: string;
   school: string;
+}
+
+export interface IFilters {
+  components: string[];
+  levels: number[];
+  name: string[];
+  ranges: string[];
+  schools: string[];
+}
+
+export interface ILightSpellsWithFilters {
+  filters: IFilters;
+  spells: ISpell[];
 }
 
 export interface ISpellCompendiumState {

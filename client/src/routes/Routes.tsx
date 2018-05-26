@@ -1,8 +1,8 @@
+import TestComponent from "components/test";
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import Error404Page from "../components/Error404Page";
 import Signin from "../containers/Signin";
-import SpellCompendium from "../containers/SpellCompendium";
 import AuthenticateRoute from "./AuthenticateRoute";
 import { homePath, signinPath, spellcompendiumPath } from "./paths";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
@@ -27,7 +27,7 @@ export default function Routes(props: IRoutesProps) {
       <AuthenticateRoute
         authenticatePath={signinPath}
         path={spellcompendiumPath}
-        component={SpellCompendium}
+        component={TestComponent}
         isAuthenticated={props.isAuthenticated}
       />
 
