@@ -48,8 +48,6 @@ export function getLightSpellsWithFilters(): Promise<ILightSpellsWithFilters> {
 // Gets all spells with filters, from provided filters
 export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise<ILightSpellsWithFilters> {
   const url: string = '/api/spells/light/withfilters';
-  // tslint:disable-next-line:no-console
-  console.log(filters);
 
   return fetch(url, {
     body: JSON.stringify(filters),
@@ -68,8 +66,6 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise
     })
     .then(response => response.json())
     .then((lightSpellsWithFilters: ILightSpellsWithFilters) => {
-      // tslint:disable-next-line:no-console
-      console.log(lightSpellsWithFilters)
       return lightSpellsWithFilters;
     });
 }

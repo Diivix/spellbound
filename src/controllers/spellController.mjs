@@ -153,7 +153,6 @@ router.post('/light/withfilters', requireLogin, function (req, res, next) {
         'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
         function (err, spells) {
             if (err) {
-                console.log(err)
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
                 return next(err);
