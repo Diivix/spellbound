@@ -39,3 +39,6 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 ## TODO
 
 - Add TypeScript to client project.
+- Fix issue with Signout, whould re-rout to signin page.
+- Move menu to it own header component. The menu shouldn;t be shown on the signin page.
+- Fix bug with sorting of the ranges filter. 

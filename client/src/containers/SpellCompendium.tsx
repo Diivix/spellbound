@@ -113,23 +113,21 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     const spellCards = sortedSpells.map(spell => <SpellCardWithPopup key={spell._id} spell={spell} />);
 
     // Format filter values for dropdowns
-    let nameFilters: IDropdownCollection[] = [];
+    let namesFilters: IDropdownCollection[] = [];
     if (!isUndefined(this.props.filters.names)) {
-      nameFilters = this.props.filters.names.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
-      nameFilters = _.sortBy(nameFilters, [(o: IDropdownCollection) =>  o.key]);
+      namesFilters = this.props.filters.names.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
+      namesFilters = _.sortBy(namesFilters, [(o: IDropdownCollection) =>  o.key]);
     }
 
     let schoolsFilters: IDropdownCollection[] = [];
     if(!isUndefined(this.props.filters.schools)) {
       schoolsFilters = this.props.filters.schools.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
-      // .sort((a: DropdownItemProps, b: DropdownItemProps) => a.key < b.key);
       schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) =>  o.key]);
     }
 
     let classesFilters: IDropdownCollection[] = [];
     if(!isUndefined(this.props.filters.classes)) {
       classesFilters = this.props.filters.classes.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
-      // .sort((a, b) => a.key > b.key);
       classesFilters = _.sortBy(classesFilters, [(o: IDropdownCollection) =>  o.key]);
     }
 
@@ -182,8 +180,9 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
               minCharacters={1}
               placeholder="By Name..."
               onChange={this.addFilterFromEvent}
-              options={nameFilters}
+              options={namesFilters}
               name="names"
+              value={this.state.filters.names}
             />
           </Menu.Item>
           <Menu.Item>
@@ -197,6 +196,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
               placeholder="Classes"
               options={classesFilters}
               onChange={this.addFilterFromEvent}
+              value={this.state.filters.classes}
             />
           </Menu.Item>
           <Menu.Item>
@@ -210,6 +210,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
               placeholder="Schools"
               options={schoolsFilters}
               onChange={this.addFilterFromEvent}
+              value={this.state.filters.schools}
             />
           </Menu.Item>
           <Menu.Item>
@@ -223,6 +224,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
               placeholder="Components"
               options={componentsFilters}
               onChange={this.addFilterFromEvent}
+              value={this.state.filters.components}
             />
           </Menu.Item>
           <Menu.Item>
@@ -236,6 +238,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
               placeholder="Range"
               options={rangesFilters}
               onChange={this.addFilterFromEvent}
+              value={this.state.filters.ranges}
             />
           </Menu.Item>
         </Responsive>
