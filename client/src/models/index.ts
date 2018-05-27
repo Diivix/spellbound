@@ -1,12 +1,9 @@
 export interface IStoreState {
   readonly pendingActions: number;
   readonly isAuthenticated: boolean;
-  readonly lightSpellsWithFilters: ILightSpellsWithFilters;
+  readonly spellData: IStoreSpellData;
 };
 
-export interface ISpellId {
-  id: string;
-}
 export interface ISpell {
   _id: string;
   atHigherLevels?: string;
@@ -18,6 +15,7 @@ export interface ISpell {
   duration: string;
   durationDescription: string;
   level: number;
+  materials?: string;
   name: string;
   range: string;
   rangeDescription: string;
@@ -36,6 +34,11 @@ export interface IFilters {
 export interface ILightSpellsWithFilters {
   filters: IFilters;
   spells: ISpell[];
+}
+
+export interface IStoreSpellData {
+  readonly lightSpellsWithFilters: ILightSpellsWithFilters,
+  readonly spellFromId: ISpell
 }
 
 export interface ICredentials {

@@ -258,10 +258,10 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
 function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
   return {
-    filters: state.lightSpellsWithFilters.filters,
+    filters: state.spellData.lightSpellsWithFilters.filters,
     isAuthenticated: state.isAuthenticated,
     isBusy: isBusy(state),
-    lightSpells: state.lightSpellsWithFilters.spells
+    lightSpells: state.spellData.lightSpellsWithFilters.spells
   };
 }
 

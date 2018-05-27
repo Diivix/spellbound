@@ -1,17 +1,11 @@
-import ActionTypeKeys, { ActionTypeStates } from "../actions/ActionTypeKeys";
-import ActionTypes from "../actions/ActionTypes";
-import initialState from "./initialState";
+import ActionTypeKeys, { ActionTypeStates } from '../actions/ActionTypeKeys';
+import ActionTypes from '../actions/ActionTypes';
+import initialState from './initialState';
 
-export default function pendingActionsReducer(
-  state = initialState.pendingActions,
-  action: ActionTypes
-) {
+export default function pendingActionsReducer(state = initialState.pendingActions, action: ActionTypes) {
   if (actionTypeEndsInInProgress(action.type)) {
     return onInProgressAction(state);
-  } else if (
-    actionTypeEndsInSuccess(action.type) ||
-    actionTypeEndsInFail(action.type)
-  ) {
+  } else if (actionTypeEndsInSuccess(action.type) || actionTypeEndsInFail(action.type)) {
     return onSuccessOrFailAction(state);
   } else {
     return state;

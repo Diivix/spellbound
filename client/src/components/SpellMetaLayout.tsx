@@ -1,36 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {
-  Grid,
-  Header
-} from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Header } from 'semantic-ui-react';
+import { ISpell } from '../models';
 
-class SpellMetaLayout extends React.Component {
-  constructor(props) {
+interface IProps {
+  spell: ISpell;
+}
+
+class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
+  constructor(props: IProps) {
     super(props);
-
-    this.buildCastingTimeValue = this.buildCastingTimeValue.bind(this);
-    this.buildLevelWithSchool = this.buildLevelWithSchool.bind(this);
-    this.buildRangeValue = this.buildRangeValue.bind(this);
   }
 
-
-  buildCastingTimeValue = (castingTime, castingTimeDescription) => {
+  public buildCastingTimeValue = (castingTime: string, castingTimeDescription: string) => {
     if (castingTimeDescription) {
       castingTime = +' (' + castingTimeDescription + ')';
     }
     return castingTime;
   };
 
-  buildRangeValue = (range, rangeDescription) => {
+  public buildRangeValue = (range: string, rangeDescription: string) => {
     if (rangeDescription) {
       range += ' (' + rangeDescription + ')';
     }
     return range;
   };
 
-  buildLevelWithSchool = (level, school, truncateValue) => {
+  public buildLevelWithSchool = (level: number, school: string, truncateValue: boolean) => {
     school = _.upperFirst(school);
 
     let value;
@@ -55,24 +51,18 @@ class SpellMetaLayout extends React.Component {
     return (value = truncateValue ? _.truncate(value, { length: 20 }) : value);
   };
 
-  render() {
-    const levelWithSchool = this.buildLevelWithSchool(
-      this.props.spell.level,
-      this.props.spell.school,
-      false
-    );
-    const components = this.props.spell.components
-      .map(component => _.upperCase(component))
-      .join(', ');
-    const classes = this.props.spell.classes
-      .map(clss => _.capitalize(clss))
-      .join(' · ');
+  public render() {
+    const levelWithSchool = this.buildLevelWithSchool(this.props.spell.level, this.props.spell.school, false);
+    const components = this.props.spell.components.map(component => _.upperCase(component)).join(', ');
+
+    const classes = this.props.spell.classes.map(clss => _.capitalize(clss)).join(' · ');
+
     const materials = _.upperFirst(this.props.spell.materials);
+
     const castingTime = this.props.spell.castingTimeDescription
-      ? this.props.spell.castingTime +
-      ' ' +
-      this.props.spell.castingTimeDescription
+      ? this.props.spell.castingTime + ' ' + this.props.spell.castingTimeDescription
       : this.props.spell.castingTime;
+
     const range = this.props.spell.rangeDescription
       ? this.props.spell.range + ' ' + this.props.spell.rangeDescription
       : this.props.spell.range;
@@ -86,7 +76,7 @@ class SpellMetaLayout extends React.Component {
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
             <div>
-              <Header sub color="grey" size="tiny">
+              <Header sub={true} color="grey" size="tiny">
                 {this.props.spell.name}
               </Header>
               <div>
@@ -99,17 +89,17 @@ class SpellMetaLayout extends React.Component {
         <Grid.Row columns="2" textAlign="center">
           <Grid.Column>
             <div>
-              <Header sub color="grey" size="tiny">
+              <Header sub={true} color="grey" size="tiny">
                 Casting Time
-                </Header>
+              </Header>
               <div>{castingTime}</div>
             </div>
           </Grid.Column>
           <Grid.Column>
             <div>
-              <Header sub color="grey" size="tiny">
+              <Header sub={true} color="grey" size="tiny">
                 Range
-                </Header>
+              </Header>
               <div>{range}</div>
             </div>
           </Grid.Column>
@@ -118,19 +108,17 @@ class SpellMetaLayout extends React.Component {
         <Grid.Row columns="2" textAlign="center">
           <Grid.Column>
             <div>
-              <Header sub color="grey" size="tiny">
+              <Header sub={true} color="grey" size="tiny">
                 Components
-                </Header>
-              <div>
-                {_.isEmpty(components) ? '-' : <span>{components}</span>}
-              </div>
+              </Header>
+              <div>{_.isEmpty(components) ? '-' : <span>{components}</span>}</div>
             </div>
           </Grid.Column>
           <Grid.Column>
             <div>
-              <Header sub color="grey" size="tiny">
+              <Header sub={true} color="grey" size="tiny">
                 Duration
-                </Header>
+              </Header>
               <div>{duration}</div>
             </div>
           </Grid.Column>
@@ -139,16 +127,16 @@ class SpellMetaLayout extends React.Component {
         {_.isEmpty(materials) ? (
           ''
         ) : (
-            <Grid.Row columns="1">
-              <Grid.Column>
-                <div style={{ textAlign: 'justify' }}>
-                  <div>
-                    <i>{materials}</i>
-                  </div>
+          <Grid.Row columns="1">
+            <Grid.Column>
+              <div style={{ textAlign: 'justify' }}>
+                <div>
+                  <i>{materials}</i>
                 </div>
-              </Grid.Column>
-            </Grid.Row>
-          )}
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        )}
 
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
@@ -159,25 +147,7 @@ class SpellMetaLayout extends React.Component {
         </Grid.Row>
       </Grid>
     );
-
   }
 }
 
-SpellMetaLayout.propTypes = {
-  spell: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    castingTime: PropTypes.string.isRequired,
-    castingTimeDescription: PropTypes.string.isRequired,
-    classes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    components: PropTypes.arrayOf(PropTypes.string).isRequired,
-    duration: PropTypes.string.isRequired,
-    durationDescription: PropTypes.string.isRequired,
-    level: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    range: PropTypes.string.isRequired,
-    rangeDescription: PropTypes.string.isRequired,
-    school: PropTypes.string.isRequired
-  }).isRequired
-};
-
-export default SpellMetaLayout;
+export default SpellMetaLayoutComponent;

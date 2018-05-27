@@ -4,7 +4,7 @@ import {
   getLightSpellsWithFiltersFromFilters as getLightSpellsWithFiltersFromFiltersFromApi,
   getSpell as getSpellFromApi
 } from '../../api/spellsApi';
-import { IFilters, ILightSpellsWithFilters, ISpell, ISpellId, IStoreState } from '../../models';
+import { IFilters, ILightSpellsWithFilters, ISpell, IStoreState } from '../../models';
 import keys from '../ActionTypeKeys';
 import {
   IGetLightSpellsWithFiltersFailAction,
@@ -13,7 +13,7 @@ import {
 } from './getlightspellswithfilters';
 import { IGetSpellFailAction, IGetSpellInProgressAction, IGetSpellSuccessAction } from './getspell';
 
-export function getSpell(id: ISpellId): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+export function getSpell(id: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
     // Signal work in progress.
     dispatch(spellInProgress());
@@ -100,9 +100,9 @@ function spellInProgress(): IGetSpellInProgressAction {
   };
 }
 
-function spellSuccess(spell: ISpell): IGetSpellSuccessAction {
+function spellSuccess(spellFromId: ISpell): IGetSpellSuccessAction {
   return {
-    payload: spell,
+    payload: spellFromId,
     type: keys.GETSPELL_SUCCESS
   };
 }

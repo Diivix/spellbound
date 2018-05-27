@@ -43,3 +43,4 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Move menu to it own header component. The menu shouldn;t be shown on the signin page.
 - Fix bug with sorting of the ranges filter.
 - Idealy once we load all the lightSpells, we shouldn't go back to the database everytime to apply a filter. We should use the redux store, copy the lightSpells, and apply to the filters to the copy.
+- Fix the any types for the functioned used in the SpellModal.

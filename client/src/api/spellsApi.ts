@@ -1,9 +1,9 @@
-import { IFilters, ILightSpellsWithFilters, ISpell, ISpellId } from 'models';
+import { IFilters, ILightSpellsWithFilters, ISpell } from 'models';
 
 // GET
 // Gets a spell (full spell), from an id
-export function getSpell(id: ISpellId): Promise<ISpell> {
-  const url: string = '/api/spells/id/';
+export function getSpell(id: string): Promise<ISpell> {
+  const url: string = '/api/spells/id/' + id;
 
   return fetch(url, {
     credentials: 'include',
