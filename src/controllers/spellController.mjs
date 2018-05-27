@@ -8,6 +8,9 @@ const router = express.Router();
 router.use(bodyParser.json({ limit: '5mb' }));
 router.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 
+const lightSpellColumns = 'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription materials';
+
+
 // METHODS
 function getAllPossibleFilters(spells) {
     const names = spells.map(spell => spell.name);
@@ -34,20 +37,22 @@ function getAllPossibleFilters(spells) {
 };
 
 function buildFindQuery(filters) {
-    const query = {}
-    Object.assign(query,
-        filters.hasOwnProperty("name") && { name: _.toLower(filters.name) },
-        filters.hasOwnProperty("schools") && { school: { $in: filters.schools.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("levels") && { level: { $in: filters.levels.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("classes") && { classes: { $in: filters.classes.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("ranges") && { range: { $in: filters.ranges.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("components") && { components: { $in: filters.components.map(value => (_.toLower(value))) } }
+    // Remove empty arrays from filters.
+    const new_filters = _.omitBy(filters, _.isEmpty)
+
+    const query = Object.assign({}, {},
+        new_filters.hasOwnProperty("names") && { name: { $in: new_filters.names.map(value => (_.toLower(value))) }  },
+        new_filters.hasOwnProperty("schools") && { school: { $in: new_filters.schools.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("levels") && { level: { $in: new_filters.levels.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("classes") && { classes: { $in: new_filters.classes.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("ranges") && { range: { $in: new_filters.ranges.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("components") && { components: { $in: new_filters.components.map(value => (_.toLower(value))) } }
     )
     return query;
 }
 
 // READ //
-// RETURNS ALL SPELLS IN THE DATABASE
+// RETURNS ALL (FULL) SPELLS IN THE DATABASE
 router.get('/', requireLogin, function (req, res, next) {
     spell.find({}, function (err, spells) {
         if (err) {
@@ -66,7 +71,7 @@ router.get('/', requireLogin, function (req, res, next) {
     });
 });
 
-// GETS A SINGLE SPELL FROM THE DATABASE
+// GETS A SINGLE SPELL FROM THE DATABASE FROM ID
 router.get('/id/:id', requireLogin, function (req, res, next) {
     spell.findById(req.params.id, function (err, spell) {
         if (err) {
@@ -87,9 +92,7 @@ router.get('/id/:id', requireLogin, function (req, res, next) {
 
 // RETURNS ALL LIGHtLY LOADED SPELLS IN THE DATABASE
 router.get('/light', requireLogin, function (req, res, next) {
-    spell.find({},
-        'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
-        function (err, spells) {
+    spell.find({}, lightSpellColumns, function (err, spells) {
             if (err) {
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
@@ -120,9 +123,7 @@ router.get('/light', requireLogin, function (req, res, next) {
 //       }
 // Note, All properties in the filters object are optional.
 router.get('/light/withfilters', requireLogin, function (req, res, next) {
-    spell.find({},
-        'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
-        function (err, spells) {
+    spell.find({}, lightSpellColumns, function (err, spells) {
             if (err) {
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
@@ -147,9 +148,7 @@ router.get('/light/withfilters', requireLogin, function (req, res, next) {
 // RETURNS LIGHTLY LOADED SPELLS WITH POSSIBLE FILTERS FROM SUPPLIED FILTERS INPUT
 router.post('/light/withfilters', requireLogin, function (req, res, next) {
     const filters = buildFindQuery(req.body);
-    spell.find(filters,
-        'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
-        function (err, spells) {
+    spell.find(filters, lightSpellColumns, function (err, spells) {
             if (err) {
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
@@ -166,6 +165,7 @@ router.post('/light/withfilters', requireLogin, function (req, res, next) {
                 filters: getAllPossibleFilters(spells),
                 spells: spells
             }
+
             return res.status(200).send(spellsWithFilters);
         }
     );
@@ -182,64 +182,64 @@ router.post('/light/withfilters', requireLogin, function (req, res, next) {
 // });
 
 // CREATES AN ARRAY SPELLS
-router.post('/create/batch', requireLogin, function (req, res, next) {
-    spell.insertMany(req.body.spells, function (err, spells) {
-        if (err) {
-            const err = new Error("There was a problem adding the information to the database.");
-            err.status = 500;
-            return next(err);
-        }
+// router.post('/create/batch', requireLogin, function (req, res, next) {
+//     spell.insertMany(req.body.spells, function (err, spells) {
+//         if (err) {
+//             const err = new Error("There was a problem adding the information to the database.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        res.status(200).send(spells);
-    }
-    );
-});
+//         res.status(200).send(spells);
+//     }
+//     );
+// });
 
 // UPDATE //
 // UPDATES A SINGLE SPELL IN THE DATABASE
-router.put('/:id', requireLogin, function (req, res, next) {
-    spell.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, spell) {
-        if (err) {
-            const err = new Error("There was a problem updating the spell.");
-            err.status = 500;
-            return next(err);
-        }
+// router.put('/:id', requireLogin, function (req, res, next) {
+//     spell.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, spell) {
+//         if (err) {
+//             const err = new Error("There was a problem updating the spell.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        if (!spell) {
-            const err = new Error("No spells found to update.");
-            err.status = 404;
-            return next(err);
-        }
+//         if (!spell) {
+//             const err = new Error("No spells found to update.");
+//             err.status = 404;
+//             return next(err);
+//         }
 
-        res.status(200).send(spell);
-    });
-});
+//         res.status(200).send(spell);
+//     });
+// });
 
 // DELETE //
 // DELETES A SPELL FROM THE DATABASE
-router.delete('/:id', requireLogin, function (req, res, next) {
-    spell.findByIdAndRemove(req.params.id, function (err, spell) {
-        if (err) {
-            const err = new Error("There was a problem removing the spell.");
-            err.status = 500;
-            return next(err);
-        }
+// router.delete('/:id', requireLogin, function (req, res, next) {
+//     spell.findByIdAndRemove(req.params.id, function (err, spell) {
+//         if (err) {
+//             const err = new Error("There was a problem removing the spell.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        res.status(200).send("Spell was deleted.");
-    });
-});
+//         res.status(200).send("Spell was deleted.");
+//     });
+// });
 
 // DELETES ALL SPELLS FROM THE DATABASE
-router.delete('/', requireLogin, function (req, res, next) {
-    spell.deleteMany({}, function (err, spell) {
-        if (err) {
-            const err = new Error("There was a problem removing the spells.");
-            err.status = 500;
-            return next(err);
-        }
+// router.delete('/', requireLogin, function (req, res, next) {
+//     spell.deleteMany({}, function (err, spell) {
+//         if (err) {
+//             const err = new Error("There was a problem removing the spells.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        res.status(200).send("spell " + spell.name + " was deleted.");
-    });
-});
+//         res.status(200).send("spell " + spell.name + " was deleted.");
+//     });
+// });
 
 export default router;

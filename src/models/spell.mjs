@@ -11,6 +11,7 @@ const spells = new mongoose.Schema({
     rangeDescription: { type: String, lowercase: true },
     components: [{ type: String, lowercase: true }],
     duration: { type: String, lowercase: true },
+    materials: String,
     durationDescription: { type: String, lowercase: true },
     description: String,
     atHigherLevels: String
