@@ -11,7 +11,7 @@ export interface IGetSpellInProgressAction {
 }
 
 export interface IGetSpellFailAction {
-  readonly type: keys.GETSPELL_FAIL;
+  readonly type: keys.GETSPELL_FAIL | keys.GETSPELL_UNAUTHORISED_FAIL;
   readonly payload: {
     readonly error: Error;
   };

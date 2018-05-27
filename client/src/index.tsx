@@ -22,6 +22,7 @@ const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
+    {/* Persistor allows persistance between sessions */}
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
         <Route path="/" component={App} onEnter="/login" />

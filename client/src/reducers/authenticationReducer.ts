@@ -8,18 +8,16 @@ export default function authenticationReducer(
 ) {
   switch (action.type) {
     case ActionTypeKeys.SIGNIN_SUCCESS:
-      return onSignIn();
+      return true;
     case ActionTypeKeys.SIGNOUT_SUCCESS:
-      return onSignOut();
+      return false;
+    case ActionTypeKeys.GETSPELL_UNAUTHORISED_FAIL:
+      return false;
+    case ActionTypeKeys.GETLIGHTSPELLSWITHFILTERS_UNAUTHORISED_FAIL:
+      return false;
     default:
       return state;
   }
 }
 
-function onSignIn() {
-  return true;
-}
 
-function onSignOut() {
-  return false;
-}

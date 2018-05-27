@@ -41,5 +41,5 @@ function onInProgressAction(state: number) {
 }
 
 function onSuccessOrFailAction(state: number) {
-  return state - 1;
+  return state > 0 ? state - 1 : 0;
 }

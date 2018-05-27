@@ -34,8 +34,7 @@ function getAllPossibleFilters(spells) {
 };
 
 function buildFindQuery(filters) {
-    const query = {}
-    Object.assign(query,
+    const query = Object.assign({}, {},
         filters.hasOwnProperty("name") && { name: _.toLower(filters.name) },
         filters.hasOwnProperty("schools") && { school: { $in: filters.schools.map(value => (_.toLower(value))) } },
         filters.hasOwnProperty("levels") && { level: { $in: filters.levels.map(value => (_.toLower(value))) } },
@@ -43,7 +42,7 @@ function buildFindQuery(filters) {
         filters.hasOwnProperty("ranges") && { range: { $in: filters.ranges.map(value => (_.toLower(value))) } },
         filters.hasOwnProperty("components") && { components: { $in: filters.components.map(value => (_.toLower(value))) } }
     )
-    return query;
+    return _.omitBy(o, !_.isUndefined);
 }
 
 // READ //
@@ -147,10 +146,12 @@ router.get('/light/withfilters', requireLogin, function (req, res, next) {
 // RETURNS LIGHTLY LOADED SPELLS WITH POSSIBLE FILTERS FROM SUPPLIED FILTERS INPUT
 router.post('/light/withfilters', requireLogin, function (req, res, next) {
     const filters = buildFindQuery(req.body);
+    console.log(filters)
     spell.find(filters,
         'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
         function (err, spells) {
             if (err) {
+                console.log(err)
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
                 return next(err);
@@ -166,7 +167,7 @@ router.post('/light/withfilters', requireLogin, function (req, res, next) {
                 filters: getAllPossibleFilters(spells),
                 spells: spells
             }
-            // TODO: Seems that no spells or filter are getting returned from the DB :(
+
             return res.status(200).send(spellsWithFilters);
         }
     );

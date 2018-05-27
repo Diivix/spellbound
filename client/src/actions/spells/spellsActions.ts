@@ -51,7 +51,7 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): (dispat
 
     try {
       const spellsWithFilters: ILightSpellsWithFilters = await getLightSpellsWithFiltersFromFiltersFromApi(filters);
-      
+
       dispatch(lightSpellsWithFiltersSuccess(spellsWithFilters));
     } catch (err) {
       dispatch(lightSpellsWithFiltersFail(err));
@@ -60,11 +60,13 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): (dispat
 }
 
 function lightSpellsWithFiltersFail(error: Error): IGetLightSpellsWithFiltersFailAction {
+  const errorType: keys.GETLIGHTSPELLSWITHFILTERS_FAIL | keys.GETLIGHTSPELLSWITHFILTERS_UNAUTHORISED_FAIL =
+    error.message === 'Unauthorized' ? keys.GETLIGHTSPELLSWITHFILTERS_UNAUTHORISED_FAIL : keys.GETLIGHTSPELLSWITHFILTERS_FAIL;
   return {
     payload: {
       error
     },
-    type: keys.GETLIGHTSPELLSWITHFILTERS_FAIL
+    type: errorType
   };
 }
 
@@ -82,11 +84,14 @@ function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: ILightSpellsWithF
 }
 
 function spellFail(error: Error): IGetSpellFailAction {
+  const errorType: keys.GETSPELL_FAIL | keys.GETSPELL_UNAUTHORISED_FAIL =
+    error.message === 'Unauthorized' ? keys.GETSPELL_UNAUTHORISED_FAIL : keys.GETSPELL_FAIL;
+
   return {
     payload: {
       error
     },
-    type: keys.GETSPELL_FAIL
+    type: errorType
   };
 }
 

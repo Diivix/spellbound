@@ -11,7 +11,7 @@ export interface IGetLightSpellsWithFiltersInProgressAction {
 }
 
 export interface IGetLightSpellsWithFiltersFailAction {
-  readonly type: keys.GETLIGHTSPELLSWITHFILTERS_FAIL;
+  readonly type: keys.GETLIGHTSPELLSWITHFILTERS_FAIL | keys.GETLIGHTSPELLSWITHFILTERS_UNAUTHORISED_FAIL;
   readonly payload: {
     readonly error: Error;
   };
