@@ -121,9 +121,7 @@ function mapStateToProps(state: IStoreState): ISigninComponentStateProps {
 
 function mapDispatchToProps(dispatch: any): ISigninComponentDispatchProps {
   return {
-    signin: (credentials: ICredentials) => {
-      dispatch(signIn(credentials));
-    }
+    signin: (credentials: ICredentials) => dispatch(signIn(credentials))
   };
 }
 
