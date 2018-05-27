@@ -1,10 +1,5 @@
-import * as React from "react";
-import {
-  Redirect,
-  Route,
-  RouteComponentProps,
-  RouteProps
-} from "react-router-dom";
+import * as React from 'react';
+import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 
 interface IAuthenticateRouteProps extends RouteProps {
   readonly isAuthenticated: boolean;
@@ -12,14 +7,9 @@ interface IAuthenticateRouteProps extends RouteProps {
   readonly component: React.ComponentClass<any> | React.StatelessComponent<any>;
 }
 
-export default function AuthenticateRoute({
-  component,
-  authenticatePath,
-  isAuthenticated,
-  ...rest
-}: IAuthenticateRouteProps) {
+export default function AuthenticateRoute({ component, authenticatePath, isAuthenticated, ...rest }: IAuthenticateRouteProps) {
   const Component = component;
-  
+
   const render = (renderProps: RouteComponentProps<any>) => {
     let element = (
       <Redirect

@@ -4,8 +4,12 @@ import Error404Page from "../components/Error404Page";
 import Signin from "../containers/Signin";
 import SpellCompendium from "../containers/SpellCompendium";
 import AuthenticateRoute from "./AuthenticateRoute";
-import { homePath, signinPath, spellcompendiumPath } from "./paths";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
+
+// Paths
+const HOME_PATH = "/";
+const SIGNIN_PATH = "/signin";
+const SPELLS_PATH = "/spells";
 
 interface IRoutesProps {
   readonly isAuthenticated: boolean;
@@ -17,25 +21,25 @@ export default function Routes(props: IRoutesProps) {
       {/* path: / */}
       <RedirectIfAuthenticated
         exact={true}
-        path={homePath}
+        path={HOME_PATH}
         component={Signin}
-        redirectPath={spellcompendiumPath}
+        redirectPath={SPELLS_PATH}
         isAuthenticated={props.isAuthenticated}
       />
 
       {/* Path: /spells */}
       <AuthenticateRoute
-        authenticatePath={signinPath}
-        path={spellcompendiumPath}
+        authenticatePath={SIGNIN_PATH}
+        path={SPELLS_PATH}
         component={SpellCompendium}
         isAuthenticated={props.isAuthenticated}
       />
 
       {/* Path: /signin */}
       <RedirectIfAuthenticated
-        path={signinPath}
+        path={SIGNIN_PATH}
         component={Signin}
-        redirectPath={spellcompendiumPath}
+        redirectPath={SPELLS_PATH}
         isAuthenticated={props.isAuthenticated}
       />
 
