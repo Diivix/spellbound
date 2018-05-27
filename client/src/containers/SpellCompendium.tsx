@@ -183,7 +183,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
               placeholder="By Name..."
               onChange={this.addFilterFromEvent}
               options={nameFilters}
-              name="name"
+              name="names"
             />
           </Menu.Item>
           <Menu.Item>

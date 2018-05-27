@@ -34,15 +34,18 @@ function getAllPossibleFilters(spells) {
 };
 
 function buildFindQuery(filters) {
+    // Remove empty arrays from filters.
+    const new_filters = _.omitBy(filters, _.isEmpty)
+
     const query = Object.assign({}, {},
-        filters.hasOwnProperty("name") && { name: _.toLower(filters.name) },
-        filters.hasOwnProperty("schools") && { school: { $in: filters.schools.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("levels") && { level: { $in: filters.levels.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("classes") && { classes: { $in: filters.classes.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("ranges") && { range: { $in: filters.ranges.map(value => (_.toLower(value))) } },
-        filters.hasOwnProperty("components") && { components: { $in: filters.components.map(value => (_.toLower(value))) } }
+        new_filters.hasOwnProperty("names") && { name: { $in: new_filters.names.map(value => (_.toLower(value))) }  },
+        new_filters.hasOwnProperty("schools") && { school: { $in: new_filters.schools.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("levels") && { level: { $in: new_filters.levels.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("classes") && { classes: { $in: new_filters.classes.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("ranges") && { range: { $in: new_filters.ranges.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("components") && { components: { $in: new_filters.components.map(value => (_.toLower(value))) } }
     )
-    return _.omitBy(o, !_.isUndefined);
+    return query;
 }
 
 // READ //
@@ -146,7 +149,6 @@ router.get('/light/withfilters', requireLogin, function (req, res, next) {
 // RETURNS LIGHTLY LOADED SPELLS WITH POSSIBLE FILTERS FROM SUPPLIED FILTERS INPUT
 router.post('/light/withfilters', requireLogin, function (req, res, next) {
     const filters = buildFindQuery(req.body);
-    console.log(filters)
     spell.find(filters,
         'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
         function (err, spells) {
