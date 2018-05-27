@@ -8,6 +8,9 @@ const router = express.Router();
 router.use(bodyParser.json({ limit: '5mb' }));
 router.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 
+const lightSpellColumns = 'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription materials';
+
+
 // METHODS
 function getAllPossibleFilters(spells) {
     const names = spells.map(spell => spell.name);
@@ -89,9 +92,7 @@ router.get('/id/:id', requireLogin, function (req, res, next) {
 
 // RETURNS ALL LIGHtLY LOADED SPELLS IN THE DATABASE
 router.get('/light', requireLogin, function (req, res, next) {
-    spell.find({},
-        'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
-        function (err, spells) {
+    spell.find({}, lightSpellColumns, function (err, spells) {
             if (err) {
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
@@ -122,9 +123,7 @@ router.get('/light', requireLogin, function (req, res, next) {
 //       }
 // Note, All properties in the filters object are optional.
 router.get('/light/withfilters', requireLogin, function (req, res, next) {
-    spell.find({},
-        'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
-        function (err, spells) {
+    spell.find({}, lightSpellColumns, function (err, spells) {
             if (err) {
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;
@@ -149,9 +148,7 @@ router.get('/light/withfilters', requireLogin, function (req, res, next) {
 // RETURNS LIGHTLY LOADED SPELLS WITH POSSIBLE FILTERS FROM SUPPLIED FILTERS INPUT
 router.post('/light/withfilters', requireLogin, function (req, res, next) {
     const filters = buildFindQuery(req.body);
-    spell.find(filters,
-        'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription',
-        function (err, spells) {
+    spell.find(filters, lightSpellColumns, function (err, spells) {
             if (err) {
                 const err = new Error("There was a problem finding the spells.");
                 err.status = 500;

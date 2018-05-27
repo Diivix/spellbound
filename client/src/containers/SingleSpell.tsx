@@ -31,11 +31,46 @@ class SingleSpellComponent extends React.Component<IProps, {}> {
   }
 
   public render() {
+    // If busy, return immediatley.
     if (this.props.isBusy) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
     const spellName = _.upperFirst(this.props.spell.name);
+    const padding = { paddingTop: '10px' };
+
+    const descriptionElement = (
+      <div style={padding}>
+        <Header sub={true} color="grey" size="medium">
+          Description
+        </Header>
+        <p>{_.upperFirst(this.props.spell.description)}.</p>
+      </div>
+    );
+
+    let materialElement = <div />;
+    if (!_.isEmpty(this.props.spell.materials)) {
+      materialElement = (
+        <div style={padding}>
+          <Header sub={true} color="grey" size="medium">
+            Materials
+          </Header>
+          <p>{_.upperFirst(this.props.spell.materials)}.</p>
+        </div>
+      );
+    }
+
+    let atHigherLevelsElement = <div />;
+    if (!_.isEmpty(this.props.spell.atHigherLevels)) {
+      atHigherLevelsElement = (
+        <div style={padding}>
+          <Header sub={true} color="grey" size="medium">
+            At Higher Levels
+          </Header>
+          <p>{_.upperFirst(this.props.spell.atHigherLevels)}.</p>
+        </div>
+      );
+    }
 
     return (
       <div>
@@ -48,21 +83,9 @@ class SingleSpellComponent extends React.Component<IProps, {}> {
               <SpellMetaLayout spell={this.props.spell} />
             </Responsive>
             <Grid.Column width={11}>
-              <Header sub={true} color="grey" size="medium">
-                Description
-              </Header>
-              <p>{this.props.spell.description}</p>
-
-              {_.isEmpty(this.props.spell.atHigherLevels) ? (
-                <div />
-              ) : (
-                <div>
-                  <Header sub={true} color="grey" size="medium">
-                    At Higher Levels
-                  </Header>
-                  <p>{this.props.spell.atHigherLevels}</p>
-                </div>
-              )}
+              {descriptionElement}
+              {materialElement}
+              {atHigherLevelsElement}
             </Grid.Column>
           </Grid.Row>
         </Grid>

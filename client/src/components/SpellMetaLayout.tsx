@@ -57,8 +57,6 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
 
     const classes = this.props.spell.classes.map(clss => _.capitalize(clss)).join(' · ');
 
-    const materials = _.upperFirst(this.props.spell.materials);
-
     const castingTime = this.props.spell.castingTimeDescription
       ? this.props.spell.castingTime + ' ' + this.props.spell.castingTimeDescription
       : this.props.spell.castingTime;
@@ -71,72 +69,59 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
       ? this.props.spell.duration + ' ' + this.props.spell.durationDescription
       : this.props.spell.duration;
 
+    let materialElement = <div />;
+    if (!_.isEmpty(this.props.spell.materials)) {
+      materialElement = (
+        <Grid.Row columns="1">
+          <Grid.Column textAlign="center">
+                <i>{_.upperFirst(this.props.spell.materials)}.</i>
+          </Grid.Column>
+        </Grid.Row>
+      );
+    }
+
     return (
       <Grid celled="internally">
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
-            <div>
               <Header sub={true} color="grey" size="tiny">
                 {this.props.spell.name}
               </Header>
-              <div>
                 <i>{levelWithSchool}</i>
-              </div>
-            </div>
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row columns="2" textAlign="center">
           <Grid.Column>
-            <div>
               <Header sub={true} color="grey" size="tiny">
                 Casting Time
               </Header>
-              <div>{castingTime}</div>
-            </div>
+              {castingTime}
           </Grid.Column>
           <Grid.Column>
-            <div>
               <Header sub={true} color="grey" size="tiny">
                 Range
               </Header>
-              <div>{range}</div>
-            </div>
+              {range}
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row columns="2" textAlign="center">
           <Grid.Column>
-            <div>
               <Header sub={true} color="grey" size="tiny">
                 Components
               </Header>
-              <div>{_.isEmpty(components) ? '-' : <span>{components}</span>}</div>
-            </div>
+              {_.isEmpty(components) ? '-' : <span>{components}</span>}
           </Grid.Column>
           <Grid.Column>
-            <div>
               <Header sub={true} color="grey" size="tiny">
                 Duration
               </Header>
-              <div>{duration}</div>
-            </div>
+              {duration}
           </Grid.Column>
         </Grid.Row>
 
-        {_.isEmpty(materials) ? (
-          ''
-        ) : (
-          <Grid.Row columns="1">
-            <Grid.Column>
-              <div style={{ textAlign: 'justify' }}>
-                <div>
-                  <i>{materials}</i>
-                </div>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-        )}
+        {materialElement}
 
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
