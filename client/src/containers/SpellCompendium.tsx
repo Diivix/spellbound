@@ -265,7 +265,7 @@ function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
   };
 }
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: any): ISpellCompendiumDispatchProps {
   return {
     getLightSpellsWithFilters: () => dispatch(getLightSpellsWithFilters()),
     getLightSpellsWithFiltersFromFilters: (filters: IFilters) => dispatch(getLightSpellsWithFiltersFromFilters(filters))

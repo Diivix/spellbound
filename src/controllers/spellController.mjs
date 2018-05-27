@@ -49,7 +49,7 @@ function buildFindQuery(filters) {
 }
 
 // READ //
-// RETURNS ALL SPELLS IN THE DATABASE
+// RETURNS ALL (FULL) SPELLS IN THE DATABASE
 router.get('/', requireLogin, function (req, res, next) {
     spell.find({}, function (err, spells) {
         if (err) {
@@ -68,7 +68,7 @@ router.get('/', requireLogin, function (req, res, next) {
     });
 });
 
-// GETS A SINGLE SPELL FROM THE DATABASE
+// GETS A SINGLE SPELL FROM THE DATABASE FROM ID
 router.get('/id/:id', requireLogin, function (req, res, next) {
     spell.findById(req.params.id, function (err, spell) {
         if (err) {
@@ -185,64 +185,64 @@ router.post('/light/withfilters', requireLogin, function (req, res, next) {
 // });
 
 // CREATES AN ARRAY SPELLS
-router.post('/create/batch', requireLogin, function (req, res, next) {
-    spell.insertMany(req.body.spells, function (err, spells) {
-        if (err) {
-            const err = new Error("There was a problem adding the information to the database.");
-            err.status = 500;
-            return next(err);
-        }
+// router.post('/create/batch', requireLogin, function (req, res, next) {
+//     spell.insertMany(req.body.spells, function (err, spells) {
+//         if (err) {
+//             const err = new Error("There was a problem adding the information to the database.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        res.status(200).send(spells);
-    }
-    );
-});
+//         res.status(200).send(spells);
+//     }
+//     );
+// });
 
 // UPDATE //
 // UPDATES A SINGLE SPELL IN THE DATABASE
-router.put('/:id', requireLogin, function (req, res, next) {
-    spell.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, spell) {
-        if (err) {
-            const err = new Error("There was a problem updating the spell.");
-            err.status = 500;
-            return next(err);
-        }
+// router.put('/:id', requireLogin, function (req, res, next) {
+//     spell.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, spell) {
+//         if (err) {
+//             const err = new Error("There was a problem updating the spell.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        if (!spell) {
-            const err = new Error("No spells found to update.");
-            err.status = 404;
-            return next(err);
-        }
+//         if (!spell) {
+//             const err = new Error("No spells found to update.");
+//             err.status = 404;
+//             return next(err);
+//         }
 
-        res.status(200).send(spell);
-    });
-});
+//         res.status(200).send(spell);
+//     });
+// });
 
 // DELETE //
 // DELETES A SPELL FROM THE DATABASE
-router.delete('/:id', requireLogin, function (req, res, next) {
-    spell.findByIdAndRemove(req.params.id, function (err, spell) {
-        if (err) {
-            const err = new Error("There was a problem removing the spell.");
-            err.status = 500;
-            return next(err);
-        }
+// router.delete('/:id', requireLogin, function (req, res, next) {
+//     spell.findByIdAndRemove(req.params.id, function (err, spell) {
+//         if (err) {
+//             const err = new Error("There was a problem removing the spell.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        res.status(200).send("Spell was deleted.");
-    });
-});
+//         res.status(200).send("Spell was deleted.");
+//     });
+// });
 
 // DELETES ALL SPELLS FROM THE DATABASE
-router.delete('/', requireLogin, function (req, res, next) {
-    spell.deleteMany({}, function (err, spell) {
-        if (err) {
-            const err = new Error("There was a problem removing the spells.");
-            err.status = 500;
-            return next(err);
-        }
+// router.delete('/', requireLogin, function (req, res, next) {
+//     spell.deleteMany({}, function (err, spell) {
+//         if (err) {
+//             const err = new Error("There was a problem removing the spells.");
+//             err.status = 500;
+//             return next(err);
+//         }
 
-        res.status(200).send("spell " + spell.name + " was deleted.");
-    });
-});
+//         res.status(200).send("spell " + spell.name + " was deleted.");
+//     });
+// });
 
 export default router;

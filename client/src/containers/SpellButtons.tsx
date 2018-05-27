@@ -1,45 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Button } from 'semantic-ui-react';
-import { getSpell } from '../actions/spells/spellsActions';
+import { IStoreState } from '../models';
 // import SpellModal from '../components/SpellModal';
-import { ISpell, IStoreState } from '../models';
-import { isBusy } from '../selectors';
+// import { IStoreState } from '../models';
 
-interface ISpellButtonsStateProps {
-  spell: ISpell;
-  isBusy: boolean;
-}
+// tslint:disable-next-line:no-empty-interface
+interface ISpellButtonsStateProps {}
 
 interface ISpellButtonsDispatchProps {
   // tslint:disable-next-line:ban-types
-  getSpell: Function;
+  changeRoute: Function;
 }
 
 interface IProps extends ISpellButtonsStateProps, ISpellButtonsDispatchProps {
   spellId: string;
 }
 
-interface IState {
-  open: boolean;
-}
-
-class SpellButtonsComponent extends React.Component<IProps, IState> {
+class SpellButtonsComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
     this.state = { open: false };
   }
 
-  public toggleModal = () => {
-    this.setState({ open: !this.state.open });
-  };
+  // public toggleModal = () => {
+  //   this.setState({ open: !this.state.open });
+  // };
 
-  public closeModal = () => {
-    this.setState({ open: false });
-  };
+  // public closeModal = () => {
+  //   this.setState({ open: false });
+  // };
 
-  public getSpell = () => {
-    this.props.getSpell(this.props.spellId);
+  public changeRoute = () => {
+    this.props.changeRoute('/spells/' + this.props.spellId);
   };
 
   public render() {
@@ -48,7 +42,7 @@ class SpellButtonsComponent extends React.Component<IProps, IState> {
         <Button.Group fluid={true} size="mini">
           <Button basic={true} color="red" icon="empty heart" />
           <Button basic={true} color="blue" icon="users" />
-          <Button basic={true} color="teal" icon="content" onClick={this.getSpell} />
+          <Button basic={true} color="teal" icon="content" onClick={this.changeRoute} />
         </Button.Group>
 
         {/* {this.state.open ? (
@@ -68,15 +62,13 @@ class SpellButtonsComponent extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: IStoreState): ISpellButtonsStateProps => {
-  return {
-    isBusy: isBusy(state),
-    spell: state.spellData.spellFromId
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch: any): ISpellButtonsDispatchProps => {
   return {
-    getSpell: (spellId: string) => dispatch(getSpell(spellId))
+    // getSpell: (spellId: string) => dispatch(getSpell(spellId))
+    changeRoute: (routeName: string) => dispatch(push(routeName))
   };
 };
 

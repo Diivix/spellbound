@@ -44,6 +44,7 @@ class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState>
     const menuStyle = { borderRadius: 0 };
 
     // TODO: Move this header into its own component. Especially to hide it from the signin screen.
+    // Note, the name of the menue items must match the route paths!
     return (
       <div>
         <Menu inverted={true} icon={true} color="violet" style={menuStyle}>
