@@ -1,6 +1,6 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from "redux";
-import IStoreState from "../store/IStoreState";
+import { IStoreState } from '../models';
 import isAuthenticated from "./authenticationReducer";
 import pendingActions from "./pendingActionsReducer";
 import lightSpellsWithFilters from './spellsReducer';

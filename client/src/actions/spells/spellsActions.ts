@@ -4,8 +4,7 @@ import {
   getLightSpellsWithFiltersFromFilters as getLightSpellsWithFiltersFromFiltersFromApi,
   getSpell as getSpellFromApi
 } from '../../api/spellsApi';
-import { IFilters, ILightSpellsWithFilters, ISpell, ISpellId } from '../../models';
-import IStoreState from '../../store/IStoreState';
+import { IFilters, ILightSpellsWithFilters, ISpell, ISpellId, IStoreState } from '../../models';
 import keys from '../ActionTypeKeys';
 import {
   IGetLightSpellsWithFiltersFailAction,

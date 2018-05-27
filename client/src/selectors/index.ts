@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import IStoreState from "../store/IStoreState";
+import { IStoreState } from "../models";
 
 // Derived data selectors = using reselect
 const pendingActionsSelector = (state: IStoreState) => state.pendingActions;

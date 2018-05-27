@@ -3,9 +3,8 @@ import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Image, Input, InputOnChangeData, Responsive } from 'semantic-ui-react';
-import IStoreState from 'store/IStoreState';
 import { signIn } from '../actions/authentication/authenticationActions';
-import { ICredentials } from '../models';
+import { ICredentials, IStoreState } from '../models';
 import { isBusy } from '../selectors';
 
 // Props & State

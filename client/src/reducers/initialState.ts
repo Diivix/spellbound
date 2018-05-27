@@ -1,5 +1,4 @@
-import { IFilters } from 'models';
-import IStoreState from '../store/IStoreState';
+import { IFilters, IStoreState } from '../models';
 
 const emptyFilters: IFilters = {
   classes: [],

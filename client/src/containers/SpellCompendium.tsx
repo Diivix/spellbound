@@ -1,12 +1,11 @@
 import _ from 'lodash';
-import { IDropdownCollection, IFilters, ISpell } from 'models';
 import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Card, Dropdown, InputOnChangeData, Loader, Menu, Responsive } from 'semantic-ui-react';
-import IStoreState from 'store/IStoreState';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../actions/spells/spellsActions';
 import SpellCardWithPopup from '../components/SpellCard';
+import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../models';
 import { isBusy } from '../selectors';
 
 interface ISpellCompendiumStateProps {

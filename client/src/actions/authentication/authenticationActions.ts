@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import { signIn as signInToApi, signOut as signOutFromApi } from '../../api/authenticationApi';
-import { ICredentials } from '../../models';
-import IStoreState from '../../store/IStoreState';
+import { ICredentials, IStoreState } from '../../models';
 import keys from '../ActionTypeKeys';
 import { ISignInFailAction, ISignInInProgressAction, ISignInSuccessAction } from './signin';
 import { ISignOutFailAction, ISignOutInProgressAction, ISignOutSuccessAction } from './signout';

@@ -6,8 +6,8 @@ import { createLogger } from 'redux-logger';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunkMiddleware from "redux-thunk";
+import { IStoreState } from '../models';
 import rootReducer from "../reducers/rootReducer";
-import IStoreState from "./IStoreState";
 
 const persistConfig = {
   blacklist: ['pendingActions'],
