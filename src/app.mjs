@@ -7,6 +7,7 @@ import user from './models/user';
 import authController from './controllers/authController';
 import userController from './controllers/userController';
 import spellController from './controllers/spellController';
+import characterController from './controllers/characterController';
 
 const app = express();
 
@@ -58,7 +59,7 @@ app.use(session({
 // Auth - validate user if they already have a session
 app.use(function (req, res, next) {
     if (req.session && req.session.user) {
-        user.findOne({ email: req.session.user.email }).exec(function (error, user) {
+        user.findById(req.session.user._id, function (error, user) {
             if (error || !user) {
                 const err = new Error("Wrong email or password.");
                 err.status = 401;
@@ -84,6 +85,7 @@ if (process.env.NODE_ENV === "production") {
 }
 app.use('/api/auth', authController);
 app.use('/api/users', userController);
+app.use('/api/users/characters', characterController);
 app.use('/api/spells', spellController);
 
 // error handler

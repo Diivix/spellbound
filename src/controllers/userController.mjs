@@ -6,7 +6,29 @@ import { requireLogin } from '../utils/auth';
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
+const userInfoFields = 'username characters favourites'
+
 // READ
+// RETURNS THE CURRENT USER FROM THE DATABASE, USING THEIR SESSION ID
+router.post('/currentuser', requireLogin, function(req, res, next) {
+  // const userId = req.session.user.id;
+  user.findById(req.session.user._id, userInfoFields, function(err, user) {
+    if (err) {
+      const err = new Error('There was a problem finding your account.');
+      err.status = 500;
+      return next(err);
+    }
+
+    if (!user) {
+      const err = new Error('No user found.');
+      err.status = 404;
+      return next(err);
+    }
+
+    return res.status(200).send(user);
+  });
+});
+
 // RETURNS ALL THE USERS IN THE DATABASE
 // router.get('/', requireLogin, function (req, res, next) {
 //     user.find({}, function (err, users) {
@@ -20,10 +42,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 // GETS A SINGLE USER FROM THE DATABASE
-// TODO: Change this so you can only the requesting user's info and not any user's info.
-// TODO: Remove password and sensative data from the response.
 // router.get('/:id', requireLogin, function (req, res, next) {
-//     user.findById(req.params.id, function (err, user) {
+//     user.findById(req.params.id, userInfoFields, function (err, user) {
 //         if (err) {
 //             const err = new Error("There was a problem finding the user.");
 //             err.status = 500;
@@ -67,7 +87,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 //         });
 // });
 
-// UPDATE 
+// UPDATE
 // UPDATES A SINGLE USER IN THE DATABASE
 // router.put('/:id', requireLogin, function (req, res, next) {
 

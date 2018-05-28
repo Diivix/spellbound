@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const spells = new mongoose.Schema({  
+export const spells = new mongoose.Schema({  
     name: { type: String, lowercase: true },
     school: { type: String, lowercase: true },
     level: Number,
