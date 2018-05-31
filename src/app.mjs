@@ -4,10 +4,10 @@ import mongoStore from 'connect-mongo'
 import logger from 'morgan';
 import db from './db';
 import user from './models/user';
-import authController from './controllers/authController';
-import userController from './controllers/userController';
-import spellController from './controllers/spellController';
-import characterController from './controllers/characterController';
+import authRouter from './routes/authRouter';
+import userRouter from './routes/userRouter';
+import spellRouter from './routes/spellRouter';
+import characterRouter from './routes/characterRouter';
 
 const app = express();
 
@@ -83,10 +83,10 @@ if (process.env.NODE_ENV === "production") {
     // we only want to serve the static files on production
     app.use('/', express.static('client/build'));
 }
-app.use('/api/auth', authController);
-app.use('/api/users', userController);
-app.use('/api/users/characters', characterController);
-app.use('/api/spells', spellController);
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/users/characters', characterRouter);
+app.use('/api/spells', spellRouter);
 
 // error handler
 // define as the last app.use callback
