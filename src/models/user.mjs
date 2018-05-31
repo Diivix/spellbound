@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 import { spells as spellsSchema } from './spell';
 import { characters as charactersSchema } from './character';
 
-const favouritesSchema = new mongoose.Schema({
-  spells: [spellsSchema]
-});
+// const favouritesSchema = new mongoose.Schema({
+//   spells: [spellsSchema],
+//   other: [{type: String}]
+// });
 
 const users = new mongoose.Schema({
   email: {
@@ -28,7 +29,7 @@ const users = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  favourites: favouritesSchema,
+  favouriteSpells: [spellsSchema],
   characters: [charactersSchema]
 });
 

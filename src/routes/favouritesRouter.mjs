@@ -13,10 +13,10 @@ const userInfoFields = 'username characters favourites';
 // collection. The controller has been separated out into it's own for simplicity away from the core user routes.
 
 // CREATE
-// CREATE A NEW CHARACTER
+// CREATE A NEW FAVOURITE SPELL
 router.post('/create', requireLogin, function(req, res, next) {
-  if (!req.body.name) {
-    return res.status(500).send('A character "name" is required.');
+  if (!req.body.spell) {
+    return res.status(500).send('A full spell is required.');
   }
 
   user.findById(req.session.user._id, function(err, user) {
@@ -32,18 +32,12 @@ router.post('/create', requireLogin, function(req, res, next) {
       return next(err);
     }
 
-    // TODO: Need add handeling for optional properties
-    user.characters.push({
-      name: req.body.name,
-      level: req.body.level,
-      class: req.body.class,
-      description: req.body.description,
-      spells: req.body.spells
-    });
+    // TODO: Need add validation. Also, BROKEN!
+    user.favouriteSpells.push(req.body.spell);
 
     user.save(function(err) {
       if (err) {
-        const err = new Error('There was a problem creating your character.');
+        const err = new Error('There was a problem saving your favourite.');
         err.status = 500;
         return next(err);
       }
@@ -54,41 +48,12 @@ router.post('/create', requireLogin, function(req, res, next) {
 });
 
 // READ
-// As characters are sub documents of the user model. Reads are done through the userController.
-
-// UPDATE
-// UPDATE A CHARACTER
-router.put('/update', requireLogin, function(req, res, next) {
-  if (!req.body.characterId) {
-    return res.status(500).send('A Character ID must be specified.');
-  }
-  // TODO: Need add handeling for optional properties
-  user.findOneAndUpdate(
-    { _id: req.session.user._id, 'character._id': characterId },
-    {
-      $set: {
-        'name.$': req.body.name,
-        'level.$': req.body.level,
-        'class.$': req.body.class,
-        'description.$': req.body.description
-      }
-    },
-    function(err, doc) {
-      if (err) {
-        const err = new Error('There was a problem finding your account.');
-        err.status = 500;
-        return next(err);
-      }
-
-      return res.status(200).send(user);
-    }
-  );
-});
+// As favourites are sub documents of the user model. Reads are done through the userController.
 
 // DELETE
-// REMOVE A CHARACTER
+// REMOVE A FAVOURITE SPELL
 router.delete('/remove', requireLogin, function(req, res, next) {
-  if (!req.body.characterId) {
+  if (!req.body.spellId) {
     return res.status(500).send('A Character ID must be specified.');
   }
 
@@ -105,12 +70,12 @@ router.delete('/remove', requireLogin, function(req, res, next) {
       return next(err);
     }
 
-    // Remove the character
-    user.characters.pull(characterId);
+    // Remove the favourite spell
+    user.characters.pull(spellId);
 
     user.save(function(err) {
       if (err) {
-        const err = new Error('There was a problem removing your character.');
+        const err = new Error('There was a problem removing your favourite.');
         err.status = 500;
         return next(err);
       }

@@ -8,6 +8,7 @@ import authRouter from './routes/authRouter';
 import userRouter from './routes/userRouter';
 import spellRouter from './routes/spellRouter';
 import characterRouter from './routes/characterRouter';
+import favouritesRouter from './routes/favouritesRouter';
 
 const app = express();
 
@@ -86,6 +87,7 @@ if (process.env.NODE_ENV === "production") {
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/users/characters', characterRouter);
+app.use('/api/users/favourites', favouritesRouter);
 app.use('/api/spells', spellRouter);
 
 // error handler
