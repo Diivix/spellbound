@@ -21,6 +21,7 @@
     "dotenv": true
   },
   "scripts": {
+    "test": "jest",
     "build-all": "yarn install --production && cd client && yarn install --production && yarn build",
     "client-start": "cd client && yarn start",
     "client-build": "cd client && yarn build",
@@ -32,7 +33,10 @@
     "now": "now --dotenv=.env.production"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
+    "jest": "^23.1.0",
+    "mongodb-memory-server": "^1.8.0",
     "nodemon": "^1.17.3"
   }
 }

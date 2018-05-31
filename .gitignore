@@ -22,7 +22,7 @@ yarn-error.log*
 # dotenv environment variables and config
 .env
 .env.local
-.env.development
+.env.test
 config.js
 config.json
 config.sh
