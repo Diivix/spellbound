@@ -47,9 +47,9 @@ router.post('/create', requireLogin, function(req, res, next) {
         const err = new Error('There was a problem creating your character.');
         err.status = 500;
         return next(err);
-      } else {
-        return res.status(200).send(user);
       }
+
+      return res.status(200).send(user);
     });
   });
 });

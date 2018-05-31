@@ -1,12 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import user from '../models/user';
+import bcrypt from 'bcrypt';
 import { requireLogin } from '../utils/auth';
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
-const userInfoFields = 'username characters favourites'
+const userInfoFields = 'username characters favourites lastSignedIn';
 
 // READ
 // RETURNS THE CURRENT USER FROM THE DATABASE, USING THEIR SESSION ID
@@ -63,28 +64,38 @@ router.post('/currentuser', requireLogin, function(req, res, next) {
 // CREATE
 // CREATES A NEW USER
 // router.post('/create', requireLogin, function (req, res, next) {
-//     if (!req.body.email || !req.body.username || !req.body.password || !req.body.passwordConf) {
-//         return res.status(500).send("There was a problem with your request.");
+// router.post('/create', function(req, res, next) {
+//   if (!req.body.email || !req.body.username || !req.body.password || !req.body.passwordConf) {
+//     return res.status(500).send('There was a problem with your request.');
+//   }
+
+//   if (req.body.password !== req.body.passwordConf) {
+//     return res.status(400).send('Passwords do not match.');
+//   }
+
+//   bcrypt.hash(req.body.password, 10, function(err, hash) {
+//     if (err) {
+//       return next(err);
 //     }
 
-//     if (req.body.password !== req.body.passwordConf) {
-//         return res.status(400).send("Passwords do not match.");
-//     }
-
-//     user.create({
+//     user.create(
+//       {
 //         username: req.body.username,
 //         email: req.body.email,
-//         password: req.body.password,
-//     },
-//         function (err, user) {
-//             if (err) {
-//                 const err = new Error("There was a problem adding the information to the database.");
-//                 err.status = 500;
-//                 return next(err);
-//             }
+//         password: hash,
+//         lastSignedIn: Date.now()
+//       },
+//       function(err, user) {
+//         if (err) {
+//           const err = new Error('There was a problem adding the information to the database.');
+//           err.status = 500;
+//           return next(err);
+//         }
 
-//             return res.status(200).send("Congratulations!");
-//         });
+//         return res.status(200).send('Congratulations!');
+//       }
+//     );
+//   });
 // });
 
 // UPDATE

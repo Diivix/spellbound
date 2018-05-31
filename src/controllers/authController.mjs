@@ -27,10 +27,19 @@ router.post('/signin', function(req, res, next) {
         const err = new Error('Wrong email or password.');
         err.status = 401;
         return next(err);
-      } else {
-        req.session.user = user;
-        return res.status(200).send();
       }
+
+      user.lastSignedIn = Date.now()
+      user.save(function(err) {
+        if (err) {
+          const err = new Error('There was a problem writing to the database.');
+          err.status = 500;
+          return next(err);
+        }
+      });
+
+      req.session.user = user;
+      return res.status(200).send();
     });
   });
 });
