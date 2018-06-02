@@ -9,6 +9,7 @@ export const characters = new mongoose.Schema({
     },
     level: {
         type: Number,
+        default: 0
     },
     class: {
         type: String,
@@ -17,6 +18,13 @@ export const characters = new mongoose.Schema({
     description: {
         type: String,
         trim: true
+    },
+    dateCreated: {
+        type: Date
+    },
+    dateLastModified: {
+        type: Date,
+        default: Date.now
     },
     spells: [spellsSchema]
 });

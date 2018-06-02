@@ -24,8 +24,6 @@ interface ISpellCompendiumDispatchProps {
   getLightSpellsWithFiltersFromFilters: Function;
 }
 
-// interface IProps extends ISpellCompendiumStateProps, ISpellCompendiumDispatchProps {}
-
 interface IState {
   filters: IFilters;
   sortByValue: string;
@@ -64,7 +62,6 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   };
 
   public sortSpells = (name: string, spells?: ISpell[]) => {
-    // TODO: Check this doesn't cause an issue with spells bein optional
     let sortedSpells = [];
     switch (name) {
       case 'name':

@@ -32,12 +32,16 @@ router.post('/create', requireLogin, function(req, res, next) {
       return next(err);
     }
 
+    const dateCreated = Date.now();
+    const dateLastModified = Date.now();
     // TODO: Need add handeling for optional properties
     user.characters.push({
       name: req.body.name,
       level: req.body.level,
       class: req.body.class,
       description: req.body.description,
+      dateCreated: dateCreated,
+      dateLastModified: dateLastModified,
       spells: req.body.spells
     });
 
@@ -70,7 +74,8 @@ router.put('/update', requireLogin, function(req, res, next) {
         'name.$': req.body.name,
         'level.$': req.body.level,
         'class.$': req.body.class,
-        'description.$': req.body.description
+        'description.$': req.body.description,
+        'dateLastModified.$': Date.now()
       }
     },
     function(err, doc) {

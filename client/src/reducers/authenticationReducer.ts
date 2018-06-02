@@ -11,9 +11,9 @@ export default function authenticationReducer(
       return true;
     case ActionTypeKeys.SIGNOUT_SUCCESS:
       return false;
-    case ActionTypeKeys.GETSPELL_UNAUTHORISED_FAIL:
+    case ActionTypeKeys.GET_SPELL_UNAUTHORISED_FAIL:
       return false;
-    case ActionTypeKeys.GETLIGHTSPELLSWITHFILTERS_UNAUTHORISED_FAIL:
+    case ActionTypeKeys.GET_LIGHTSPELLSWITHFILTERS_UNAUTHORISED_FAIL:
       return false;
     default:
       return state;

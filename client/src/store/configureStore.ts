@@ -10,7 +10,7 @@ import { IStoreState } from '../models';
 import rootReducer from "../reducers/rootReducer";
 
 const persistConfig = {
-  blacklist: ['pendingActions'],
+  blacklist: ['pendingActions', 'spellData.spellFromId'],
   key: 'root',
   storage
 };

@@ -1,3 +1,4 @@
+import UserDashboard from "containers/UserDashboard";
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import Error404Page from "../components/Error404Page";
@@ -10,6 +11,7 @@ import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 // Paths
 const HOME_PATH = "/";
 const SIGNIN_PATH = "/signin";
+const USER_DASHBOARD_PATH = "/dashboard";
 const SPELLS_PATH = "/spells";
 const SPELLS_SIGNLE_PATH = "/spells/:id";
 
@@ -25,7 +27,24 @@ export default function Routes(props: IRoutesProps) {
         exact={true}
         path={HOME_PATH}
         component={Signin}
-        redirectPath={SPELLS_PATH}
+        redirectPath={USER_DASHBOARD_PATH}
+        isAuthenticated={props.isAuthenticated}
+      />
+
+       {/* Path: /signin */}
+       <RedirectIfAuthenticated
+        path={SIGNIN_PATH}
+        component={Signin}
+        redirectPath={USER_DASHBOARD_PATH}
+        isAuthenticated={props.isAuthenticated}
+      />
+
+      {/* Path: /dashboard */}
+      <AuthenticateRoute
+        exact={true}
+        authenticatePath={SIGNIN_PATH}
+        path={USER_DASHBOARD_PATH}
+        component={UserDashboard}
         isAuthenticated={props.isAuthenticated}
       />
 
@@ -45,15 +64,6 @@ export default function Routes(props: IRoutesProps) {
         component={SingleSpell}
         isAuthenticated={props.isAuthenticated}
       />
-
-      {/* Path: /signin */}
-      <RedirectIfAuthenticated
-        path={SIGNIN_PATH}
-        component={Signin}
-        redirectPath={SPELLS_PATH}
-        isAuthenticated={props.isAuthenticated}
-      />
-
       <Route component={Error404Page} />
     </Switch>
   );

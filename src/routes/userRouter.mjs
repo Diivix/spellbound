@@ -7,7 +7,7 @@ import { requireLogin } from '../utils/auth';
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
-const userInfoFields = 'username characters favourites lastSignedIn';
+const userInfoFields = 'username characters favouriteSpells lastSignedIn';
 
 // READ
 // RETURNS THE CURRENT USER FROM THE DATABASE, USING THEIR SESSION ID

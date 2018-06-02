@@ -44,3 +44,5 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Fix the any types for the functions used in the SpellModal.
 - Creating a character is messing with the password field and preventing future logins. FIX ME!
 - The login authController can return the user object from the DB. INstead of the going back to the DB to get the info.
+- Allow user to upload character avatar
+- Create custom spell icons.

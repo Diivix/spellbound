@@ -1,8 +1,17 @@
 export interface IStoreState {
   readonly pendingActions: number;
   readonly isAuthenticated: boolean;
+  readonly userData: IUserData;
   readonly spellData: IStoreSpellData;
 };
+
+export interface IUserData {
+  username: string;
+  email: string;
+  lastSignedIn: number;
+  favouriteSpells: ISpell[];
+  characters: ICharacter[];
+}
 
 export interface ISpell {
   _id: string;
@@ -20,6 +29,17 @@ export interface ISpell {
   range: string;
   rangeDescription: string;
   school: string;
+}
+
+export interface ICharacter {
+  _id: string,
+  name: string;
+  level: number;
+  class?: string;
+  description?: string;
+  dateCreated: number;
+  dateLastModified: number;
+  spells?: ISpell[];
 }
 
 export interface IFilters {

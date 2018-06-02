@@ -32,7 +32,7 @@ class SingleSpellComponent extends React.Component<IProps, {}> {
 
   public render() {
     // If busy, return immediatley.
-    if (this.props.isBusy) {
+    if (this.props.isBusy || _.isEmpty(this.props.spell.name)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 

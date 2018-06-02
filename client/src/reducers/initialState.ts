@@ -25,7 +25,7 @@ const emptySpell: ISpell = {
   range: '',
   rangeDescription: '',
   school: ''
-}
+};
 
 const empltySpellData = {
   lightSpellsWithFilters: {
@@ -33,12 +33,21 @@ const empltySpellData = {
     spells: []
   },
   spellFromId: emptySpell
-}
+};
+
+const emptyUserData = {
+  characters: [],
+  email: '',
+  favouriteSpells: [],
+  lastSignedIn: Date.now(),
+  username: ''
+};
 
 const defaultState: IStoreState = {
   isAuthenticated: false,
   pendingActions: 0,
-  spellData: empltySpellData
+  spellData: empltySpellData,
+  userData: emptyUserData
 };
 
 export default defaultState;
