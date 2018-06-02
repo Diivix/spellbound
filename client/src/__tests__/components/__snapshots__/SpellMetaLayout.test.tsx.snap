@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Show Spell Metadata 1`] = `
+<div
+  className="ui internally celled grid"
+>
+  <div
+    className="center aligned one column row"
+  >
+    <div
+      className="column"
+    >
+      <div
+        className="ui grey tiny sub header"
+      >
+        Fire Bolt
+      </div>
+      <i>
+        6th level Destruction
+      </i>
+    </div>
+  </div>
+  <div
+    className="center aligned two column row"
+  >
+    <div
+      className="column"
+    >
+      <div
+        className="ui grey tiny sub header"
+      >
+        Casting Time
+      </div>
+      1 Action
+    </div>
+    <div
+      className="column"
+    >
+      <div
+        className="ui grey tiny sub header"
+      >
+        Range
+      </div>
+      20 feet
+    </div>
+  </div>
+  <div
+    className="center aligned two column row"
+  >
+    <div
+      className="column"
+    >
+      <div
+        className="ui grey tiny sub header"
+      >
+        Components
+      </div>
+      <span>
+        V, S
+      </span>
+    </div>
+    <div
+      className="column"
+    >
+      <div
+        className="ui grey tiny sub header"
+      >
+        Duration
+      </div>
+      action
+    </div>
+  </div>
+  <div />
+  <div
+    className="center aligned one column row"
+  >
+    <div
+      className="column"
+    >
+      <div
+        style={
+          Object {
+            "color": "grey",
+          }
+        }
+      >
+        <i>
+          Sorcerer · Wizard
+        </i>
+      </div>
+    </div>
+  </div>
+</div>
+`;

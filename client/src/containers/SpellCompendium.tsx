@@ -1,9 +1,11 @@
+import SpellFilterMenuComponent from 'components/SpellFilterMenu';
 import _ from 'lodash';
 import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
-import { Card, Dropdown, InputOnChangeData, Loader, Menu, Responsive } from 'semantic-ui-react';
+import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../actions/spells/spellsActions';
+import SortMenu from '../components/SortMenu';
 import SpellCardWithPopup from '../components/SpellCard';
 import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../models';
 import { isBusy } from '../selectors';
@@ -51,7 +53,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
   public getLightSpellsWithFiltersFromFilters = (filters: IFilters) => {
     // tslint:disable-next-line:no-console
-    console.log(filters)
+    console.log(filters);
     this.props.getLightSpellsWithFiltersFromFilters(filters);
   };
 
@@ -114,24 +116,36 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     // Format filter values for dropdowns
     let namesFilters: IDropdownCollection[] = [];
     if (!isUndefined(this.props.filters.names)) {
-      namesFilters = this.props.filters.names.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
-      namesFilters = _.sortBy(namesFilters, [(o: IDropdownCollection) =>  o.key]);
+      namesFilters = this.props.filters.names.map(filterValue => ({
+        key: filterValue,
+        text: _.upperFirst(filterValue),
+        value: filterValue
+      }));
+      namesFilters = _.sortBy(namesFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     let schoolsFilters: IDropdownCollection[] = [];
-    if(!isUndefined(this.props.filters.schools)) {
-      schoolsFilters = this.props.filters.schools.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
-      schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) =>  o.key]);
+    if (!isUndefined(this.props.filters.schools)) {
+      schoolsFilters = this.props.filters.schools.map(filterValue => ({
+        key: filterValue,
+        text: _.upperFirst(filterValue),
+        value: filterValue
+      }));
+      schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     let classesFilters: IDropdownCollection[] = [];
-    if(!isUndefined(this.props.filters.classes)) {
-      classesFilters = this.props.filters.classes.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
-      classesFilters = _.sortBy(classesFilters, [(o: IDropdownCollection) =>  o.key]);
+    if (!isUndefined(this.props.filters.classes)) {
+      classesFilters = this.props.filters.classes.map(filterValue => ({
+        key: filterValue,
+        text: _.upperFirst(filterValue),
+        value: filterValue
+      }));
+      classesFilters = _.sortBy(classesFilters, [(o: IDropdownCollection) => o.key]);
     }
 
-    let rangesFilters: IDropdownCollection[] = []
-    if(!isUndefined(this.props.filters.ranges)) {
+    let rangesFilters: IDropdownCollection[] = [];
+    if (!isUndefined(this.props.filters.ranges)) {
       // tslint:disable-next-line:only-arrow-functions
       rangesFilters = this.props.filters.ranges.map(function(filterValue) {
         let fullValue = filterValue;
@@ -150,107 +164,39 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     }
 
     let componentsFilters: IDropdownCollection[] = [];
-    if(!isUndefined(this.props.filters.components)) {
-      componentsFilters = this.props.filters.components.map(filterValue => ({ key: filterValue, text: _.upperFirst(filterValue), value: filterValue }));
+    if (!isUndefined(this.props.filters.components)) {
+      componentsFilters = this.props.filters.components.map(filterValue => ({
+        key: filterValue,
+        text: _.upperFirst(filterValue),
+        value: filterValue
+      }));
       // .sort((a, b) => a.key < b.key);
-      componentsFilters = _.sortBy(componentsFilters, [(o: IDropdownCollection) =>  o.key]);
+      componentsFilters = _.sortBy(componentsFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     return (
       <div>
-        {/* Sort Menu */}
-        <Responsive as={Menu} borderless={true} pointing={true} secondary={true} stackable={true} minWidth={Responsive.onlyTablet.minWidth}>
+        <SortMenu>
           <Menu.Item disabled={true} name="Filters" position="left" icon="filter" />
           <Menu.Item name="Sort by" position="right" disabled={true} />
           <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
           <Menu.Item name="school" active={this.state.sortByValue === 'school'} onClick={this.setSortByValue} />
           <Menu.Item name="level" active={this.state.sortByValue === 'level'} onClick={this.setSortByValue} />
-        </Responsive>
+        </SortMenu>
 
-        {/* Filters Menu */}
-        <Responsive as={Menu} vertical={true} floated={true} borderless={true} minWidth={Responsive.onlyTablet.minWidth}>
-          <Menu.Item>
-            <Dropdown
-              fluid={true}
-              multiple={true}
-              selection={true}
-              search={true}
-              closeOnChange={true}
-              minCharacters={1}
-              placeholder="By Name..."
-              onChange={this.addFilterFromEvent}
-              options={namesFilters}
-              name="names"
-              value={this.state.filters.names}
-            />
-          </Menu.Item>
-          <Menu.Item>
-            <Dropdown
-              fluid={true}
-              multiple={true}
-              selection={true}
-              search={true}
-              closeOnChange={true}
-              name="classes"
-              placeholder="Classes"
-              options={classesFilters}
-              onChange={this.addFilterFromEvent}
-              value={this.state.filters.classes}
-            />
-          </Menu.Item>
-          <Menu.Item>
-            <Dropdown
-              fluid={true}
-              multiple={true}
-              selection={true}
-              search={true}
-              closeOnChange={true}
-              name="schools"
-              placeholder="Schools"
-              options={schoolsFilters}
-              onChange={this.addFilterFromEvent}
-              value={this.state.filters.schools}
-            />
-          </Menu.Item>
-          <Menu.Item>
-            <Dropdown
-              fluid={true}
-              multiple={true}
-              selection={true}
-              search={true}
-              closeOnChange={true}
-              name="components"
-              placeholder="Components"
-              options={componentsFilters}
-              onChange={this.addFilterFromEvent}
-              value={this.state.filters.components}
-            />
-          </Menu.Item>
-          <Menu.Item>
-            <Dropdown
-              fluid={true}
-              multiple={true}
-              selection={true}
-              search={true}
-              closeOnChange={true}
-              name="ranges"
-              placeholder="Range"
-              options={rangesFilters}
-              onChange={this.addFilterFromEvent}
-              value={this.state.filters.ranges}
-            />
-          </Menu.Item>
-        </Responsive>
+        <SpellFilterMenuComponent
+          addFilterFromEvent={this.addFilterFromEvent}
+          namesFilters={namesFilters}
+          classesFilters={classesFilters}
+          schoolsFilters={schoolsFilters}
+          componentsFilters={componentsFilters}
+          rangesFilters={rangesFilters}
+          filters={this.state.filters}
+        />
 
-        {/* Cards */}
-        {/* Testing the LOADING status here, otherwise along pause occures instead of a nice loader. */}
-        {this.props.isBusy ? (
-          <Loader active={true} inline="centered" size="big" />
-        ) : (
-          <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-            {spellCards}
-          </Card.Group>
-        )}
+        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+          {spellCards}
+        </Card.Group>
       </div>
     );
   }
