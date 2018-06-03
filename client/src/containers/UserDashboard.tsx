@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader } from 'semantic-ui-react';
+import { isNull } from 'util';
 import { getUserData } from '../actions/user/userActions';
 import CharacterCard from '../components/CharacterCard';
 import { IStoreState, IUserData } from '../models';
@@ -10,7 +11,7 @@ import { isBusy } from '../selectors';
 interface IUserDashboardStateProps {
   isAuthenticated: boolean;
   isBusy: boolean;
-  userData: IUserData;
+  userData: IUserData | null;
 }
 
 interface IUserDashboardDispatchProps {
@@ -29,7 +30,7 @@ class UserDashboardComponent extends React.Component<IUserDashboardStateProps & 
 
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
-    if (this.props.isBusy) {
+    if (this.props.isBusy || isNull(this.props.userData)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 

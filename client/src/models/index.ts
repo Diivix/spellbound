@@ -1,8 +1,11 @@
 export interface IStoreState {
   readonly pendingActions: number;
   readonly isAuthenticated: boolean;
-  readonly userData: IUserData;
-  readonly spellData: IStoreSpellData;
+  readonly userData: IUserData | null;
+  readonly spellData: {
+    readonly spellsWithFilters: ISpellsWithFilters | null,
+    readonly currentSpell: ISpell | null;
+  };
 };
 
 export interface IUserData {
@@ -42,6 +45,11 @@ export interface ICharacter {
   spells?: ISpell[];
 }
 
+export interface ISpellsWithFilters {
+  readonly filters: IFilters;
+  readonly spells: ISpell[];
+}
+
 export interface IFilters {
   classes: string[];
   components: string[];
@@ -49,16 +57,6 @@ export interface IFilters {
   names: string[];
   ranges: string[];
   schools: string[];
-}
-
-export interface ILightSpellsWithFilters {
-  filters: IFilters;
-  spells: ISpell[];
-}
-
-export interface IStoreSpellData {
-  readonly lightSpellsWithFilters: ILightSpellsWithFilters,
-  readonly spellFromId: ISpell
 }
 
 export interface ICredentials {

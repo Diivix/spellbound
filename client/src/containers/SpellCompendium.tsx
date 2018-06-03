@@ -3,18 +3,17 @@ import _ from 'lodash';
 import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
-import { isUndefined } from 'util';
+import { isNull, isUndefined } from 'util';
 import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../actions/spells/spellsActions';
 import SortMenu from '../components/SortMenu';
 import SpellCardWithPopup from '../components/SpellCard';
-import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../models';
+import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../models';
 import { isBusy } from '../selectors';
 
 interface ISpellCompendiumStateProps {
   isAuthenticated: boolean;
   isBusy: boolean;
-  filters: IFilters;
-  lightSpells?: ISpell[];
+  spellsWithFilters: ISpellsWithFilters | null;
 }
 
 interface ISpellCompendiumDispatchProps {
@@ -103,17 +102,18 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
-    if (this.props.isBusy || isUndefined(this.props.filters) || isUndefined(this.props.lightSpells)) {
+    if (this.props.isBusy || isNull(this.props.spellsWithFilters)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
-    const sortedSpells = this.sortSpells(this.state.sortByValue, this.props.lightSpells);
+    const  filters = this.props.spellsWithFilters.filters;
+    const sortedSpells = this.sortSpells(this.state.sortByValue, this.props.spellsWithFilters.spells);
     const spellCards = sortedSpells.map(spell => <SpellCardWithPopup key={spell._id} spell={spell} />);
 
     // Format filter values for dropdowns
     let namesFilters: IDropdownCollection[] = [];
-    if (!isUndefined(this.props.filters.names)) {
-      namesFilters = this.props.filters.names.map(filterValue => ({
+    if (!isUndefined(filters.names)) {
+      namesFilters = filters.names.map(filterValue => ({
         key: filterValue,
         text: _.upperFirst(filterValue),
         value: filterValue
@@ -122,8 +122,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     }
 
     let schoolsFilters: IDropdownCollection[] = [];
-    if (!isUndefined(this.props.filters.schools)) {
-      schoolsFilters = this.props.filters.schools.map(filterValue => ({
+    if (!isUndefined(filters.schools)) {
+      schoolsFilters = filters.schools.map(filterValue => ({
         key: filterValue,
         text: _.upperFirst(filterValue),
         value: filterValue
@@ -132,8 +132,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     }
 
     let classesFilters: IDropdownCollection[] = [];
-    if (!isUndefined(this.props.filters.classes)) {
-      classesFilters = this.props.filters.classes.map(filterValue => ({
+    if (!isUndefined(filters.classes)) {
+      classesFilters = filters.classes.map(filterValue => ({
         key: filterValue,
         text: _.upperFirst(filterValue),
         value: filterValue
@@ -142,9 +142,9 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     }
 
     let rangesFilters: IDropdownCollection[] = [];
-    if (!isUndefined(this.props.filters.ranges)) {
+    if (!isUndefined(filters.ranges)) {
       // tslint:disable-next-line:only-arrow-functions
-      rangesFilters = this.props.filters.ranges.map(function(filterValue) {
+      rangesFilters = filters.ranges.map(function(filterValue) {
         let fullValue = filterValue;
         if (!isNaN(Number(fullValue))) {
           fullValue += ' feet';
@@ -161,8 +161,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     }
 
     let componentsFilters: IDropdownCollection[] = [];
-    if (!isUndefined(this.props.filters.components)) {
-      componentsFilters = this.props.filters.components.map(filterValue => ({
+    if (!isUndefined(filters.components)) {
+      componentsFilters = filters.components.map(filterValue => ({
         key: filterValue,
         text: _.upperFirst(filterValue),
         value: filterValue
@@ -201,10 +201,9 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
 function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
   return {
-    filters: state.spellData.lightSpellsWithFilters.filters,
     isAuthenticated: state.isAuthenticated,
     isBusy: isBusy(state),
-    lightSpells: state.spellData.lightSpellsWithFilters.spells
+    spellsWithFilters: state.spellData.spellsWithFilters
   };
 }
 
