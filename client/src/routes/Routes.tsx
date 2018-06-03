@@ -10,8 +10,8 @@ import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 
 // Paths
 const HOME_PATH = "/";
+const USER_DASHBOARD_PATH = "/home";
 const SIGNIN_PATH = "/signin";
-const USER_DASHBOARD_PATH = "/dashboard";
 const SPELLS_PATH = "/spells";
 const SPELLS_SIGNLE_PATH = "/spells/:id";
 

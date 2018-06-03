@@ -46,3 +46,4 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - The login authController can return the user object from the DB. INstead of the going back to the DB to get the info.
 - Allow user to upload character avatar
 - Create custom spell icons.
+- Need to handle errors better on login page and when loading failures happen on opther pages.

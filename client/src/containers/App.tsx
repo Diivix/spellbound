@@ -52,7 +52,7 @@ class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState>
             <Icon name="book" size="large" link={true} />
             SpellBound
           </Menu.Item>
-          <Menu.Item name="dashboard" active={activeItem === 'characters'} onClick={this.handleItemClick}>
+          <Menu.Item name="home" active={activeItem === 'characters'} onClick={this.handleItemClick}>
             <Icon name="users" />
           </Menu.Item>
           <Menu.Item name="spells" active={activeItem === 'spells'} onClick={this.handleItemClick}>
