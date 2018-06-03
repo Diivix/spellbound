@@ -17,7 +17,7 @@ export function getUserData(): Promise<IUserData> {
       }
     })
     .then(response => response.json())
-    .then((spell: IUserData) => {
-      return spell;
+    .then((user: IUserData) => {
+      return user;
     });
 }

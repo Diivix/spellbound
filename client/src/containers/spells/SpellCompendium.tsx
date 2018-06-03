@@ -11,7 +11,6 @@ import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState 
 import { isBusy } from '../../selectors';
 
 interface ISpellCompendiumStateProps {
-  isAuthenticated: boolean;
   isBusy: boolean;
   spellsWithFilters: ISpellsWithFilters | null;
 }
@@ -45,7 +44,9 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   }
 
   public componentDidMount() {
-    this.props.getLightSpellsWithFilters();
+    if (isNull(this.props.spellsWithFilters)) {
+      this.props.getLightSpellsWithFilters();
+    }
   }
 
   public getLightSpellsWithFiltersFromFilters = (filters: IFilters) => {
@@ -106,7 +107,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
       return <Loader active={true} inline="centered" size="big" />;
     }
 
-    const  filters = this.props.spellsWithFilters.filters;
+    const filters = this.props.spellsWithFilters.filters;
     const sortedSpells = this.sortSpells(this.state.sortByValue, this.props.spellsWithFilters.spells);
     const spellCards = sortedSpells.map(spell => <SpellCardWithPopup key={spell._id} spell={spell} />);
 
@@ -167,7 +168,6 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
         text: _.upperFirst(filterValue),
         value: filterValue
       }));
-      // .sort((a, b) => a.key < b.key);
       componentsFilters = _.sortBy(componentsFilters, [(o: IDropdownCollection) => o.key]);
     }
 
@@ -201,7 +201,6 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
 function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
   return {
-    isAuthenticated: state.isAuthenticated,
     isBusy: isBusy(state),
     spellsWithFilters: state.spellData.spellsWithFilters
   };

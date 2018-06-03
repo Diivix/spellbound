@@ -49,11 +49,11 @@ class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState>
     return (
       <div>
         <Menu inverted={true} icon={true} color="violet" style={menuStyle}>
-          <Menu.Item>
+          <Menu.Item name="home" onClick={this.handleItemClick}>
             <Icon name="book" size="large" link={true} />
             SpellBound
           </Menu.Item>
-          <Menu.Item name="home" active={activeItem === 'home'} onClick={this.handleItemClick}>
+          <Menu.Item name="characters" active={activeItem === 'characters'} onClick={this.handleItemClick}>
             <Icon name="users" />
           </Menu.Item>
           <Menu.Item name="spells" active={activeItem === 'spells'} onClick={this.handleItemClick}>

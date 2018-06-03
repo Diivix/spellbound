@@ -3,7 +3,7 @@ import keys from "../../ActionTypeKeys";
 
 export interface IGetLightSpellsWithFiltersSuccessAction {
   readonly type: keys.GET_LIGHTSPELLSWITHFILTERS_SUCCESS;
-  readonly payload: ISpellsWithFilters
+  readonly payload: ISpellsWithFilters;
 }
 
 export interface IGetLightSpellsWithFiltersInProgressAction {

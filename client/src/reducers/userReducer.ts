@@ -8,6 +8,9 @@ export default function userReducer(state = initialState.userData, action: Actio
     case ActionTypeKeys.GET_USERDATA_SUCCESS:
       const userPayload: IUserData = action.payload;
       return Object.assign({}, state, userPayload );
+    case ActionTypeKeys.CREATE_CHARACTER_SUCCESS:
+      const userCreateCharacterPayload: IUserData = action.payload;
+      return Object.assign({}, state, userCreateCharacterPayload);
     default:
       return state;
   }

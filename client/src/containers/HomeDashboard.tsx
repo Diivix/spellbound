@@ -19,13 +19,15 @@ interface IUserDashboardDispatchProps {
   getUserData: Function;
 }
 
-class UserDashboardComponent extends React.Component<IUserDashboardStateProps & IUserDashboardDispatchProps, {}> {
+class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & IUserDashboardDispatchProps, {}> {
   constructor(props: IUserDashboardStateProps & IUserDashboardDispatchProps) {
     super(props);
   }
 
   public componentDidMount() {
-    this.props.getUserData();
+    if (isNull(this.props.userData)) {
+      this.props.getUserData();
+    }
   }
 
   public handleCreateCharacter = () => {
@@ -74,5 +76,5 @@ function mapDispatchToProps(dispatch: any): IUserDashboardDispatchProps {
   };
 }
 
-const UserDashboard = connect(mapStateToProps, mapDispatchToProps)(UserDashboardComponent);
-export default UserDashboard;
+const HomeDashboard = connect(mapStateToProps, mapDispatchToProps)(HomeDashboardComponent);
+export default HomeDashboard;

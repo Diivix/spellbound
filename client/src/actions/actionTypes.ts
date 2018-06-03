@@ -1,8 +1,13 @@
 import { ISignInFailAction, ISignInInProgressAction, ISignInSuccessAction } from './authentication/signin';
 import { ISignOutFailAction, ISignOutInProgressAction, ISignOutSuccessAction } from './authentication/signout';
-import { IGetLightSpellsWithFiltersFailAction, IGetLightSpellsWithFiltersInProgressAction, IGetLightSpellsWithFiltersSuccessAction } from './spells/getlightspellswithfilters';
+import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCharacterSuccessAction } from './characters/createCharacter';
+import {
+  IGetLightSpellsWithFiltersFailAction,
+  IGetLightSpellsWithFiltersInProgressAction,
+  IGetLightSpellsWithFiltersSuccessAction
+} from './spells/getlightspellswithfilters';
 import { IGetSpellFailAction, IGetSpellInProgressAction, IGetSpellSuccessAction } from './spells/getspell';
-import { IGetUserDataFailAction, IGetUserDataInProgressAction, IGetUserDataSuccessAction } from './user/getuserdata'
+import { IGetUserDataFailAction, IGetUserDataInProgressAction, IGetUserDataSuccessAction } from './user/getuserdata';
 
 type ActionTypes =
   | ISignInFailAction
@@ -20,5 +25,8 @@ type ActionTypes =
   | IGetUserDataFailAction
   | IGetUserDataInProgressAction
   | IGetUserDataSuccessAction
+  | ICreateCharacterFailAction
+  | ICreateCharacterInprogressAction
+  | ICreateCharacterSuccessAction
 
 export default ActionTypes;
