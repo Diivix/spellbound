@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dropdown, DropdownProps, Menu, Responsive } from 'semantic-ui-react';
-import { IDropdownCollection, IFilters } from '../models';
+import { IDropdownCollection, IFilters } from '../../models';
 
 interface IProps {
   addFilterFromEvent: ((event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void);

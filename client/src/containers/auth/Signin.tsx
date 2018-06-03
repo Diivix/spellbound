@@ -3,9 +3,9 @@ import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Image, Input, InputOnChangeData, Responsive } from 'semantic-ui-react';
-import { signIn } from '../actions/authentication/authenticationActions';
-import { ICredentials, IStoreState } from '../models';
-import { isBusy } from '../selectors';
+import { signIn } from '../../actions/authentication/authenticationActions';
+import { ICredentials, IStoreState } from '../../models';
+import { isBusy } from '../../selectors';
 
 // Props & State
 interface ISigninComponentStateProps {
@@ -58,7 +58,7 @@ class SigninComponent extends React.Component<IProps, IState> {
         <Grid celled="internally" verticalAlign="middle" columns={2}>
           <Grid.Row>
             <Responsive as={Grid.Column} width={8} minWidth={Responsive.onlyTablet.minWidth} verticalAlign="middle">
-              <Image src={require('../assets/frame.png')} fluid={true}             />
+              <Image src={require('../../assets/frame.png')} fluid={true}             />
             </Responsive>
             <Grid.Column width={8}>
               <Header color="grey">Welcome to Spellbound</Header>

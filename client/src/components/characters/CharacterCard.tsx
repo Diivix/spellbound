@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
-import { ICharacter } from '../models';
+import { ICharacter } from '../../models';
 
 interface IProps {
   character: ICharacter;
@@ -19,7 +19,7 @@ class CharacterCardComponet extends React.Component<IProps, {}> {
 
     return (
       <Card style={cardStyle}>
-        <Image src={require('../assets/dragonborn.jpg')} />
+        <Image src={require('../../assets/dragonborn.jpg')} />
 
         <Card.Content>
           <Card.Header>{name}</Card.Header>

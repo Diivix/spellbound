@@ -3,10 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Loader, Responsive, Segment } from 'semantic-ui-react';
 import { isNull } from 'util';
-import { getSpell } from '../actions/spells/spellsActions';
-import SpellMetaLayout from '../components/SpellMetaLayout';
-import { ISpell, IStoreState } from '../models';
-import { isBusy } from '../selectors';
+import { getSpell } from '../../actions/spells/spellsActions';
+import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
+import { ISpell, IStoreState } from '../../models';
+import { isBusy } from '../../selectors';
 
 interface ISingleSpellStateProps {
   isBusy: boolean;

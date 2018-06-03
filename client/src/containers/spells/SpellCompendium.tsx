@@ -1,14 +1,14 @@
-import SpellFilterMenuComponent from 'components/SpellFilterMenu';
 import _ from 'lodash';
 import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isNull, isUndefined } from 'util';
-import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../actions/spells/spellsActions';
-import SortMenu from '../components/SortMenu';
-import SpellCardWithPopup from '../components/SpellCard';
-import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../models';
-import { isBusy } from '../selectors';
+import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../../actions/spells/spellsActions';
+import SortMenu from '../../components/SortMenu';
+import SpellCardWithPopup from '../../components/spells/SpellCard';
+import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
+import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../../models';
+import { isBusy } from '../../selectors';
 
 interface ISpellCompendiumStateProps {
   isAuthenticated: boolean;

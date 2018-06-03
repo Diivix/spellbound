@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SpellMetaLayout from '../../components/SpellMetaLayout';
+import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
 import { ISpell } from '../../models';
 
 test('Show Spell Metadata', () => {

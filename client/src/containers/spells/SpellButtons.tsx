@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Button } from 'semantic-ui-react';
-import { IStoreState } from '../models';
+import { IStoreState } from '../../models';
 // import SpellModal from '../components/SpellModal';
 // import { IStoreState } from '../models';
 

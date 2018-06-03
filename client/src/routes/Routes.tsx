@@ -2,9 +2,9 @@ import UserDashboard from "containers/UserDashboard";
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import Error404Page from "../components/Error404Page";
-import Signin from "../containers/Signin";
-import SingleSpell from "../containers/SingleSpell";
-import SpellCompendium from "../containers/SpellCompendium";
+import Signin from "../containers/auth/Signin";
+import SingleSpell from "../containers/spells/SingleSpell";
+import SpellCompendium from "../containers/spells/SpellCompendium";
 import AuthenticateRoute from "./AuthenticateRoute";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 

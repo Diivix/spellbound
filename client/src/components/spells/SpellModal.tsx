@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import { Grid, Header, Icon, Loader, Modal, Responsive } from 'semantic-ui-react';
-import SpellMetaLayout from '../components/SpellMetaLayout';
-import { ISpell } from '../models';
+import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
+import { ISpell } from '../../models';
 
 interface IProps {
     isBusy: boolean;

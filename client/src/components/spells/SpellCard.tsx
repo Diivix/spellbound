@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import { Card, Grid, Image, Popup } from 'semantic-ui-react';
-import SpellButtons from '../containers/SpellButtons';
-import { ISpell } from '../models';
+import SpellButtons from '../../containers/spells/SpellButtons';
+import { ISpell } from '../../models';
 import SpellMetaLayout from './SpellMetaLayout';
 
 interface IProps {
@@ -29,7 +29,7 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
     this.spellCard = (
       <Card style={cardStyle}>
         <Card.Content>
-          <Image floated="left" size="mini" src={require('../assets/firespell.jpg')} />
+          <Image floated="left" size="mini" src={require('../../assets/firespell.jpg')} />
           <Card.Header style={headerStyle}>{name}</Card.Header>
           <Card.Meta textAlign="left">{meta}</Card.Meta>
         </Card.Content>
