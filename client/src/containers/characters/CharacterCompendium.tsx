@@ -24,7 +24,7 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
     const characterCards = this.props.characters.map(character => <CharacterCard key={character._id} character={character} />);
 
     return (
-      <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+      <Card.Group doubling={true} stackable={true} itemsPerRow={8}>
         {characterCards}
       </Card.Group>
     );

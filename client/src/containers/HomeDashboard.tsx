@@ -53,7 +53,7 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
               <Menu.Item name="Create" icon="plus" />
             </Menu.Menu>
           </Menu>
-          <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+          <Card.Group doubling={true} stackable={true} itemsPerRow={8}>
             {characterCards}
           </Card.Group>
         </div>

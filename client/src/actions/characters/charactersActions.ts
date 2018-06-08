@@ -2,7 +2,7 @@ import { ICharacter, IStoreState, IUserData } from 'models';
 import { Dispatch } from 'redux';
 import { createCharacter as createCharacterFromApi } from '../../api/charactersApi';
 import keys from '../ActionTypeKeys';
-import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCharacterSuccessAction } from './createCharacter';
+import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCharacterSuccessAction } from './createcharacter';
 
 export function createCharacter(character: ICharacter): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
