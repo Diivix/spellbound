@@ -5,6 +5,7 @@ import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
 import { getUserData } from '../actions/user/userActions';
 import CompendiumMenu from '../components/CompendiumMenu';
+import SpellCard from '../components/spells/SpellCard';
 import { IStoreState, IUserData } from '../models';
 import { isBusy } from '../selectors';
 import CharacterCard from './characters/CharacterCard';
@@ -43,15 +44,30 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
 
     const sortedCharacters = _.sortBy(this.props.userData.characters, ['dateLastModified', 'name']);
     const characterCards = sortedCharacters.map(character => <CharacterCard key={character._id} character={character} />);
+    const spellCards = this.props.userData.favouriteSpells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />)
+
+    const section = {
+      marginBottom: '30px'
+    };
 
     return (
       <div>
-        <CompendiumMenu>
-          <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
-        </CompendiumMenu>
-        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-          {characterCards}
-        </Card.Group>
+        <div style={section}>
+          <CompendiumMenu>
+            <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
+          </CompendiumMenu>
+          <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+            {characterCards}
+          </Card.Group>
+        </div>
+        <div style={section}>
+          <CompendiumMenu>
+            <Menu.Item disabled={true} name="Favoutite Spells" position="left" icon="lightning" />
+          </CompendiumMenu>
+          <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+            {spellCards}
+          </Card.Group>
+        </div>
       </div>
     );
   }

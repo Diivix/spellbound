@@ -1,24 +1,16 @@
 import _ from 'lodash';
 import React from 'react';
-import { Card, Grid, Image, Popup } from 'semantic-ui-react';
-import SpellButtons from '../../containers/spells/SpellButtons';
-import { ISpell } from '../../models';
-import SpellMetaLayout from './SpellMetaLayout';
+import { Card, Image } from 'semantic-ui-react';
 
 interface IProps {
-  spell: ISpell;
+  name: string;
+  level: number;
+  school: string
 }
 
-interface IState {
-  open: boolean;
-}
-
-class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
+class SpellCardWithPopupComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
-    this.state = { open: false };
-
-    this.buildLevelWithSchool = this.buildLevelWithSchool.bind(this);
   }
 
   public handleOpen = () => {
@@ -55,13 +47,13 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
   };
 
   public render() {
-    const name = _.truncate(_.startCase(_.toLower(this.props.spell.name)), { length: 20 });
-    const meta = this.buildLevelWithSchool(this.props.spell.level, this.props.spell.school, true);
+    const name = _.truncate(_.startCase(_.toLower(this.props.name)), { length: 20 });
+    const meta = this.buildLevelWithSchool(this.props.level, this.props.school, true);
 
     const cardStyle = { margin: '5px' };
     const headerStyle = { display: 'inline' };
-    // Hacky workaround because Semantic UI has a bug when using a custom React component as the Popup trigger.
-    const spellCard = (
+
+    return (
       <Card style={cardStyle}>
         <Card.Content>
           <Image floated="left" size="mini" src={require('../../assets/firespell.jpg')} />
@@ -69,22 +61,6 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
           <Card.Meta textAlign="left">{meta}</Card.Meta>
         </Card.Content>
       </Card>
-    );
-
-    return (
-      <div>
-        <Popup trigger={spellCard} on="focus" position="bottom center">
-          <SpellMetaLayout spell={this.props.spell} />
-
-          <Grid>
-            <Grid.Row>
-              <Grid.Column>
-                <SpellButtons spellId={this.props.spell._id} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Popup>
-      </div>
     );
   }
 }

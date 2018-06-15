@@ -5,7 +5,7 @@ import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isNull, isUndefined } from 'util';
 import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../../actions/spells/spellsActions';
 import CompendiumMenu from '../../components/CompendiumMenu';
-import SpellCardWithPopup from '../../components/spells/SpellCard';
+import SpellCardWithPopup from '../../components/spells/SpellCardWithPopup';
 import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
 import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
