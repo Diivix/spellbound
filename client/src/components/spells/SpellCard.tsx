@@ -14,27 +14,9 @@ interface IState {
 }
 
 class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
-  public spellCard: JSX.Element;
   constructor(props: IProps) {
     super(props);
     this.state = { open: false };
-
-    const name = _.truncate(_.startCase(_.toLower(this.props.spell.name)), { length: 20 });
-
-    const meta = this.buildLevelWithSchool(this.props.spell.level, this.props.spell.school, true);
-
-    const cardStyle = { margin: '5px' };
-    const headerStyle = { display: 'inline' };
-    // Hacky workaround because Semantic UI has a bug when using a custom React component as the Popup trigger.
-    this.spellCard = (
-      <Card style={cardStyle}>
-        <Card.Content>
-          <Image floated="left" size="mini" src={require('../../assets/firespell.jpg')} />
-          <Card.Header style={headerStyle}>{name}</Card.Header>
-          <Card.Meta textAlign="left">{meta}</Card.Meta>
-        </Card.Content>
-      </Card>
-    );
 
     this.buildLevelWithSchool = this.buildLevelWithSchool.bind(this);
   }
@@ -73,9 +55,25 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
   };
 
   public render() {
+    const name = _.truncate(_.startCase(_.toLower(this.props.spell.name)), { length: 20 });
+    const meta = this.buildLevelWithSchool(this.props.spell.level, this.props.spell.school, true);
+
+    const cardStyle = { margin: '5px' };
+    const headerStyle = { display: 'inline' };
+    // Hacky workaround because Semantic UI has a bug when using a custom React component as the Popup trigger.
+    const spellCard = (
+      <Card style={cardStyle}>
+        <Card.Content>
+          <Image floated="left" size="mini" src={require('../../assets/firespell.jpg')} />
+          <Card.Header style={headerStyle}>{name}</Card.Header>
+          <Card.Meta textAlign="left">{meta}</Card.Meta>
+        </Card.Content>
+      </Card>
+    );
+
     return (
       <div>
-        <Popup trigger={this.spellCard} on="focus" position="bottom center">
+        <Popup trigger={spellCard} on="focus" position="bottom center">
           <SpellMetaLayout spell={this.props.spell} />
 
           <Grid>

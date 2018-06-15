@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
 import { getUserData } from '../actions/user/userActions';
-import CharacterCard from '../components/characters/CharacterCard';
+import CompendiumMenu from '../components/CompendiumMenu';
 import { IStoreState, IUserData } from '../models';
 import { isBusy } from '../selectors';
+import CharacterCard from './characters/CharacterCard';
 
 interface IUserDashboardStateProps {
   isAuthenticated: boolean;
@@ -45,18 +46,12 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
 
     return (
       <div>
-        <div>
-          <Menu borderless={true} pointing={true} secondary={true}>
-            <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
-
-            <Menu.Menu position="right">
-              <Menu.Item name="Create" icon="plus" />
-            </Menu.Menu>
-          </Menu>
-          <Card.Group doubling={true} stackable={true} itemsPerRow={8}>
-            {characterCards}
-          </Card.Group>
-        </div>
+        <CompendiumMenu>
+          <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
+        </CompendiumMenu>
+        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+          {characterCards}
+        </Card.Group>
       </div>
     );
   }
@@ -76,5 +71,8 @@ function mapDispatchToProps(dispatch: any): IUserDashboardDispatchProps {
   };
 }
 
-const HomeDashboard = connect(mapStateToProps, mapDispatchToProps)(HomeDashboardComponent);
+const HomeDashboard = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeDashboardComponent);
 export default HomeDashboard;

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Menu, Responsive } from 'semantic-ui-react';
 
-class SpellSortMenuComponent extends React.Component{
-
+class CompendiumMenu extends React.Component{
   public render() {
     return (
       <Responsive as={Menu} borderless={true} pointing={true} secondary={true} stackable={true} minWidth={Responsive.onlyTablet.minWidth}>
@@ -12,4 +11,4 @@ class SpellSortMenuComponent extends React.Component{
   }
 }
 
-export default SpellSortMenuComponent;
+export default CompendiumMenu;

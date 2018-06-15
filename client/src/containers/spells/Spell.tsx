@@ -8,21 +8,21 @@ import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
 import { ISpell, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
 
-interface ISingleSpellStateProps {
+interface ISpellStateProps {
   isBusy: boolean;
   spell: ISpell | null;
 }
 
-interface ISingleSpellDispatchProps {
+interface ISpellDispatchProps {
   // tslint:disable-next-line:ban-types
   getSpell: Function;
 }
 
-interface IProps extends ISingleSpellStateProps, ISingleSpellDispatchProps {
+interface IProps extends ISpellStateProps, ISpellDispatchProps {
   match: any;
 }
 
-class SingleSpellComponent extends React.Component<IProps, {}> {
+class SpellComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
@@ -95,18 +95,18 @@ class SingleSpellComponent extends React.Component<IProps, {}> {
   }
 }
 
-function mapStateToProps(state: IStoreState): ISingleSpellStateProps {
+function mapStateToProps(state: IStoreState): ISpellStateProps {
   return {
     isBusy: isBusy(state),
     spell: state.spellData.currentSpell
   };
 }
 
-function mapDispatchToProps(dispatch: any): ISingleSpellDispatchProps {
+function mapDispatchToProps(dispatch: any): ISpellDispatchProps {
   return {
     getSpell: (id: string) => dispatch(getSpell(id))
   };
 }
 
-const SingleSpell = connect(mapStateToProps, mapDispatchToProps)(SingleSpellComponent);
-export default SingleSpell;
+const Spell = connect(mapStateToProps, mapDispatchToProps)(SpellComponent);
+export default Spell;

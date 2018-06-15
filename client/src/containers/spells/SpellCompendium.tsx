@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isNull, isUndefined } from 'util';
 import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../../actions/spells/spellsActions';
-import SortMenu from '../../components/SortMenu';
+import CompendiumMenu from '../../components/CompendiumMenu';
 import SpellCardWithPopup from '../../components/spells/SpellCard';
 import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
 import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../../models';
@@ -173,13 +173,13 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
     return (
       <div>
-        <SortMenu>
-          <Menu.Item disabled={true} name="Filters" position="left" icon="filter" />
+        <CompendiumMenu>
+          <Menu.Item disabled={true} name="Spells" position="left" icon="lightning" />
           <Menu.Item name="Sort by" position="right" disabled={true} />
           <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
           <Menu.Item name="school" active={this.state.sortByValue === 'school'} onClick={this.setSortByValue} />
           <Menu.Item name="level" active={this.state.sortByValue === 'level'} onClick={this.setSortByValue} />
-        </SortMenu>
+        </CompendiumMenu>
 
         <SpellFilterMenuComponent
           addFilterFromEvent={this.addFilterFromEvent}

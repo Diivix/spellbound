@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, Loader } from 'semantic-ui-react';
+import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
-import CharacterCard from '../../components/characters/CharacterCard';
+import CompendiumMenu from '../../components/CompendiumMenu';
 import { ICharacter, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
+import CharacterCard from './CharacterCard';
 
 interface ICharacterCompendiumStateProps {
   isBusy: boolean;
@@ -24,9 +25,16 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
     const characterCards = this.props.characters.map(character => <CharacterCard key={character._id} character={character} />);
 
     return (
-      <Card.Group doubling={true} stackable={true} itemsPerRow={8}>
-        {characterCards}
-      </Card.Group>
+      <div>
+        <CompendiumMenu>
+          <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
+          <Menu.Item name="addCharacter" icon="plus" />
+        </CompendiumMenu>
+
+        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
+          {characterCards}
+        </Card.Group>
+      </div>
     );
   }
 }

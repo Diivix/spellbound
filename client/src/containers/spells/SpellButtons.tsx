@@ -67,11 +67,9 @@ const mapStateToProps = (state: IStoreState): ISpellButtonsStateProps => {
 
 const mapDispatchToProps = (dispatch: any): ISpellButtonsDispatchProps => {
   return {
-    // getSpell: (spellId: string) => dispatch(getSpell(spellId))
     changeRoute: (routeName: string) => dispatch(push(routeName))
   };
 };
 
 const SpellButtons = connect(mapStateToProps, mapDispatchToProps)(SpellButtonsComponent);
-
 export default SpellButtons;
