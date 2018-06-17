@@ -8,7 +8,7 @@ interface IProps {
   school: string
 }
 
-class SpellCardWithPopupComponent extends React.Component<IProps, {}> {
+class SpellCardComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
@@ -65,4 +65,4 @@ class SpellCardWithPopupComponent extends React.Component<IProps, {}> {
   }
 }
 
-export default SpellCardWithPopupComponent;
+export default SpellCardComponent;
