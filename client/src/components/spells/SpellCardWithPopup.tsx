@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Popup } from 'semantic-ui-react';
 import SpellButtons from '../../containers/spells/SpellButtons';
 import { ISpell } from '../../models';
-import SpellCard from './SpellCard';
+import SpellCardComponent from './SpellCard';
 import SpellMetaLayout from './SpellMetaLayout';
 
 interface IProps {
@@ -29,7 +29,7 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
 
   public render() {
     // Hacky workaround because Semantic UI has a bug when using a custom React component as the Popup trigger.
-    const spellCard = <SpellCard name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} />;
+    const spellCard = <SpellCardComponent name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} />;
 
     return (
       <div>
