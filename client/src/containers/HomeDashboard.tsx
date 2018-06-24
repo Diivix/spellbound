@@ -62,7 +62,7 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
         </div>
         <div style={section}>
           <CompendiumMenu>
-            <Menu.Item disabled={true} name="Favoutite Spells" position="left" icon="lightning" />
+            <Menu.Item disabled={true} name="Favourite Spells" position="left" icon="lightning" />
           </CompendiumMenu>
           <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
             {spellCards}

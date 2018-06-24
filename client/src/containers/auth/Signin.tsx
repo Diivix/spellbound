@@ -37,8 +37,14 @@ class SigninComponent extends React.Component<IProps, IState> {
     };
   }
 
-  public handleChange = (e: SyntheticEvent<any>, data: InputOnChangeData) => {
-    this.setState({ [data.name]: data.value });
+  public handleChange = (e: SyntheticEvent<any>, data: InputOnChangeData & { name: string}) => {
+    if(data.name === 'email') {
+      this.setState({ email: data.value });
+    } else if(data.name === 'password') {
+      this.setState({ password: data.value });
+    }
+    // TODO: This no longer works for some reason. Using extended version above.
+    // this.setState({ [data.name]: data.value });
   };
 
   public handleSubmit = () => {
