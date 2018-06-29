@@ -3,11 +3,12 @@ import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Card, Header, Image, Menu, Table } from 'semantic-ui-react';
+import { Card, Header, Image, Menu, Popup, Table } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, IStoreState } from '../../models';
 import { getCharacter } from '../../selectors';
+import CharacterEditableComponent from './ChacrterEditable';
 
 interface ICharacterComponentStateProps {
   character: ICharacter;
@@ -34,7 +35,11 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 
   public render() {
-    const name = _.capitalize(this.props.character.name);
+    const characterName = _.capitalize(this.props.character.name);
+    const characterClass = _.capitalize(this.props.character.class);
+    const characterLevel = this.props.character.class;
+    const characterDescription = _.capitalize(this.props.character.description);
+
     const spellCards = isUndefined(this.props.character.spells)
       ? null
       : this.props.character.spells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />);
@@ -44,12 +49,23 @@ class CharacterCompoent extends React.Component<IProps, {}> {
       justifyContent: 'center'
     };
 
+    const header = (
+      <Header as="h1" icon={true} textAlign="center">
+        <Image circular={true} src={require('../../assets/silhouette.png')} />
+        <Header.Content>{characterName}</Header.Content>
+      </Header>
+    );
+
     return (
       <div>
-        <Header as="h1" icon={true} textAlign="center">
-          <Image circular={true} src={require('../../assets/silhouette.png')} />
-          <Header.Content>{name}</Header.Content>
-        </Header>
+        <Popup trigger={header} on="focus" position="bottom center" hideOnScroll={true} flowing={true}>
+          <CharacterEditableComponent
+            characterName={characterName}
+            characterClass={characterClass}
+            characterLevel={characterLevel}
+            characterDescription={characterDescription}
+          />
+        </Popup>
 
         <div style={centerContent}>
           <Table basic="very" columns="2" compact="very" collapsing={true}>
@@ -58,19 +74,19 @@ class CharacterCompoent extends React.Component<IProps, {}> {
                 <Table.Cell textAlign="right" disabled={true}>
                   Class:
                 </Table.Cell>
-                <Table.Cell textAlign="left">Cleric</Table.Cell>
+                <Table.Cell textAlign="left">{characterClass}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell textAlign="right" disabled={true}>
                   Level:
                 </Table.Cell>
-                <Table.Cell textAlign="left">2</Table.Cell>
+                <Table.Cell textAlign="left">{characterLevel}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell textAlign="right" disabled={true}>
                   Description:
                 </Table.Cell>
-                <Table.Cell textAlign="left">Some awesome charcter.</Table.Cell>
+                <Table.Cell textAlign="left">{characterDescription}</Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>
@@ -79,9 +95,8 @@ class CharacterCompoent extends React.Component<IProps, {}> {
         <CompendiumMenu>
           <Menu.Item disabled={true} name="Equiped Spells" position="left" icon="lightning" />
         </CompendiumMenu>
-
         <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-        {/* TODO: if null, insert picture */}
+          {/* TODO: if null, insert picture */}
           {spellCards}
         </Card.Group>
       </div>

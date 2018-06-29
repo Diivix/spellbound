@@ -20,22 +20,24 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
 
   public render() {
     // Hacky workaround because Semantic UI has a bug when using a custom React component as the Popup trigger.
-    const spellCard = <div><SpellCardComponent name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} /></div>;
+    const spellCard = (
+      <div>
+        <SpellCardComponent name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} />
+      </div>
+    );
 
     return (
-      <div>
-        <Popup trigger={spellCard} on="focus" position="bottom center" hideOnScroll={true}>
-          <SpellMetaLayout spell={this.props.spell} />
+      <Popup trigger={spellCard} on="focus" position="bottom center" hideOnScroll={true}>
+        <SpellMetaLayout spell={this.props.spell} />
 
-          <Grid>
-            <Grid.Row>
-              <Grid.Column>
-                <SpellButtons spellId={this.props.spell._id} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Popup>
-      </div>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column>
+              <SpellButtons spellId={this.props.spell._id} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Popup>
     );
   }
 }

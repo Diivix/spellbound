@@ -47,3 +47,4 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Create custom spell icons.
 - Need to handle errors better on login page and when loading failures happen on opther pages.
 - Refresh the session expirery date when we ever the user hits the api/database.
+- Fix spell cards and popups.
