@@ -16,24 +16,15 @@ interface IState {
 class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    this.state = { open: false };
   }
-
-  public handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  public handleClose = () => {
-    this.setState({ open: false });
-  };
 
   public render() {
     // Hacky workaround because Semantic UI has a bug when using a custom React component as the Popup trigger.
-    const spellCard = <SpellCardComponent name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} />;
+    const spellCard = <div><SpellCardComponent name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} /></div>;
 
     return (
       <div>
-        <Popup trigger={spellCard} on="focus" position="bottom center">
+        <Popup trigger={spellCard} on="focus" position="bottom center" hideOnScroll={true}>
           <SpellMetaLayout spell={this.props.spell} />
 
           <Grid>

@@ -54,7 +54,7 @@ class SpellCardComponent extends React.Component<IProps, {}> {
     const headerStyle = { display: 'inline' };
 
     return (
-      <Card style={cardStyle}>
+      <Card style={cardStyle} link={true}>
         <Card.Content>
           <Image floated="left" size="mini" src={require('../../assets/firespell.jpg')} />
           <Card.Header style={headerStyle}>{name}</Card.Header>

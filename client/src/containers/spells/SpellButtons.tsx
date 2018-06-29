@@ -40,7 +40,7 @@ class SpellButtonsComponent extends React.Component<IProps, {}> {
     return (
       <div>
         <Button.Group fluid={true} size="mini">
-          <Button basic={true} color="red" icon="empty heart" />
+          <Button basic={true} color="red" icon="heart outline" />
           <Button basic={true} color="blue" icon="users" />
           <Button basic={true} color="teal" icon="content" onClick={this.changeRoute} />
         </Button.Group>
