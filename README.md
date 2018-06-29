@@ -48,3 +48,4 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Need to handle errors better on login page and when loading failures happen on opther pages.
 - Refresh the session expirery date when we ever the user hits the api/database.
 - Fix spell cards and popups.
+- Change character create and update API to 'createOrUpdate' API to reduce complexity and duplicate work.
