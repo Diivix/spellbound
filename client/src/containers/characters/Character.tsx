@@ -1,22 +1,23 @@
+import CharacterHeaderComponent from 'components/characters/CharacterHeader';
+import CharacterMetaTableComponent from 'components/characters/CharacterMetaTable';
 import CompendiumMenu from 'components/CompendiumMenu';
-import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Card, Header, Image, Menu, Popup, Table } from 'semantic-ui-react';
+import { Card, Menu } from 'semantic-ui-react';
 import { isUndefined } from 'util';
+import CharacterEditablePopupComponent from '../../components/characters/ChacrterEditablePopup';
 import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, IStoreState } from '../../models';
 import { getCharacter } from '../../selectors';
-import CharacterEditableComponent from './ChacrterEditable';
 
 interface ICharacterComponentStateProps {
   character: ICharacter;
 }
 
 interface ICharacterComponentDispatchProps {
-  // tslint:disable-next-line:ban-types
-  changeRoute: Function;
+  changeRoute: (routeName: string) => {};
+  updateCharacter: (characterName?: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
 }
 
 interface IProps extends ICharacterComponentStateProps, ICharacterComponentDispatchProps {
@@ -35,62 +36,26 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 
   public render() {
-    const characterName = _.capitalize(this.props.character.name);
-    const characterClass = _.capitalize(this.props.character.class);
-    const characterLevel = this.props.character.class;
-    const characterDescription = _.capitalize(this.props.character.description);
-
     const spellCards = isUndefined(this.props.character.spells)
       ? null
       : this.props.character.spells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />);
 
-    const centerContent = {
-      display: 'flex',
-      justifyContent: 'center'
-    };
-
-    const header = (
-      <Header as="h1" icon={true} textAlign="center">
-        <Image circular={true} src={require('../../assets/silhouette.png')} />
-        <Header.Content>{characterName}</Header.Content>
-      </Header>
-    );
-
     return (
       <div>
-        <Popup trigger={header} on="focus" position="bottom center" hideOnScroll={true} flowing={true}>
-          <CharacterEditableComponent
-            characterName={characterName}
-            characterClass={characterClass}
-            characterLevel={characterLevel}
-            characterDescription={characterDescription}
-          />
-        </Popup>
+        <CharacterEditablePopupComponent
+          trigger={<div><CharacterHeaderComponent characterName={this.props.character.name} /></div>}
+          characterName={this.props.character.name}
+          characterClass={this.props.character.class}
+          characterLevel={this.props.character.level}
+          characterDescription={this.props.character.description}
+          submit={this.props.updateCharacter}
+        />
 
-        <div style={centerContent}>
-          <Table basic="very" columns="2" compact="very" collapsing={true}>
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell textAlign="right" disabled={true}>
-                  Class:
-                </Table.Cell>
-                <Table.Cell textAlign="left">{characterClass}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell textAlign="right" disabled={true}>
-                  Level:
-                </Table.Cell>
-                <Table.Cell textAlign="left">{characterLevel}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell textAlign="right" disabled={true}>
-                  Description:
-                </Table.Cell>
-                <Table.Cell textAlign="left">{characterDescription}</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table>
-        </div>
+        <CharacterMetaTableComponent
+          characterClass={this.props.character.class}
+          characterLevel={this.props.character.level}
+          characterDescription={this.props.character.description}
+        />
 
         <CompendiumMenu>
           <Menu.Item disabled={true} name="Equiped Spells" position="left" icon="lightning" />
@@ -112,7 +77,8 @@ function mapStateToProps(state: IStoreState, props: IProps): ICharacterComponent
 
 const mapDispatchToProps = (dispatch: any): ICharacterComponentDispatchProps => {
   return {
-    changeRoute: (routeName: string) => dispatch(push(routeName))
+    changeRoute: (routeName: string) => dispatch(push(routeName)),
+    updateCharacter: () => dispatch()
   };
 };
 

@@ -56,7 +56,7 @@ class SpellCardComponent extends React.Component<IProps, {}> {
     return (
       <Card style={cardStyle} link={true}>
         <Card.Content>
-          <Image floated="left" size="mini" src={require('../../assets/firespell.jpg')} />
+          <Image floated="left" size="mini" src={require('../../assets/alteration-64x64.png')} />
           <Card.Header style={headerStyle}>{name}</Card.Header>
           <Card.Meta textAlign="left">{meta}</Card.Meta>
         </Card.Content>
