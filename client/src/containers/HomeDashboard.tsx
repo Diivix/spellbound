@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
 import { getUserData } from '../actions/user/userActions';
+import CharacterEditablePopupComponent from '../components/characters/ChacrterEditablePopup';
 import CompendiumMenu from '../components/CompendiumMenu';
 import SpellCard from '../components/spells/SpellCard';
 import { IStoreState, IUserData } from '../models';
@@ -17,8 +18,8 @@ interface IUserDashboardStateProps {
 }
 
 interface IUserDashboardDispatchProps {
-  // tslint:disable-next-line:ban-types
-  getUserData: Function;
+  createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  getUserData: () => {};
 }
 
 class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & IUserDashboardDispatchProps, {}> {
@@ -44,7 +45,9 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
 
     const sortedCharacters = _.sortBy(this.props.userData.characters, ['dateLastModified', 'name']);
     const characterCards = sortedCharacters.map(character => <CharacterCard key={character._id} character={character} />);
-    const spellCards = this.props.userData.favouriteSpells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />)
+    const spellCards = this.props.userData.favouriteSpells.map(spell => (
+      <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />
+    ));
 
     const section = {
       marginBottom: '30px'
@@ -55,6 +58,15 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
         <div style={section}>
           <CompendiumMenu>
             <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
+            <CharacterEditablePopupComponent
+              isCreate={true}
+              trigger={
+                <div>
+                  <Menu.Item name="addCharacter" icon="plus" />
+                </div>
+              }
+              create={this.props.createCharacter}
+            />
           </CompendiumMenu>
           <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
             {characterCards}
@@ -83,6 +95,7 @@ function mapStateToProps(state: IStoreState): IUserDashboardStateProps {
 
 function mapDispatchToProps(dispatch: any): IUserDashboardDispatchProps {
   return {
+    createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => dispatch(),
     getUserData: () => dispatch(getUserData())
   };
 }

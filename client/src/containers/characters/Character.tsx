@@ -17,7 +17,8 @@ interface ICharacterComponentStateProps {
 
 interface ICharacterComponentDispatchProps {
   changeRoute: (routeName: string) => {};
-  updateCharacter: (characterName?: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  deleteCharacter: (characterId: string) => {};
+  updateCharacter: (characterId: string, characterName?: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
 }
 
 interface IProps extends ICharacterComponentStateProps, ICharacterComponentDispatchProps {
@@ -43,12 +44,15 @@ class CharacterCompoent extends React.Component<IProps, {}> {
     return (
       <div>
         <CharacterEditablePopupComponent
+          isCreate={false}
           trigger={<div><CharacterHeaderComponent characterName={this.props.character.name} /></div>}
+          characterId={this.props.character._id}
           characterName={this.props.character.name}
           characterClass={this.props.character.class}
           characterLevel={this.props.character.level}
           characterDescription={this.props.character.description}
-          submit={this.props.updateCharacter}
+          edit={this.props.updateCharacter}
+          delete={this.props.deleteCharacter}
         />
 
         <CharacterMetaTableComponent
@@ -78,7 +82,9 @@ function mapStateToProps(state: IStoreState, props: IProps): ICharacterComponent
 const mapDispatchToProps = (dispatch: any): ICharacterComponentDispatchProps => {
   return {
     changeRoute: (routeName: string) => dispatch(push(routeName)),
-    updateCharacter: () => dispatch()
+    // TODO: Fix me.
+    deleteCharacter: (characterId: string) => dispatch(),
+    updateCharacter: (characterId: string, characterName?: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => dispatch()
   };
 };
 

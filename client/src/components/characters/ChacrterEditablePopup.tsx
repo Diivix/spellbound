@@ -1,16 +1,26 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { Form, InputOnChangeData, Popup } from 'semantic-ui-react';
-import { isUndefined } from 'util';
+import { ButtonProps, Form, InputOnChangeData, Popup } from 'semantic-ui-react';
+import { isNullOrUndefined, isUndefined } from 'util';
 
 interface IProps {
+  isCreate: boolean;
   trigger: JSX.Element;
+  characterId?: string;
   characterName?: string;
   characterClass?: string;
   characterLevel?: number;
   characterDescription?: string;
-  submit: (characterName?: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  create?: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  edit?: (
+    characterId?: string,
+    characterName?: string,
+    characterClass?: string,
+    characterLevel?: number,
+    characterDescription?: string
+  ) => {};
+  delete?: (charcterId: string) => {};
 }
 
 interface IState {
@@ -18,7 +28,8 @@ interface IState {
   characterClass?: string;
   characterLevel?: string;
   characterDescription?: string;
-  isValid: boolean;
+  isValidLevel: boolean;
+  isValidName: boolean;
 }
 
 class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
@@ -30,36 +41,60 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
       characterDescription: this.props.characterDescription,
       characterLevel: isUndefined(this.props.characterLevel) ? '' : this.props.characterLevel.toString(),
       characterName: this.props.characterName,
-      isValid: true
+      isValidLevel: true,
+      isValidName: true
     };
+
+    this.validateForm();
   }
 
   public handleChange = (e: SyntheticEvent<any>, data: InputOnChangeData & { name: string }) => {
     switch (data.name) {
-      case "name":
+      case 'name':
         this.setState({ characterName: data.value });
         break;
-      case "class":
+      case 'class':
         this.setState({ characterClass: data.value });
         break;
-      case "level":
-        const parsed = parseInt(data.value, 10);
-        if(!isNaN(parsed) && parsed >= 0 && parsed <= 100) {
-          this.setState({ characterLevel: data.value, isValid: true });
-        } else {
-          this.setState({ characterLevel: data.value, isValid: false });
-        }
+      case 'level':
+        this.setState({ characterLevel: data.value });
         break;
-      case "description":
+      case 'description':
         this.setState({ characterDescription: data.value });
         break;
       default:
         break;
     }
+
+    this.validateForm();
   };
 
-  public handleSubmit = () => {
-    this.props.submit(this.state.characterName, this.state.characterClass, Number(this.state.characterLevel), this.state.characterDescription);
+  public handleSubmit = (event: any, data: ButtonProps) => {
+    if (data.name === 'create') {
+      // TODO: Fix this.
+      alert('create or edit');
+    }
+    if (data.name === 'edit') {
+      // TODO: Fix this.
+      alert('create or edit');
+    } else if (data.name === 'delete' && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
+      this.props.delete(this.props.characterId);
+    }
+  };
+
+  // TODO: Broken :(
+  public validateForm = () => {
+    const isValidName = this.state.characterName !== '' || isNullOrUndefined(this.state.characterName);
+
+    let isValidLevel = true;
+    if (!isUndefined(this.state.characterLevel)) {
+      const regex = RegExp('^[0-9]{1,2}$');
+      isValidLevel = regex.test(this.state.characterLevel);
+    } else if (this.state.characterLevel === '') {
+      isValidLevel = true;
+    }
+
+    this.setState({ isValidName, isValidLevel });
   };
 
   public render() {
@@ -67,11 +102,19 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
     const characterClass = _.capitalize(this.state.characterClass);
     const characterLevel = this.state.characterLevel;
     const characterDescription = _.capitalize(this.state.characterDescription);
+    const isValidForm = this.state.isValidLevel && this.state.isValidName;
 
     return (
       <Popup trigger={this.props.trigger} on="focus" position="bottom center" hideOnScroll={true} flowing={true}>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Input name="name" label="Name" placeholder="Name" value={characterName} onChange={this.handleChange} />
+        <Form>
+          <Form.Input
+            name="name"
+            label="Name"
+            placeholder="Name"
+            value={characterName}
+            onChange={this.handleChange}
+            error={!this.state.isValidName}
+          />
           <Form.Input name="class" label="Class" placeholder="Class" value={characterClass} onChange={this.handleChange} />
           <Form.Input
             name="level"
@@ -79,7 +122,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             placeholder="Level"
             value={characterLevel}
             onChange={this.handleChange}
-            error={!this.state.isValid}
+            error={!this.state.isValidLevel}
           />
           <Form.Input
             name="description"
@@ -88,7 +131,21 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             value={characterDescription}
             onChange={this.handleChange}
           />
-          <Form.Button content="Submit" floated="right" color="violet" disabled={!this.state.isValid} />
+          {this.props.isCreate ? (
+            <Form.Button
+              name="create"
+              content="Create"
+              floated="right"
+              color="violet"
+              onClick={this.handleSubmit}
+              disabled={!isValidForm}
+            />
+          ) : (
+            <Form.Group>
+              <Form.Button name="edit" content="Edit" floated="right" color="violet" onClick={this.handleSubmit} disabled={!isValidForm} />
+              <Form.Button name="delete" content="Delete" floated="right" color="red" basic={true} onClick={this.handleSubmit} />
+            </Form.Group>
+          )}
         </Form>
       </Popup>
     );

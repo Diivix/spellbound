@@ -1,3 +1,4 @@
+import CharacterEditablePopupComponent from 'components/characters/ChacrterEditablePopup';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
@@ -12,8 +13,12 @@ interface ICharacterCompendiumStateProps {
   characters: ICharacter[] | null;
 }
 
-class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumStateProps, {}> {
-  constructor(props: ICharacterCompendiumStateProps) {
+interface ICharacterCompendiumDispatchProps {
+  createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+}
+
+class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumStateProps & ICharacterCompendiumDispatchProps, {}> {
+  constructor(props: ICharacterCompendiumStateProps & ICharacterCompendiumDispatchProps) {
     super(props);
   }
 
@@ -28,7 +33,16 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
       <div>
         <CompendiumMenu>
           <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
-          <Menu.Item name="addCharacter" icon="plus" />
+
+          <CharacterEditablePopupComponent
+            isCreate={true}
+            trigger={
+              <div>
+                <Menu.Item name="addCharacter" icon="plus" />
+              </div>
+            }
+            create={this.props.createCharacter}
+          />
         </CompendiumMenu>
 
         <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
@@ -46,5 +60,14 @@ function mapStateToProps(state: IStoreState): ICharacterCompendiumStateProps {
   };
 }
 
-const CharacterCompendium = connect(mapStateToProps)(CharacterCompendiumComponent);
+function mapDispatchToProps(dispatch: any): ICharacterCompendiumDispatchProps {
+  return {
+    createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => dispatch()
+  };
+}
+
+const CharacterCompendium = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CharacterCompendiumComponent);
 export default CharacterCompendium;
