@@ -47,16 +47,16 @@ class CharacterCompoent extends React.Component<IProps, {}> {
           isCreate={false}
           trigger={<div><CharacterHeaderComponent characterName={this.props.character.name} /></div>}
           characterId={this.props.character._id}
-          characterName={this.props.character.name}
-          characterClass={this.props.character.class}
-          characterLevel={this.props.character.level}
-          characterDescription={this.props.character.description}
-          edit={this.props.updateCharacter}
+          name={this.props.character.name}
+          classType={this.props.character.classType}
+          level={this.props.character.level}
+          description={this.props.character.description}
+          update={this.props.updateCharacter}
           delete={this.props.deleteCharacter}
         />
 
         <CharacterMetaTableComponent
-          characterClass={this.props.character.class}
+          characterClass={this.props.character.classType}
           characterLevel={this.props.character.level}
           characterDescription={this.props.character.description}
         />

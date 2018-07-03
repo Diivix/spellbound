@@ -8,26 +8,26 @@ interface IProps {
   isCreate: boolean;
   trigger: JSX.Element;
   characterId?: string;
-  characterName?: string;
-  characterClass?: string;
-  characterLevel?: number;
-  characterDescription?: string;
-  create?: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
-  edit?: (
-    characterId: string,
-    characterName?: string,
-    characterClass?: string,
-    characterLevel?: number,
-    characterDescription?: string
+  name?: string;
+  classType?: string;
+  level?: number;
+  description?: string;
+  create?: (name: string, classType?: string, level?: number, description?: string) => {};
+  update?: (
+    id: string,
+    name?: string,
+    classType?: string,
+    level?: number,
+    description?: string
   ) => {};
   delete?: (charcterId: string) => {};
 }
 
 interface IState {
-  characterName?: string;
-  characterClass?: string;
-  characterLevel?: string;
-  characterDescription?: string;
+  name?: string;
+  classType?: string;
+  level?: string;
+  description?: string;
   isValidLevel: boolean;
   isValidName: boolean;
 }
@@ -37,12 +37,12 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      characterClass: this.props.characterClass,
-      characterDescription: this.props.characterDescription,
-      characterLevel: isUndefined(this.props.characterLevel) ? '' : this.props.characterLevel.toString(),
-      characterName: this.props.characterName,
+      classType: this.props.classType,
+      description: this.props.description,
       isValidLevel: true,
-      isValidName: true
+      isValidName: true,
+      level: isUndefined(this.props.level) ? '' : this.props.level.toString(),
+      name: this.props.name,
     };
   }
 
@@ -50,10 +50,10 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
     switch (data.name) {
       case 'name':
         const isValidName = data.value !== '';
-        this.setState({ characterName: data.value, isValidName });
+        this.setState({ name: data.value, isValidName });
         break;
       case 'class':
-        this.setState({ characterClass: data.value });
+        this.setState({ classType: data.value });
         break;
       case 'level':
         let isValidLevel = true;
@@ -61,10 +61,10 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
           const regex = RegExp('^[0-9]{1,2}$');
           isValidLevel = regex.test(data.value);
         }
-        this.setState({ characterLevel: data.value, isValidLevel });
+        this.setState({ level: data.value, isValidLevel });
         break;
       case 'description':
-        this.setState({ characterDescription: data.value });
+        this.setState({ description: data.value });
         break;
       default:
         break;
@@ -72,21 +72,21 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
   };
 
   public handleSubmit = (event: any, data: ButtonProps) => {
-    if (data.name === 'create' && !isUndefined(this.props.create) && !isUndefined(this.state.characterName)) {
+    if (data.name === 'create' && !isUndefined(this.props.create) && !isUndefined(this.state.name)) {
       this.props.create(
-        this.state.characterName,
-        this.state.characterClass,
-        Number(this.state.characterLevel),
-        this.state.characterDescription
+        this.state.name,
+        this.state.classType,
+        Number(this.state.level),
+        this.state.description
       );
     }
-    if (data.name === 'edit' && !isUndefined(this.props.edit) && !isUndefined(this.props.characterId)) {
-      this.props.edit(
+    if (data.name === 'edit' && !isUndefined(this.props.update) && !isUndefined(this.props.characterId)) {
+      this.props.update(
         this.props.characterId,
-        this.state.characterName,
-        this.state.characterClass,
-        Number(this.state.characterLevel),
-        this.state.characterDescription
+        this.state.name,
+        this.state.classType,
+        Number(this.state.level),
+        this.state.description
       );
     } else if (data.name === 'delete' && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
       this.props.delete(this.props.characterId);
@@ -94,10 +94,10 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
   };
 
   public render() {
-    const characterName = _.capitalize(this.state.characterName);
-    const characterClass = _.capitalize(this.state.characterClass);
-    const characterLevel = this.state.characterLevel;
-    const characterDescription = _.capitalize(this.state.characterDescription);
+    const characterName = _.capitalize(this.state.name);
+    const characterClass = _.capitalize(this.state.classType);
+    const characterLevel = this.state.level;
+    const characterDescription = _.capitalize(this.state.description);
     const isValidForm = this.state.isValidLevel && this.state.isValidName;
 
     return (

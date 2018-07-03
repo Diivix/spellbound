@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
+import { createCharacter } from '../actions/characters/charactersActions';
 import { getUserData } from '../actions/user/userActions';
 import CharacterEditablePopupComponent from '../components/characters/ChacrterEditablePopup';
 import CompendiumMenu from '../components/CompendiumMenu';
@@ -11,6 +12,7 @@ import { IStoreState, IUserData } from '../models';
 import { isBusy } from '../selectors';
 import CharacterCard from './characters/CharacterCard';
 
+
 interface IUserDashboardStateProps {
   isAuthenticated: boolean;
   isBusy: boolean;
@@ -18,7 +20,7 @@ interface IUserDashboardStateProps {
 }
 
 interface IUserDashboardDispatchProps {
-  createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  createCharacter: (name: string, classTypes?: string, level?: number, description?: string) => {};
   getUserData: () => {};
 }
 
@@ -95,7 +97,7 @@ function mapStateToProps(state: IStoreState): IUserDashboardStateProps {
 
 function mapDispatchToProps(dispatch: any): IUserDashboardDispatchProps {
   return {
-    createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => dispatch(),
+    createCharacter: (name: string, classType?: string, level?: number, description?: string) => dispatch(createCharacter(name, classType, level, description)),
     getUserData: () => dispatch(getUserData())
   };
 }

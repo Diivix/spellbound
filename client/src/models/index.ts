@@ -34,12 +34,14 @@ export interface ISpell {
   school: string;
 }
 
-export interface ICharacter {
-  _id: string,
+export interface ICharacterBase {
   name: string;
-  level: number;
-  class?: string;
+  level?: number;
+  classType?: string;
   description?: string;
+}
+export interface ICharacter extends ICharacterBase {
+  _id: string,
   dateCreated: number;
   dateLastModified: number;
   spells?: ISpell[];
