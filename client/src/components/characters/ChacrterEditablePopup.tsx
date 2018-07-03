@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { ButtonProps, Form, InputOnChangeData, Popup } from 'semantic-ui-react';
-import { isNullOrUndefined, isUndefined } from 'util';
+import { isUndefined } from 'util';
 
 interface IProps {
   isCreate: boolean;
@@ -14,7 +14,7 @@ interface IProps {
   characterDescription?: string;
   create?: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
   edit?: (
-    characterId?: string,
+    characterId: string,
     characterName?: string,
     characterClass?: string,
     characterLevel?: number,
@@ -44,20 +44,24 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
       isValidLevel: true,
       isValidName: true
     };
-
-    this.validateForm();
   }
 
   public handleChange = (e: SyntheticEvent<any>, data: InputOnChangeData & { name: string }) => {
     switch (data.name) {
       case 'name':
-        this.setState({ characterName: data.value });
+        const isValidName = data.value !== '';
+        this.setState({ characterName: data.value, isValidName });
         break;
       case 'class':
         this.setState({ characterClass: data.value });
         break;
       case 'level':
-        this.setState({ characterLevel: data.value });
+        let isValidLevel = true;
+        if (data.value !== '') {
+          const regex = RegExp('^[0-9]{1,2}$');
+          isValidLevel = regex.test(data.value);
+        }
+        this.setState({ characterLevel: data.value, isValidLevel });
         break;
       case 'description':
         this.setState({ characterDescription: data.value });
@@ -65,36 +69,28 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
       default:
         break;
     }
-
-    this.validateForm();
   };
 
   public handleSubmit = (event: any, data: ButtonProps) => {
-    if (data.name === 'create') {
-      // TODO: Fix this.
-      alert('create or edit');
+    if (data.name === 'create' && !isUndefined(this.props.create) && !isUndefined(this.state.characterName)) {
+      this.props.create(
+        this.state.characterName,
+        this.state.characterClass,
+        Number(this.state.characterLevel),
+        this.state.characterDescription
+      );
     }
-    if (data.name === 'edit') {
-      // TODO: Fix this.
-      alert('create or edit');
+    if (data.name === 'edit' && !isUndefined(this.props.edit) && !isUndefined(this.props.characterId)) {
+      this.props.edit(
+        this.props.characterId,
+        this.state.characterName,
+        this.state.characterClass,
+        Number(this.state.characterLevel),
+        this.state.characterDescription
+      );
     } else if (data.name === 'delete' && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
       this.props.delete(this.props.characterId);
     }
-  };
-
-  // TODO: Broken :(
-  public validateForm = () => {
-    const isValidName = this.state.characterName !== '' || isNullOrUndefined(this.state.characterName);
-
-    let isValidLevel = true;
-    if (!isUndefined(this.state.characterLevel)) {
-      const regex = RegExp('^[0-9]{1,2}$');
-      isValidLevel = regex.test(this.state.characterLevel);
-    } else if (this.state.characterLevel === '') {
-      isValidLevel = true;
-    }
-
-    this.setState({ isValidName, isValidLevel });
   };
 
   public render() {
