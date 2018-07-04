@@ -5,12 +5,11 @@ import keys from '../ActionTypeKeys';
 import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCharacterSuccessAction } from './createcharacter';
 
 export function createCharacter(name: string, classType?: string, level?: number, description?: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
-  const character: ICharacterBase = { name, classType, level, description }
   return async (dispatch: Dispatch<IStoreState>) => {
-    // Signal work in progress.
     dispatch(createCharacterInprogress());
 
     try {
+      const character: ICharacterBase = { name, classType, level, description };
       const user: IUserData = await createCharacterFromApi(character);
 
       dispatch(createCharacterSuccess(user));
@@ -22,7 +21,7 @@ export function createCharacter(name: string, classType?: string, level?: number
 
 function createCharacterFail(error: Error): ICreateCharacterFailAction {
   const errorType: keys.CREATE_CHARACTER_FAIL | keys.CREATE_CHARACTER_UNAUTHORISED_FAIL =
-    error.message === 'Unauthorized' ? keys.CREATE_CHARACTER_FAIL : keys.CREATE_CHARACTER_UNAUTHORISED_FAIL;
+    error.message === 'Unauthorized' ? keys.CREATE_CHARACTER_UNAUTHORISED_FAIL : keys.CREATE_CHARACTER_FAIL;
 
   return {
     payload: {
