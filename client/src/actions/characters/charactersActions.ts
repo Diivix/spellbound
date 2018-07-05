@@ -73,7 +73,7 @@ export function updateCharacter(
 
 function updateCharacterFail(error: Error): IUpdateCharacterFailAction {
   const errorType: keys.UPDATE_CHARACTER_FAIL | keys.UPDATE_CHARACTER_UNAUTHORISED_FAIL =
-    error.message === 'Unauthorized' ? keys.UPDATE_CHARACTER_FAIL : keys.UPDATE_CHARACTER_UNAUTHORISED_FAIL;
+    error.message === 'Unauthorized' ? keys.UPDATE_CHARACTER_UNAUTHORISED_FAIL : keys.UPDATE_CHARACTER_FAIL;
 
   return {
     payload: {

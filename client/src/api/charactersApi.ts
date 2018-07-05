@@ -37,7 +37,7 @@ export function updateCharacter(character: { id: string } & ICharacterBase): Pro
     headers: {
       'Content-Type': 'application/json'
     },
-    method: 'POST'
+    method: 'PUT'
   })
     .then(response => {
       if (response.status === 200) {

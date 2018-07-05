@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//use sessions for tracking logins
+// use sessions for tracking logins
 const store = mongoStore(session);
 const useSecureCookie = process.env.NODE_ENV === "production" ? true : false;
 app.use(session({
