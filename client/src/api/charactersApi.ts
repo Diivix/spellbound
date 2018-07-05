@@ -1,4 +1,4 @@
-import { ICharacterBase, IUserData } from "models";
+import { ICharacterBase, IUserData } from 'models';
 
 // CREATE
 // Creates a new Character, from the current user
@@ -28,8 +28,8 @@ export function createCharacter(character: ICharacterBase): Promise<IUserData> {
 
 // UPDATE
 // Updates a Character, from the current user
-export function updateCharacter(character: ICharacterBase): Promise<IUserData> {
-  const url: string = '/api/users/characters/create';
+export function updateCharacter(character: { id: string } & ICharacterBase): Promise<IUserData> {
+  const url: string = '/api/users/characters/update';
 
   return fetch(url, {
     body: JSON.stringify(character),

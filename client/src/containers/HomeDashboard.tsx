@@ -5,7 +5,7 @@ import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
 import { createCharacter } from '../actions/characters/charactersActions';
 import { getUserData } from '../actions/user/userActions';
-import CharacterEditablePopupComponent from '../components/characters/ChacrterEditablePopup';
+import CharacterEditablePopupComponent from '../components/characters/CharacterEditablePopup';
 import CompendiumMenu from '../components/CompendiumMenu';
 import SpellCard from '../components/spells/SpellCard';
 import { IStoreState, IUserData } from '../models';

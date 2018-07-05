@@ -1,4 +1,4 @@
-import CharacterEditablePopupComponent from 'components/characters/ChacrterEditablePopup';
+import CharacterEditablePopupComponent from 'components/characters/CharacterEditablePopup';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
