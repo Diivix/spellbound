@@ -15,6 +15,8 @@ const userInfoFields = 'username characters favourites';
 // CREATE
 // CREATE A NEW CHARACTER
 router.post('/create', requireLogin, function(req, res, next) {
+  console.log(req.body);
+
   if (!req.body.name) {
     return res.status(500).send('A character "name" is required.');
   }
@@ -31,6 +33,11 @@ router.post('/create', requireLogin, function(req, res, next) {
       err.status = 404;
       return next(err);
     }
+
+    // console.log(req.body.level);
+    // console.log(req.body.class);
+    // console.log(req.body.description);
+
 
     const dateCreated = Date.now();
     const dateLastModified = Date.now();

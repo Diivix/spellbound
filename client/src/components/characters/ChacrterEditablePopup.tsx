@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { ButtonProps, Form, InputOnChangeData, Popup } from 'semantic-ui-react';
+import { Button, Form, InputOnChangeData, Popup } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 
 interface IProps {
@@ -13,13 +13,7 @@ interface IProps {
   level?: number;
   description?: string;
   create?: (name: string, classType?: string, level?: number, description?: string) => {};
-  update?: (
-    id: string,
-    name?: string,
-    classType?: string,
-    level?: number,
-    description?: string
-  ) => {};
+  update?: (id: string, name?: string, classType?: string, level?: number, description?: string) => {};
   delete?: (charcterId: string) => {};
 }
 
@@ -42,7 +36,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
       isValidLevel: true,
       isValidName: true,
       level: isUndefined(this.props.level) ? '' : this.props.level.toString(),
-      name: this.props.name,
+      name: this.props.name
     };
   }
 
@@ -71,24 +65,18 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
     }
   };
 
-  public handleSubmit = (event: any, data: ButtonProps) => {
-    if (data.name === 'create' && !isUndefined(this.props.create) && !isUndefined(this.state.name)) {
-      this.props.create(
-        this.state.name,
-        this.state.classType,
-        Number(this.state.level),
-        this.state.description
-      );
+  public handleSubmit = () => {
+    if (this.props.isCreate && !isUndefined(this.props.create) && !isUndefined(this.state.name)) {
+      this.props.create(this.state.name, this.state.classType, Number(this.state.level), this.state.description);
+    } else if (!this.props.isCreate && !isUndefined(this.props.update) && !isUndefined(this.props.characterId)) {
+      this.props.update(this.props.characterId, this.state.name, this.state.classType, Number(this.state.level), this.state.description);
+    } else if (!this.props.isCreate && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
+      this.props.delete(this.props.characterId);
     }
-    if (data.name === 'edit' && !isUndefined(this.props.update) && !isUndefined(this.props.characterId)) {
-      this.props.update(
-        this.props.characterId,
-        this.state.name,
-        this.state.classType,
-        Number(this.state.level),
-        this.state.description
-      );
-    } else if (data.name === 'delete' && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
+  };
+
+  public handleDelete = () => {
+    if (!this.props.isCreate && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
       this.props.delete(this.props.characterId);
     }
   };
@@ -99,10 +87,11 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
     const characterLevel = this.state.level;
     const characterDescription = _.capitalize(this.state.description);
     const isValidForm = this.state.isValidLevel && this.state.isValidName;
+    const buttonContent = this.props.isCreate ? 'Create' : 'Edit';
 
     return (
       <Popup trigger={this.props.trigger} on="focus" position="bottom center" hideOnScroll={true} flowing={true}>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Input
             name="name"
             label="Name"
@@ -110,6 +99,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             value={characterName}
             onChange={this.handleChange}
             error={!this.state.isValidName}
+            required={true}
           />
           <Form.Input name="class" label="Class" placeholder="Class" value={characterClass} onChange={this.handleChange} />
           <Form.Input
@@ -127,21 +117,10 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             value={characterDescription}
             onChange={this.handleChange}
           />
-          {this.props.isCreate ? (
-            <Form.Button
-              name="create"
-              content="Create"
-              floated="right"
-              color="violet"
-              onClick={this.handleSubmit}
-              disabled={!isValidForm}
-            />
-          ) : (
-            <Form.Group>
-              <Form.Button name="edit" content="Edit" floated="right" color="violet" onClick={this.handleSubmit} disabled={!isValidForm} />
-              <Form.Button name="delete" content="Delete" floated="right" color="red" basic={true} onClick={this.handleSubmit} />
-            </Form.Group>
-          )}
+          <Form.Group>
+            <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} />
+            { !this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} /> }
+          </Form.Group>
         </Form>
       </Popup>
     );

@@ -16,6 +16,7 @@ const persistConfig = {
 };
 
 const loggerMiddleware = createLogger();
+// TODO: Fix this!
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 

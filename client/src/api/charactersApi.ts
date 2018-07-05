@@ -8,6 +8,9 @@ export function createCharacter(character: ICharacterBase): Promise<IUserData> {
   return fetch(url, {
     body: JSON.stringify(character),
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     method: 'POST'
   })
     .then(response => {
@@ -31,6 +34,9 @@ export function updateCharacter(character: ICharacterBase): Promise<IUserData> {
   return fetch(url, {
     body: JSON.stringify(character),
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     method: 'POST'
   })
     .then(response => {
