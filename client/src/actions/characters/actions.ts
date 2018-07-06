@@ -31,8 +31,8 @@ export function createCharacter(
 }
 
 function createCharacterFail(error: Error): ICreateCharacterFailAction {
-  const errorType: keys.CREATE_CHARACTER_FAIL | keys.CREATE_CHARACTER_UNAUTHORISED_FAIL =
-    error.message === 'Unauthorized' ? keys.CREATE_CHARACTER_UNAUTHORISED_FAIL : keys.CREATE_CHARACTER_FAIL;
+  const errorType: keys.CREATE_CHARACTER_FAIL | keys.CREATE_CHARACTER_UNAUTHORISED =
+    error.message === 'Unauthorized' ? keys.CREATE_CHARACTER_UNAUTHORISED : keys.CREATE_CHARACTER_FAIL;
 
   return {
     payload: {
@@ -77,8 +77,8 @@ export function updateCharacter(
 }
 
 function updateCharacterFail(error: Error): IUpdateCharacterFailAction {
-  const errorType: keys.UPDATE_CHARACTER_FAIL | keys.UPDATE_CHARACTER_UNAUTHORISED_FAIL =
-    error.message === 'Unauthorized' ? keys.UPDATE_CHARACTER_UNAUTHORISED_FAIL : keys.UPDATE_CHARACTER_FAIL;
+  const errorType: keys.UPDATE_CHARACTER_FAIL | keys.UPDATE_CHARACTER_UNAUTHORISED =
+    error.message === 'Unauthorized' ? keys.UPDATE_CHARACTER_UNAUTHORISED : keys.UPDATE_CHARACTER_FAIL;
 
   return {
     payload: {
@@ -116,8 +116,8 @@ export function deleteCharacter(id: string): (dispatch: Dispatch<IStoreState>) =
 }
 
 function deleteCharacterFail(error: Error): IDeleteCharacterFailAction {
-  const errorType: keys.DELETE_CHARACTER_FAIL | keys.DELETE_CHARACTER_UNAUTHORISED_FAIL =
-    error.message === 'Unauthorized' ? keys.DELETE_CHARACTER_UNAUTHORISED_FAIL : keys.DELETE_CHARACTER_FAIL;
+  const errorType: keys.DELETE_CHARACTER_FAIL | keys.DELETE_CHARACTER_UNAUTHORISED =
+    error.message === 'Unauthorized' ? keys.DELETE_CHARACTER_UNAUTHORISED : keys.DELETE_CHARACTER_FAIL;
 
   return {
     payload: {

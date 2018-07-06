@@ -11,7 +11,7 @@ export interface ICreateCharacterInprogressAction {
 }
 
 export interface ICreateCharacterFailAction {
-  readonly type: keys.CREATE_CHARACTER_FAIL | keys.CREATE_CHARACTER_UNAUTHORISED_FAIL;
+  readonly type: keys.CREATE_CHARACTER_FAIL | keys.CREATE_CHARACTER_UNAUTHORISED;
   readonly payload: {
     readonly error: Error;
   };

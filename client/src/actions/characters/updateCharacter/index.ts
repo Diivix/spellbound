@@ -11,7 +11,7 @@ export interface IUpdateCharacterInprogressAction {
 }
 
 export interface IUpdateCharacterFailAction {
-  readonly type: keys.UPDATE_CHARACTER_FAIL | keys.UPDATE_CHARACTER_UNAUTHORISED_FAIL;
+  readonly type: keys.UPDATE_CHARACTER_FAIL | keys.UPDATE_CHARACTER_UNAUTHORISED;
   readonly payload: {
     readonly error: Error;
   };

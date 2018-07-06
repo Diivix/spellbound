@@ -11,7 +11,7 @@ export interface IDeleteCharacterInprogressAction {
 }
 
 export interface IDeleteCharacterFailAction {
-  readonly type: keys.DELETE_CHARACTER_FAIL | keys.DELETE_CHARACTER_UNAUTHORISED_FAIL;
+  readonly type: keys.DELETE_CHARACTER_FAIL | keys.DELETE_CHARACTER_UNAUTHORISED;
   readonly payload: {
     readonly error: Error;
   };

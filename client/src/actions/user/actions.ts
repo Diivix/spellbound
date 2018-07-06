@@ -20,8 +20,8 @@ export function getUserData(): (dispatch: Dispatch<IStoreState>) => Promise<void
 }
 
 function userFail(error: Error): IGetUserDataFailAction {
-  const errorType: keys.GET_USERDATA_FAIL | keys.GET_USERDATA_UNAUTHORISED_FAIL =
-    error.message === 'Unauthorized' ? keys.GET_USERDATA_UNAUTHORISED_FAIL : keys.GET_USERDATA_FAIL;
+  const errorType: keys.GET_USERDATA_FAIL | keys.GET_USERDATA_UNAUTHORISED =
+    error.message === 'Unauthorized' ? keys.GET_USERDATA_UNAUTHORISED : keys.GET_USERDATA_FAIL;
 
   return {
     payload: {

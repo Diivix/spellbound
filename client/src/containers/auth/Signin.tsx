@@ -97,6 +97,7 @@ class SigninComponent extends React.Component<IProps, IState> {
                 <Button color="violet" type="submit" loading={isLoading} content="Login" />
               </Form>
 
+              {/* TODO: Update error handelling when login fails. */}
               {/* <Transition animation="shake" duration={500} visible={showAuthError}>
                 <Header color="grey">
                   <Icon size="big" color="yellow" name="exclamation triangle" />Incorrect email or password!

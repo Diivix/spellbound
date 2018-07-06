@@ -11,7 +11,7 @@ export interface IGetUserDataInProgressAction {
 }
 
 export interface IGetUserDataFailAction {
-  readonly type: keys.GET_USERDATA_FAIL | keys.GET_USERDATA_UNAUTHORISED_FAIL;
+  readonly type: keys.GET_USERDATA_FAIL | keys.GET_USERDATA_UNAUTHORISED;
   readonly payload: {
     readonly error: Error;
   };
