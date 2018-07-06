@@ -18,6 +18,6 @@ function actionTypeEndsInSuccess(type: ActionTypeKeys): boolean {
 }
 
 function actionTypeEndsInUnauthorised(type: ActionTypeKeys): boolean {
-  const inProgress = ActionTypeStates.INPROGRESS;
-  return type.substring(type.length - inProgress.length) === inProgress;
+  const unauthorised = ActionTypeStates.UNAUTHORISED;
+  return type.substring(type.length - unauthorised.length) === unauthorised;
 }
