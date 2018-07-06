@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch } from 'react-router';
 import { push } from 'react-router-redux';
 import { Icon, InputOnChangeData, Menu, Segment } from 'semantic-ui-react';
-import { signOut } from '../actions/authentication/authenticationActions';
+import { signOut } from '../actions/authentication/actions';
 import { IStoreState } from '../models';
 import Routes from '../routes/Routes';
 import { isBusy } from '../selectors';

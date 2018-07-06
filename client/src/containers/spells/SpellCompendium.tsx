@@ -3,7 +3,7 @@ import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isNull, isUndefined } from 'util';
-import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../../actions/spells/spellsActions';
+import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../../actions/spells/actions';
 import CompendiumMenu from '../../components/CompendiumMenu';
 import SpellCardWithPopup from '../../components/spells/SpellCardWithPopup';
 import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
