@@ -92,7 +92,7 @@ router.put('/update', requireLogin, function(req, res, next) {
 
 // DELETE
 // REMOVE A CHARACTER
-router.delete('/remove', requireLogin, function(req, res, next) {
+router.delete('/delete', requireLogin, function(req, res, next) {
   if (!req.body.characterId) {
     return res.status(500).send('A Character ID must be specified.');
   }
@@ -126,7 +126,7 @@ router.delete('/remove', requireLogin, function(req, res, next) {
 });
 
 // REMOVE A SPELL FROM A CHARACTER
-router.delete('/remove/spell', requireLogin, function(req, res, next) {
+router.delete('/delete/spell', requireLogin, function(req, res, next) {
   // Note, this is the id from the character document, not the id from the spell collection.
   if (!req.body.spellId) {
     return res.status(500).send('A Spell ID must be specified.');

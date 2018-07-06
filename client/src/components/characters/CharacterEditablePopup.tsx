@@ -119,9 +119,10 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
           />
           <Form.Group>
             <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} />
-            { !this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} /> }
           </Form.Group>
         </Form>
+        { !this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} /> }
+
       </Popup>
     );
   }

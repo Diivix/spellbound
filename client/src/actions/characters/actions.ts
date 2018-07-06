@@ -1,8 +1,13 @@
 import { ICharacterBase, IStoreState, IUserData } from 'models';
 import { Dispatch } from 'redux';
-import { createCharacter as createCharacterFromApi, updateCharacter as updateCharacterFromApi } from '../../api/charactersApi';
+import {
+  createCharacter as createCharacterFromApi,
+  deleteCharacter as deleteCharacterFromApi,
+  updateCharacter as updateCharacterFromApi
+} from '../../api/charactersApi';
 import keys from '../ActionTypeKeys';
 import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCharacterSuccessAction } from './createcharacter';
+import { IDeleteCharacterFailAction, IDeleteCharacterInprogressAction, IDeleteCharacterSuccessAction } from './deleteCharacter';
 import { IUpdateCharacterFailAction, IUpdateCharacterInprogressAction, IUpdateCharacterSuccessAction } from './updatecharacter';
 
 export function createCharacter(
@@ -93,5 +98,44 @@ function updateCharacterSuccess(user: IUserData): IUpdateCharacterSuccessAction 
   return {
     payload: user,
     type: keys.UPDATE_CHARACTER_SUCCESS
+  };
+}
+
+export function deleteCharacter(id: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>) => {
+    dispatch(deleteCharacterInprogress());
+
+    try {
+      const user: IUserData = await deleteCharacterFromApi(id);
+
+      dispatch(deleteCharacterSuccess(user));
+    } catch (err) {
+      dispatch(deleteCharacterFail(err));
+    }
+  };
+}
+
+function deleteCharacterFail(error: Error): IDeleteCharacterFailAction {
+  const errorType: keys.DELETE_CHARACTER_FAIL | keys.DELETE_CHARACTER_UNAUTHORISED_FAIL =
+    error.message === 'Unauthorized' ? keys.DELETE_CHARACTER_UNAUTHORISED_FAIL : keys.DELETE_CHARACTER_FAIL;
+
+  return {
+    payload: {
+      error
+    },
+    type: errorType
+  };
+}
+
+function deleteCharacterInprogress(): IDeleteCharacterInprogressAction {
+  return {
+    type: keys.DELETE_CHARACTER_INPROGRESS
+  };
+}
+
+function deleteCharacterSuccess(user: IUserData): IDeleteCharacterSuccessAction {
+  return {
+    payload: user,
+    type: keys.DELETE_CHARACTER_SUCCESS
   };
 }

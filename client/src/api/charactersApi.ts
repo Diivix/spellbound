@@ -51,3 +51,29 @@ export function updateCharacter(character: { id: string } & ICharacterBase): Pro
       return updatedCharacter;
     });
 }
+
+// DELETE
+// Deletes a Character, from the current user
+export function deleteCharacter(characterId: string): Promise<IUserData> {
+  const url: string = '/api/users/characters/delete';
+
+  return fetch(url, {
+    body: JSON.stringify(characterId),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE'
+  })
+    .then(response => {
+      if (response.status === 200) {
+        return response;
+      } else {
+        throw Error(response.statusText);
+      }
+    })
+    .then(response => response.json())
+    .then((updatedCharacter: IUserData) => {
+      return updatedCharacter;
+    });
+}
