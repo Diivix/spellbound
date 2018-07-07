@@ -7,6 +7,8 @@ export default function authActionsReducer(state = initialState.isAuthenticated,
     return true;
   } else if (actionTypeEndsInUnauthorised(action.type)) {
     return false;
+  } else if (action.type === ActionTypeKeys.SIGNIN_FAIL || action.type === ActionTypeKeys.SIGNOUT_FAIL) {
+    return false;
   } else {
     return state;
   }

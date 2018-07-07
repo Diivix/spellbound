@@ -63,12 +63,14 @@ router.post('/create', requireLogin, function(req, res, next) {
 // UPDATE
 // UPDATE A CHARACTER
 router.put('/update', requireLogin, function(req, res, next) {
-  if (!req.body.characterId) {
+  if (!req.body.id) {
     return res.status(500).send('A Character ID must be specified.');
   }
+
+
   // TODO: Need add handeling for optional properties
   user.findOneAndUpdate(
-    { _id: req.session.user._id, 'character._id': characterId },
+    { _id: req.session.user._id, 'character._id': req.body.id },
     {
       $set: {
         'name.$': req.body.name,
