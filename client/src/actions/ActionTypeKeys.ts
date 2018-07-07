@@ -2,7 +2,7 @@ export enum ActionTypeStates {
   INPROGRESS = "_INPROGRESS",
   SUCCESS = "_SUCCESS",
   FAIL = "_FAIL",
-  UNAUTHORISED = '_UNAUTHROISED'
+  UNAUTHORISED = '_UNAUTHORISED'
 }
 
 enum ActionTypeKeys {

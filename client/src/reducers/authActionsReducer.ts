@@ -3,11 +3,11 @@ import ActionTypes from '../actions/ActionTypes';
 import initialState from './initialState';
 
 export default function authActionsReducer(state = initialState.isAuthenticated, action: ActionTypes): boolean {
-  if (actionTypeEndsInSuccess(action.type)) {
-    return true;
-  } else if (actionTypeEndsInUnauthorised(action.type)) {
+  if (action.type === ActionTypeKeys.SIGNOUT_SUCCESS) {
     return false;
-  } else if (action.type === ActionTypeKeys.SIGNIN_FAIL || action.type === ActionTypeKeys.SIGNOUT_FAIL) {
+  } else if (actionTypeEndsInSuccess(action.type)) {
+    return true;
+  } else if (actionTypeEndsInUnauthorised(action.type) || actionTypeIsSignInOrSignOutFail(action.type)) {
     return false;
   } else {
     return state;
@@ -22,4 +22,8 @@ function actionTypeEndsInSuccess(type: ActionTypeKeys): boolean {
 function actionTypeEndsInUnauthorised(type: ActionTypeKeys): boolean {
   const unauthorised = ActionTypeStates.UNAUTHORISED;
   return type.substring(type.length - unauthorised.length) === unauthorised;
+}
+
+function actionTypeIsSignInOrSignOutFail(type: ActionTypeKeys): boolean {
+  return type === ActionTypeKeys.SIGNIN_FAIL || type === ActionTypeKeys.SIGNOUT_FAIL;
 }

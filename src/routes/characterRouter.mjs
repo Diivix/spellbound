@@ -95,6 +95,8 @@ router.put('/update', requireLogin, function(req, res, next) {
         return next(err);
       }
 
+      console.log(user);
+
       return res.status(200).send(user);
     });
   });
