@@ -63,33 +63,41 @@ router.post('/create', requireLogin, function(req, res, next) {
 // UPDATE
 // UPDATE A CHARACTER
 router.put('/update', requireLogin, function(req, res, next) {
+  console.log(req.body)
   if (!req.body.id) {
     return res.status(500).send('A Character ID must be specified.');
   }
 
+  user.findById(req.session.user._id, function(err, user) {
+    if (err) {
+      const err = new Error('There was a problem finding your account.');
+      err.status = 500;
+      return next(err);
+    }
 
-  // TODO: Need add handeling for optional properties
-  user.findOneAndUpdate(
-    { _id: req.session.user._id, 'character._id': req.body.id },
-    {
-      $set: {
-        'name.$': req.body.name,
-        'level.$': req.body.level,
-        'class.$': req.body.class,
-        'description.$': req.body.description,
-        'dateLastModified.$': Date.now()
-      }
-    },
-    function(err, doc) {
+    if (!user) {
+      const err = new Error('No user found.');
+      err.status = 404;
+      return next(err);
+    }
+
+    let character = user.characters.id(req.body.id);
+    character.name = req.body.name;
+    character.class = req.body.classType;
+    character.level = req.body.level;
+    character.description = req.body.description;
+    character.dateLastModified = Date.now();
+
+    user.save(function(err) {
       if (err) {
-        const err = new Error('There was a problem finding your account.');
+        const err = new Error('There was a problem updating your character.');
         err.status = 500;
         return next(err);
       }
 
       return res.status(200).send(user);
-    }
-  );
+    });
+  });
 });
 
 // DELETE
