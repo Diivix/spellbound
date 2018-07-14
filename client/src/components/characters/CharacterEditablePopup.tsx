@@ -15,7 +15,7 @@ interface IProps {
   description?: string;
   create?: (character: ICharacterBase) => {};
   update?: (character: { id: string } & ICharacterBase) => {};
-  delete?: (charcterId: string) => {};
+  delete?: (charcterId: string) => void;
   isBusy: boolean;
 }
 
@@ -137,11 +137,14 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             value={characterDescription}
             onChange={this.handleChange}
           />
+          {/* TODO: make sure the buttons are on the same line. */}
           <Form.Group>
-            <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} loading={this.props.isBusy}/>
+            <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} loading={this.props.isBusy} />
           </Form.Group>
         </Form>
-        {!this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} />}
+        {!this.props.isCreate && (
+          <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} loading={this.props.isBusy} />
+        )}
       </Popup>
     );
   }

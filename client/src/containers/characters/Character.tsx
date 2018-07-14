@@ -19,7 +19,7 @@ interface ICharacterComponentStateProps {
 
 interface ICharacterComponentDispatchProps {
   changeRoute: (routeName: string) => {};
-  deleteCharacter: (characterId: string) => {};
+  deleteCharacter: (characterId: string) => void;
   updateCharacter: (character: { id: string } & ICharacterBase) => {};
 }
 
@@ -39,6 +39,12 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 
   public render() {
+    if(isNullOrUndefined(this.props.character)) {
+      return (
+        <div>Character not found.</div>
+      );
+    }
+
     const spellCards = isNullOrUndefined(this.props.character.spells)
       ? null
       : this.props.character.spells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />);
@@ -90,7 +96,10 @@ function mapStateToProps(state: IStoreState, props: IProps): ICharacterComponent
 const mapDispatchToProps = (dispatch: any): ICharacterComponentDispatchProps => {
   return {
     changeRoute: (routeName: string) => dispatch(push(routeName)),
-    deleteCharacter: (id: string) => dispatch(deleteCharacter(id)),
+    deleteCharacter: (id: string) => {
+      dispatch(deleteCharacter(id));
+      dispatch(push('/characters'));
+    },
     updateCharacter: (character: { id: string } & ICharacterBase) => dispatch(updateCharacter(character))
   };
 };
