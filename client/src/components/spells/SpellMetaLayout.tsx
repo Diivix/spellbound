@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
-import { ISpell } from '../models';
+import { ISpell } from '../../models';
 
 interface IProps {
   spell: ISpell;

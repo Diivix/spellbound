@@ -3,9 +3,9 @@ import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Image, Input, InputOnChangeData, Responsive } from 'semantic-ui-react';
-import { signIn } from '../actions/authentication/authenticationActions';
-import { ICredentials, IStoreState } from '../models';
-import { isBusy } from '../selectors';
+import { signIn } from '../../actions/authentication/actions';
+import { ICredentials, IStoreState } from '../../models';
+import { isBusy } from '../../selectors';
 
 // Props & State
 interface ISigninComponentStateProps {
@@ -37,8 +37,14 @@ class SigninComponent extends React.Component<IProps, IState> {
     };
   }
 
-  public handleChange = (e: SyntheticEvent<any>, data: InputOnChangeData) => {
-    this.setState({ [data.name]: data.value });
+  public handleChange = (e: SyntheticEvent<any>, data: InputOnChangeData & { name: string}) => {
+    if(data.name === 'email') {
+      this.setState({ email: data.value });
+    } else if(data.name === 'password') {
+      this.setState({ password: data.value });
+    }
+    // TODO: This no longer works for some reason. Using extended version above.
+    // this.setState({ [data.name]: data.value });
   };
 
   public handleSubmit = () => {
@@ -58,7 +64,7 @@ class SigninComponent extends React.Component<IProps, IState> {
         <Grid celled="internally" verticalAlign="middle" columns={2}>
           <Grid.Row>
             <Responsive as={Grid.Column} width={8} minWidth={Responsive.onlyTablet.minWidth} verticalAlign="middle">
-              <Image src={require('../assets/frame.png')} fluid={true}             />
+              <Image src={require('../../assets/frame.png')} fluid={true}             />
             </Responsive>
             <Grid.Column width={8}>
               <Header color="grey">Welcome to Spellbound</Header>
@@ -91,6 +97,7 @@ class SigninComponent extends React.Component<IProps, IState> {
                 <Button color="violet" type="submit" loading={isLoading} content="Login" />
               </Form>
 
+              {/* TODO: Update error handelling when login fails. */}
               {/* <Transition animation="shake" duration={500} visible={showAuthError}>
                 <Header color="grey">
                   <Icon size="big" color="yellow" name="exclamation triangle" />Incorrect email or password!

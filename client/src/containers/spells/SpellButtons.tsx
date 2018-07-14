@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Button } from 'semantic-ui-react';
-import { IStoreState } from '../models';
+import { IStoreState } from '../../models';
 // import SpellModal from '../components/SpellModal';
 // import { IStoreState } from '../models';
 
@@ -40,7 +40,7 @@ class SpellButtonsComponent extends React.Component<IProps, {}> {
     return (
       <div>
         <Button.Group fluid={true} size="mini">
-          <Button basic={true} color="red" icon="empty heart" />
+          <Button basic={true} color="red" icon="heart outline" />
           <Button basic={true} color="blue" icon="users" />
           <Button basic={true} color="teal" icon="content" onClick={this.changeRoute} />
         </Button.Group>
@@ -67,11 +67,9 @@ const mapStateToProps = (state: IStoreState): ISpellButtonsStateProps => {
 
 const mapDispatchToProps = (dispatch: any): ISpellButtonsDispatchProps => {
   return {
-    // getSpell: (spellId: string) => dispatch(getSpell(spellId))
     changeRoute: (routeName: string) => dispatch(push(routeName))
   };
 };
 
 const SpellButtons = connect(mapStateToProps, mapDispatchToProps)(SpellButtonsComponent);
-
 export default SpellButtons;

@@ -10,14 +10,14 @@ import { IStoreState } from '../models';
 import rootReducer from "../reducers/rootReducer";
 
 const persistConfig = {
-  blacklist: ['pendingActions'],
+  blacklist: ['pendingActions', 'spellData.currentSpell'],
   key: 'root',
   storage
 };
 
 const loggerMiddleware = createLogger();
+// TODO: Fix this!
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 
 export default function configureStore(history: History) {
   return createStore<IStoreState>(

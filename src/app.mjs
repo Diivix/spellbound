@@ -4,9 +4,11 @@ import mongoStore from 'connect-mongo'
 import logger from 'morgan';
 import db from './db';
 import user from './models/user';
-import authController from './controllers/authController';
-import userController from './controllers/userController';
-import spellController from './controllers/spellController';
+import authRouter from './routes/authRouter';
+import userRouter from './routes/userRouter';
+import spellRouter from './routes/spellRouter';
+import characterRouter from './routes/characterRouter';
+import favouritesRouter from './routes/favouritesRouter';
 
 const app = express();
 
@@ -34,7 +36,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//use sessions for tracking logins
+// use sessions for tracking logins
 const store = mongoStore(session);
 const useSecureCookie = process.env.NODE_ENV === "production" ? true : false;
 app.use(session({
@@ -58,7 +60,7 @@ app.use(session({
 // Auth - validate user if they already have a session
 app.use(function (req, res, next) {
     if (req.session && req.session.user) {
-        user.findOne({ email: req.session.user.email }).exec(function (error, user) {
+        user.findById(req.session.user._id, function (error, user) {
             if (error || !user) {
                 const err = new Error("Wrong email or password.");
                 err.status = 401;
@@ -82,9 +84,11 @@ if (process.env.NODE_ENV === "production") {
     // we only want to serve the static files on production
     app.use('/', express.static('client/build'));
 }
-app.use('/api/auth', authController);
-app.use('/api/users', userController);
-app.use('/api/spells', spellController);
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/users/characters', characterRouter);
+app.use('/api/users/favourites', favouritesRouter);
+app.use('/api/spells', spellRouter);
 
 // error handler
 // define as the last app.use callback

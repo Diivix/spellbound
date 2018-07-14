@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch } from 'react-router';
 import { push } from 'react-router-redux';
 import { Icon, InputOnChangeData, Menu, Segment } from 'semantic-ui-react';
-import { signOut } from '../actions/authentication/authenticationActions';
+import { signOut } from '../actions/authentication/actions';
 import { IStoreState } from '../models';
 import Routes from '../routes/Routes';
 import { isBusy } from '../selectors';
@@ -27,7 +27,7 @@ interface IAppState {
 class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState> {
   constructor(props: IAppStateProps & IAppDispatchProps) {
     super(props);
-    this.state = { activeItem: '' };
+    this.state = { activeItem: 'home' };
   }
 
   public handleItemClick = (e: any, data: InputOnChangeData) => {
@@ -43,12 +43,13 @@ class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState>
     const { activeItem } = this.state;
     const menuStyle = { borderRadius: 0 };
 
-    // TODO: Move this header into its own component. Especially to hide it from the signin screen.
+    // TODO: get route info to set the active menu item.
+
     // Note, the name of the menue items must match the route paths!
     return (
       <div>
         <Menu inverted={true} icon={true} color="violet" style={menuStyle}>
-          <Menu.Item>
+          <Menu.Item name="home" onClick={this.handleItemClick}>
             <Icon name="book" size="large" link={true} />
             SpellBound
           </Menu.Item>

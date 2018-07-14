@@ -1,15 +1,21 @@
+import Character from "containers/characters/Character";
+import CharacterCompendium from "containers/characters/CharacterCompendium";
+import HomeDashboard from "containers/HomeDashboard";
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import Error404Page from "../components/Error404Page";
-import Signin from "../containers/Signin";
-import SingleSpell from "../containers/SingleSpell";
-import SpellCompendium from "../containers/SpellCompendium";
+import Signin from "../containers/auth/Signin";
+import Spell from "../containers/spells/Spell";
+import SpellCompendium from "../containers/spells/SpellCompendium";
 import AuthenticateRoute from "./AuthenticateRoute";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 
 // Paths
-const HOME_PATH = "/";
+const INITIAL_PATH = "/";
 const SIGNIN_PATH = "/signin";
+const HOME_PATH = "/home";
+const CHARACTERS_PATH = "/characters";
+const CHARACTERS_SINGLE_PATH = "/characters/:id";
 const SPELLS_PATH = "/spells";
 const SPELLS_SIGNLE_PATH = "/spells/:id";
 
@@ -23,9 +29,43 @@ export default function Routes(props: IRoutesProps) {
       {/* path: / */}
       <RedirectIfAuthenticated
         exact={true}
-        path={HOME_PATH}
+        path={INITIAL_PATH}
         component={Signin}
-        redirectPath={SPELLS_PATH}
+        redirectPath={HOME_PATH}
+        isAuthenticated={props.isAuthenticated}
+      />
+
+       {/* Path: /signin */}
+       <RedirectIfAuthenticated
+        path={SIGNIN_PATH}
+        component={Signin}
+        redirectPath={HOME_PATH}
+        isAuthenticated={props.isAuthenticated}
+      />
+
+      {/* Path: /home */}
+      <AuthenticateRoute
+        exact={true}
+        authenticatePath={SIGNIN_PATH}
+        path={HOME_PATH}
+        component={HomeDashboard}
+        isAuthenticated={props.isAuthenticated}
+      />
+
+      {/* Path: /characters */}
+      <AuthenticateRoute
+        exact={true}
+        authenticatePath={SIGNIN_PATH}
+        path={CHARACTERS_PATH}
+        component={CharacterCompendium}
+        isAuthenticated={props.isAuthenticated}
+      />
+
+      {/* Path: /characters/:id */}
+      <AuthenticateRoute
+        authenticatePath={SIGNIN_PATH}
+        path={CHARACTERS_SINGLE_PATH}
+        component={Character}
         isAuthenticated={props.isAuthenticated}
       />
 
@@ -42,18 +82,10 @@ export default function Routes(props: IRoutesProps) {
       <AuthenticateRoute
         authenticatePath={SIGNIN_PATH}
         path={SPELLS_SIGNLE_PATH}
-        component={SingleSpell}
+        component={Spell}
         isAuthenticated={props.isAuthenticated}
       />
-
-      {/* Path: /signin */}
-      <RedirectIfAuthenticated
-        path={SIGNIN_PATH}
-        component={Signin}
-        redirectPath={SPELLS_PATH}
-        isAuthenticated={props.isAuthenticated}
-      />
-
+      
       <Route component={Error404Page} />
     </Switch>
   );
