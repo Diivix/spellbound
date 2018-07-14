@@ -1,6 +1,8 @@
 import { ISignInFailAction, ISignInInProgressAction, ISignInSuccessAction } from './authentication/signin';
 import { ISignOutFailAction, ISignOutInProgressAction, ISignOutSuccessAction } from './authentication/signout';
 import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCharacterSuccessAction } from './characters/createcharacter';
+import { IDeleteCharacterFailAction, IDeleteCharacterInprogressAction, IDeleteCharacterSuccessAction } from './characters/deleteCharacter';
+import { IUpdateCharacterFailAction, IUpdateCharacterInprogressAction, IUpdateCharacterSuccessAction } from './characters/updatecharacter';
 import {
   IGetLightSpellsWithFiltersFailAction,
   IGetLightSpellsWithFiltersInProgressAction,
@@ -27,6 +29,12 @@ type ActionTypes =
   | IGetUserDataSuccessAction
   | ICreateCharacterFailAction
   | ICreateCharacterInprogressAction
-  | ICreateCharacterSuccessAction;
+  | ICreateCharacterSuccessAction
+  | IUpdateCharacterFailAction
+  | IUpdateCharacterInprogressAction
+  | IUpdateCharacterSuccessAction
+  | IDeleteCharacterFailAction
+  | IDeleteCharacterInprogressAction
+  | IDeleteCharacterSuccessAction;
 
 export default ActionTypes;

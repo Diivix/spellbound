@@ -8,10 +8,9 @@ import { getUserData } from '../actions/user/actions';
 import CharacterEditablePopupComponent from '../components/characters/CharacterEditablePopup';
 import CompendiumMenu from '../components/CompendiumMenu';
 import SpellCard from '../components/spells/SpellCard';
-import { IStoreState, IUserData } from '../models';
+import { ICharacter, ICharacterBase, IStoreState, IUserData } from '../models';
 import { isBusy } from '../selectors';
 import CharacterCard from './characters/CharacterCard';
-
 
 interface IUserDashboardStateProps {
   isAuthenticated: boolean;
@@ -20,7 +19,7 @@ interface IUserDashboardStateProps {
 }
 
 interface IUserDashboardDispatchProps {
-  createCharacter: (name: string, classTypes?: string, level?: number, description?: string) => {};
+  createCharacter: (character: ICharacter) => {};
   getUserData: () => {};
 }
 
@@ -97,7 +96,7 @@ function mapStateToProps(state: IStoreState): IUserDashboardStateProps {
 
 function mapDispatchToProps(dispatch: any): IUserDashboardDispatchProps {
   return {
-    createCharacter: (name: string, classType?: string, level?: number, description?: string) => dispatch(createCharacter(name, classType, level, description)),
+    createCharacter: (character: ICharacterBase) => dispatch(createCharacter(character)),
     getUserData: () => dispatch(getUserData())
   };
 }

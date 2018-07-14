@@ -9,7 +9,7 @@ import { isUndefined } from 'util';
 import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
 import CharacterEditablePopupComponent from '../../components/characters/CharacterEditablePopup';
 import SpellCard from '../../components/spells/SpellCard';
-import { ICharacter, IStoreState } from '../../models';
+import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { getCharacter } from '../../selectors';
 
 interface ICharacterComponentStateProps {
@@ -19,7 +19,7 @@ interface ICharacterComponentStateProps {
 interface ICharacterComponentDispatchProps {
   changeRoute: (routeName: string) => {};
   deleteCharacter: (characterId: string) => {};
-  updateCharacter: (characterId: string, characterName?: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  updateCharacter: (character: { id: string } & ICharacterBase) => {};
 }
 
 interface IProps extends ICharacterComponentStateProps, ICharacterComponentDispatchProps {
@@ -46,7 +46,11 @@ class CharacterCompoent extends React.Component<IProps, {}> {
       <div>
         <CharacterEditablePopupComponent
           isCreate={false}
-          trigger={<div><CharacterHeaderComponent characterName={this.props.character.name} /></div>}
+          trigger={
+            <div>
+              <CharacterHeaderComponent characterName={this.props.character.name} />
+            </div>
+          }
           characterId={this.props.character._id}
           name={this.props.character.name}
           classType={this.props.character.classType}
@@ -84,7 +88,7 @@ const mapDispatchToProps = (dispatch: any): ICharacterComponentDispatchProps => 
   return {
     changeRoute: (routeName: string) => dispatch(push(routeName)),
     deleteCharacter: (id: string) => dispatch(deleteCharacter(id)),
-    updateCharacter: (id: string, name: string, classType?: string, level?: number, description?: string) => dispatch(updateCharacter(id, name, classType, level, description))
+    updateCharacter: (character: { id: string } & ICharacterBase) => dispatch(updateCharacter(character))
   };
 };
 

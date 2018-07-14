@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { ICharacterBase } from 'models';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { Button, Form, InputOnChangeData, Popup } from 'semantic-ui-react';
@@ -12,8 +13,8 @@ interface IProps {
   classType?: string;
   level?: number;
   description?: string;
-  create?: (name: string, classType?: string, level?: number, description?: string) => {};
-  update?: (id: string, name?: string, classType?: string, level?: number, description?: string) => {};
+  create?: (character: ICharacterBase) => {};
+  update?: (character: { id: string } & ICharacterBase) => {};
   delete?: (charcterId: string) => {};
 }
 
@@ -67,9 +68,27 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
 
   public handleSubmit = () => {
     if (this.props.isCreate && !isUndefined(this.props.create) && !isUndefined(this.state.name)) {
-      this.props.create(this.state.name, this.state.classType, Number(this.state.level), this.state.description);
-    } else if (!this.props.isCreate && !isUndefined(this.props.update) && !isUndefined(this.props.characterId)) {
-      this.props.update(this.props.characterId, this.state.name, this.state.classType, Number(this.state.level), this.state.description);
+      const character: ICharacterBase = {
+        classType: this.state.classType,
+        description: this.state.description,
+        level: Number(this.state.level),
+        name: this.state.name
+      };
+      this.props.create(character);
+    } else if (
+      !this.props.isCreate &&
+      !isUndefined(this.props.update) &&
+      !isUndefined(this.props.characterId) &&
+      !isUndefined(this.state.name)
+    ) {
+      const character: { id: string } & ICharacterBase = {
+        classType: this.state.classType,
+        description: this.state.description,
+        id: this.props.characterId,
+        level: Number(this.state.level),
+        name: this.state.name
+      };
+      this.props.update(character);
     } else if (!this.props.isCreate && !isUndefined(this.props.delete) && !isUndefined(this.props.characterId)) {
       this.props.delete(this.props.characterId);
     }
@@ -121,8 +140,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} />
           </Form.Group>
         </Form>
-        { !this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} /> }
-
+        {!this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} />}
       </Popup>
     );
   }

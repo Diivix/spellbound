@@ -10,17 +10,11 @@ import { ICreateCharacterFailAction, ICreateCharacterInprogressAction, ICreateCh
 import { IDeleteCharacterFailAction, IDeleteCharacterInprogressAction, IDeleteCharacterSuccessAction } from './deleteCharacter';
 import { IUpdateCharacterFailAction, IUpdateCharacterInprogressAction, IUpdateCharacterSuccessAction } from './updatecharacter';
 
-export function createCharacter(
-  name: string,
-  classType?: string,
-  level?: number,
-  description?: string
-): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+export function createCharacter(character: ICharacterBase): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
     dispatch(createCharacterInprogress());
 
     try {
-      const character: ICharacterBase = { name, classType, level, description };
       const user: IUserData = await createCharacterFromApi(character);
 
       dispatch(createCharacterSuccess(user));
@@ -55,18 +49,11 @@ function createCharacterSuccess(user: IUserData): ICreateCharacterSuccessAction 
   };
 }
 
-export function updateCharacter(
-  id: string,
-  name: string,
-  classType?: string,
-  level?: number,
-  description?: string
-): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+export function updateCharacter(character: { id: string } & ICharacterBase): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
     dispatch(updateCharacterInprogress());
 
     try {
-      const character: { id: string } & ICharacterBase = { id, name, classType, level, description };
       const user: IUserData = await updateCharacterFromApi(character);
 
       dispatch(updateCharacterSuccess(user));

@@ -11,6 +11,12 @@ export default function userReducer(state = initialState.userData, action: Actio
     case ActionTypeKeys.CREATE_CHARACTER_SUCCESS:
       const userCreateCharacterPayload: IUserData = action.payload;
       return Object.assign({}, state, userCreateCharacterPayload);
+    case ActionTypeKeys.UPDATE_CHARACTER_SUCCESS:
+      const userUpdateCharacterPayload: IUserData = action.payload;
+      return Object.assign({}, state, userUpdateCharacterPayload);
+    case ActionTypeKeys.DELETE_CHARACTER_SUCCESS:
+      const userDeleteCharacterPayload: IUserData = action.payload;
+      return Object.assign({}, state, userDeleteCharacterPayload);
     default:
       return state;
   }

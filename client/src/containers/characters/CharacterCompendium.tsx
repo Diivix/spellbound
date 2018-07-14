@@ -1,10 +1,11 @@
+import { createCharacter } from 'actions/characters/actions';
 import CharacterEditablePopupComponent from 'components/characters/CharacterEditablePopup';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isNull } from 'util';
 import CompendiumMenu from '../../components/CompendiumMenu';
-import { ICharacter, IStoreState } from '../../models';
+import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
 import CharacterCard from './CharacterCard';
 
@@ -14,7 +15,7 @@ interface ICharacterCompendiumStateProps {
 }
 
 interface ICharacterCompendiumDispatchProps {
-  createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => {};
+  createCharacter: (character: ICharacterBase) => {};
 }
 
 class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumStateProps & ICharacterCompendiumDispatchProps, {}> {
@@ -62,7 +63,7 @@ function mapStateToProps(state: IStoreState): ICharacterCompendiumStateProps {
 
 function mapDispatchToProps(dispatch: any): ICharacterCompendiumDispatchProps {
   return {
-    createCharacter: (characterName: string, characterClass?: string, characterLevel?: number, characterDescription?: string) => dispatch()
+    createCharacter: (character: ICharacterBase) => dispatch(createCharacter(character))
   };
 }
 

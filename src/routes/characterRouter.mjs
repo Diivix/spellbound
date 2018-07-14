@@ -19,6 +19,8 @@ router.post('/create', requireLogin, function(req, res, next) {
     return res.status(500).send('A character "name" is required.');
   }
 
+  console.log(req.body)
+
   user.findById(req.session.user._id, function(err, user) {
     if (err) {
       const err = new Error('There was a problem finding your account.');
@@ -38,7 +40,7 @@ router.post('/create', requireLogin, function(req, res, next) {
     user.characters.push({
       name: req.body.name,
       level: req.body.level,
-      class: req.body.class,
+      classType: req.body.classType,
       description: req.body.description,
       dateCreated: dateCreated,
       dateLastModified: dateLastModified,
@@ -63,7 +65,6 @@ router.post('/create', requireLogin, function(req, res, next) {
 // UPDATE
 // UPDATE A CHARACTER
 router.put('/update', requireLogin, function(req, res, next) {
-  console.log(req.body)
   if (!req.body.id) {
     return res.status(500).send('A Character ID must be specified.');
   }
@@ -83,7 +84,7 @@ router.put('/update', requireLogin, function(req, res, next) {
 
     let character = user.characters.id(req.body.id);
     character.name = req.body.name;
-    character.class = req.body.classType;
+    character.classType = req.body.classType;
     character.level = req.body.level;
     character.description = req.body.description;
     character.dateLastModified = Date.now();
@@ -94,9 +95,6 @@ router.put('/update', requireLogin, function(req, res, next) {
         err.status = 500;
         return next(err);
       }
-
-      console.log(user);
-
       return res.status(200).send(user);
     });
   });

@@ -11,7 +11,7 @@ export const characters = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    class: {
+    classType: {
         type: String,
         trime: true
     },
