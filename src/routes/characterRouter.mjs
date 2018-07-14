@@ -19,8 +19,6 @@ router.post('/create', requireLogin, function(req, res, next) {
     return res.status(500).send('A character "name" is required.');
   }
 
-  console.log(req.body)
-
   user.findById(req.session.user._id, function(err, user) {
     if (err) {
       const err = new Error('There was a problem finding your account.');
@@ -121,7 +119,7 @@ router.delete('/delete', requireLogin, function(req, res, next) {
     }
 
     // Remove the character
-    user.characters.pull(characterId);
+    user.characters.pull(req.body.characterId);
 
     user.save(function(err) {
       if (err) {

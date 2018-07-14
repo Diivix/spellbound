@@ -19,7 +19,6 @@ const loggerMiddleware = createLogger();
 // TODO: Fix this!
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-
 export default function configureStore(history: History) {
   return createStore<IStoreState>(
     persistedReducer,

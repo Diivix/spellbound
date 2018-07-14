@@ -16,6 +16,7 @@ interface IProps {
   create?: (character: ICharacterBase) => {};
   update?: (character: { id: string } & ICharacterBase) => {};
   delete?: (charcterId: string) => {};
+  isBusy: boolean;
 }
 
 interface IState {
@@ -137,7 +138,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             onChange={this.handleChange}
           />
           <Form.Group>
-            <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} />
+            <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} loading={this.props.isBusy}/>
           </Form.Group>
         </Form>
         {!this.props.isCreate && <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} />}

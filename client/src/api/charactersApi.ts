@@ -54,7 +54,7 @@ export function updateCharacter(character: { id: string } & ICharacterBase): Pro
 
 // DELETE
 // Deletes a Character, from the current user
-export function deleteCharacter(characterId: string): Promise<IUserData> {
+export function deleteCharacter(characterId: {characterId: string}): Promise<IUserData> {
   const url: string = '/api/users/characters/delete';
 
   return fetch(url, {

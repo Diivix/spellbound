@@ -67,6 +67,7 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
                 </div>
               }
               create={this.props.createCharacter}
+              isBusy={this.props.isBusy}
             />
           </CompendiumMenu>
           <Card.Group doubling={true} stackable={true} itemsPerRow={4}>

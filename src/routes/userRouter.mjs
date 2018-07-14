@@ -64,39 +64,39 @@ router.post('/currentuser', requireLogin, function(req, res, next) {
 // CREATE
 // CREATES A NEW USER
 // TODO: require authentication for this API
-router.post('/create', function(req, res, next) {
-  if (!req.body.email || !req.body.username || !req.body.password || !req.body.passwordConf) {
-    return res.status(500).send('There was a problem with your request.');
-  }
+// router.post('/create', function(req, res, next) {
+//   if (!req.body.email || !req.body.username || !req.body.password || !req.body.passwordConf) {
+//     return res.status(500).send('There was a problem with your request.');
+//   }
 
-  if (req.body.password !== req.body.passwordConf) {
-    return res.status(400).send('Passwords do not match.');
-  }
+//   if (req.body.password !== req.body.passwordConf) {
+//     return res.status(400).send('Passwords do not match.');
+//   }
 
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    if (err) {
-      return next(err);
-    }
+//   bcrypt.hash(req.body.password, 10, function(err, hash) {
+//     if (err) {
+//       return next(err);
+//     }
 
-    user.create(
-      {
-        username: req.body.username,
-        email: req.body.email,
-        password: hash,
-        lastSignedIn: Date.now()
-      },
-      function(err, user) {
-        if (err) {
-          const err = new Error('There was a problem adding the information to the database.');
-          err.status = 500;
-          return next(err);
-        }
+//     user.create(
+//       {
+//         username: req.body.username,
+//         email: req.body.email,
+//         password: hash,
+//         lastSignedIn: Date.now()
+//       },
+//       function(err, user) {
+//         if (err) {
+//           const err = new Error('There was a problem adding the information to the database.');
+//           err.status = 500;
+//           return next(err);
+//         }
 
-        return res.status(200).send('Congratulations!');
-      }
-    );
-  });
-});
+//         return res.status(200).send('Congratulations!');
+//       }
+//     );
+//   });
+// });
 
 // UPDATE
 // UPDATES A SINGLE USER IN THE DATABASE

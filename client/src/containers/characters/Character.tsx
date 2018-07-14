@@ -5,15 +5,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Card, Menu } from 'semantic-ui-react';
-import { isUndefined } from 'util';
+import { isNullOrUndefined, isUndefined } from 'util';
 import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
 import CharacterEditablePopupComponent from '../../components/characters/CharacterEditablePopup';
 import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
-import { getCharacter } from '../../selectors';
+import { getCharacter, isBusy } from '../../selectors';
 
 interface ICharacterComponentStateProps {
   character: ICharacter;
+  isBusy: boolean;
 }
 
 interface ICharacterComponentDispatchProps {
@@ -38,7 +39,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 
   public render() {
-    const spellCards = isUndefined(this.props.character.spells)
+    const spellCards = isNullOrUndefined(this.props.character.spells)
       ? null
       : this.props.character.spells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />);
 
@@ -58,6 +59,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
           description={this.props.character.description}
           update={this.props.updateCharacter}
           delete={this.props.deleteCharacter}
+          isBusy={this.props.isBusy}
         />
 
         <CharacterMetaTableComponent
@@ -69,8 +71,8 @@ class CharacterCompoent extends React.Component<IProps, {}> {
         <CompendiumMenu>
           <Menu.Item disabled={true} name="Equiped Spells" position="left" icon="lightning" />
         </CompendiumMenu>
+
         <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-          {/* TODO: if null, insert picture */}
           {spellCards}
         </Card.Group>
       </div>
@@ -80,7 +82,8 @@ class CharacterCompoent extends React.Component<IProps, {}> {
 
 function mapStateToProps(state: IStoreState, props: IProps): ICharacterComponentStateProps {
   return {
-    character: getCharacter(state, props.match.params.id)
+    character: getCharacter(state, props.match.params.id),
+    isBusy: isBusy(state)
   };
 }
 

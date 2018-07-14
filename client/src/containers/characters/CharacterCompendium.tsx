@@ -43,6 +43,7 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
               </div>
             }
             create={this.props.createCharacter}
+            isBusy={this.props.isBusy}
           />
         </CompendiumMenu>
 
