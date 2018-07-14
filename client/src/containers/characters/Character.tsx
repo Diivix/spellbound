@@ -18,7 +18,7 @@ interface ICharacterComponentStateProps {
 }
 
 interface ICharacterComponentDispatchProps {
-  changeRoute: (routeName: string) => {};
+  changeRoute: (path: string) => {};
   deleteCharacter: (characterId: string) => void;
   updateCharacter: (character: { id: string } & ICharacterBase) => {};
 }
@@ -95,7 +95,7 @@ function mapStateToProps(state: IStoreState, props: IProps): ICharacterComponent
 
 const mapDispatchToProps = (dispatch: any): ICharacterComponentDispatchProps => {
   return {
-    changeRoute: (routeName: string) => dispatch(push(routeName)),
+    changeRoute: (path: string) => dispatch(push(path)),
     deleteCharacter: (id: string) => {
       dispatch(deleteCharacter(id));
       dispatch(push('/characters'));

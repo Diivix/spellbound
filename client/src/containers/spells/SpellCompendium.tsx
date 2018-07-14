@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isNull, isUndefined } from 'util';
 import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from '../../actions/spells/actions';
@@ -16,10 +17,9 @@ interface ISpellCompendiumStateProps {
 }
 
 interface ISpellCompendiumDispatchProps {
-  // tslint:disable-next-line:ban-types
-  getLightSpellsWithFilters: Function;
-  // tslint:disable-next-line:ban-types
-  getLightSpellsWithFiltersFromFilters: Function;
+  changeRoute: (path: string) => {};
+  getLightSpellsWithFilters: () => {};
+  getLightSpellsWithFiltersFromFilters: (filters: IFilters) => {};
 }
 
 interface IState {
@@ -109,7 +109,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
     const filters = this.props.spellsWithFilters.filters;
     const sortedSpells = this.sortSpells(this.state.sortByValue, this.props.spellsWithFilters.spells);
-    const spellCards = sortedSpells.map(spell => <SpellCardWithPopup key={spell._id} spell={spell} />);
+    const spellCards = sortedSpells.map(spell => <SpellCardWithPopup key={spell._id} spell={spell} changeRoute={this.props.changeRoute}/>);
 
     // Format filter values for dropdowns
     let namesFilters: IDropdownCollection[] = [];
@@ -208,6 +208,7 @@ function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
 
 function mapDispatchToProps(dispatch: any): ISpellCompendiumDispatchProps {
   return {
+    changeRoute: (path: string) => dispatch(push(path)),
     getLightSpellsWithFilters: () => dispatch(getLightSpellsWithFilters()),
     getLightSpellsWithFiltersFromFilters: (filters: IFilters) => dispatch(getLightSpellsWithFiltersFromFilters(filters))
   };

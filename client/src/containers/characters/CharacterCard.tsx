@@ -10,8 +10,7 @@ import { ICharacter, IStoreState } from '../../models';
 interface ICharacterCardStateProps {}
 
 interface ICharacterCardDispatchProps {
-  // tslint:disable-next-line:ban-types
-  changeRoute: Function;
+  changeRoute: (path: string) => {};
 }
 
 interface IProps extends ICharacterCardStateProps, ICharacterCardDispatchProps{
@@ -50,7 +49,7 @@ const mapStateToProps = (state: IStoreState): ICharacterCardStateProps => {
 
 const mapDispatchToProps = (dispatch: any): ICharacterCardDispatchProps => {
   return {
-    changeRoute: (routeName: string) => dispatch(push(routeName))
+    changeRoute: (path: string) => dispatch(push(path))
   };
 };
 
