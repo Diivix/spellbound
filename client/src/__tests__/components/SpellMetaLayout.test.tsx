@@ -9,7 +9,7 @@ test('Show Spell Metadata', () => {
     atHigherLevels: '',
     castingTime: '1',
     castingTimeDescription: 'Action',
-    classes: ['Sorcerer', 'Wizard'],
+    classTypes: ['Sorcerer', 'Wizard'],
     components: ['V', 'S'],
     description: '',
     duration: 'action',

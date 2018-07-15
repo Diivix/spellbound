@@ -33,7 +33,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     super(props);
     this.state = {
       filters: {
-        classes: [],
+        classTypes: [],
         components: [],
         levels: [],
         names: [],
@@ -133,14 +133,14 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
       schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) => o.key]);
     }
 
-    let classesFilters: IDropdownCollection[] = [];
-    if (!isUndefined(filters.classes)) {
-      classesFilters = filters.classes.map(filterValue => ({
+    let classTypesFilters: IDropdownCollection[] = [];
+    if (!isUndefined(filters.classTypes)) {
+      classTypesFilters = filters.classTypes.map(filterValue => ({
         key: filterValue,
         text: _.upperFirst(filterValue),
         value: filterValue
       }));
-      classesFilters = _.sortBy(classesFilters, [(o: IDropdownCollection) => o.key]);
+      classTypesFilters = _.sortBy(classTypesFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     let rangesFilters: IDropdownCollection[] = [];
@@ -185,7 +185,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
         <SpellFilterMenuComponent
           addFilterFromEvent={this.addFilterFromEvent}
           namesFilters={namesFilters}
-          classesFilters={classesFilters}
+          classTypesFilters={classTypesFilters}
           schoolsFilters={schoolsFilters}
           componentsFilters={componentsFilters}
           rangesFilters={rangesFilters}

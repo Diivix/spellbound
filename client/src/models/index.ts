@@ -22,7 +22,7 @@ export interface ISpell {
   atHigherLevels?: string;
   castingTime: string;
   castingTimeDescription: string;
-  classes: string[];
+  classTypes: string[];
   components: string[];
   description?: string;
   duration: string;
@@ -49,7 +49,7 @@ export interface ICharacter extends ICharacterBase {
 }
 
 export interface IFilters {
-  classes: string[];
+  classTypes: string[];
   components: string[];
   levels: number[];
   names: string[];

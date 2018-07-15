@@ -4,7 +4,7 @@ export const spells = new mongoose.Schema({
   name: { type: String, lowercase: true, required: true, trim: true },
   school: { type: String, lowercase: true, required: true, trim: true },
   level: { type: Number, required: true },
-  classes: [{ type: String, lowercase: true, required: true, trim: true }],
+  classTypes: [{ type: String, lowercase: true, required: true, trim: true }],
   castingTime: { type: String, lowercase: true, required: true, trim: true },
   castingTimeDescription: { type: String, lowercase: true, trim: true },
   range: { type: String, lowercase: true, required: true, trim: true },

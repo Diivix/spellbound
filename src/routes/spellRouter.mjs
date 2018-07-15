@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(bodyParser.json({ limit: '5mb' }));
 router.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 
-const lightSpellFields = 'name school level classes castingTime castingTimeDescription range rangeDescription components duration durationDescription materials';
+const lightSpellFields = 'name school level classTypes castingTime castingTimeDescription range rangeDescription components duration durationDescription materials';
 
 
 // METHODS
@@ -16,7 +16,7 @@ function getAllPossibleFilters(spells) {
     const names = spells.map(spell => spell.name);
     const schools = spells.map(spell => spell.school);
     const levels = spells.map(spell => spell.level);
-    const classes = spells.map(spell => spell.classes);
+    const classTypes = spells.map(spell => spell.classTypes);
     const ranges = spells.map(spell => spell.range);
     const components = spells.map(spell => spell.components);
     // const materials = spells.map(spell => (spell.materials));
@@ -25,7 +25,7 @@ function getAllPossibleFilters(spells) {
         names: names,
         schools: _.uniq(schools),
         levels: _.uniq(levels),
-        classes: _.uniq(_.flattenDeep(classes)),
+        classTypes: _.uniq(_.flattenDeep(classTypes)),
         // castingTime: 1,
         // castingTimeDescription: 'action',
         ranges: _.uniq(ranges),
@@ -44,7 +44,7 @@ function buildFindQuery(filters) {
         new_filters.hasOwnProperty("names") && { name: { $in: new_filters.names.map(value => (_.toLower(value))) }  },
         new_filters.hasOwnProperty("schools") && { school: { $in: new_filters.schools.map(value => (_.toLower(value))) } },
         new_filters.hasOwnProperty("levels") && { level: { $in: new_filters.levels.map(value => (_.toLower(value))) } },
-        new_filters.hasOwnProperty("classes") && { classes: { $in: new_filters.classes.map(value => (_.toLower(value))) } },
+        new_filters.hasOwnProperty("classTypes") && { classTypes: { $in: new_filters.classTypes.map(value => (_.toLower(value))) } },
         new_filters.hasOwnProperty("ranges") && { range: { $in: new_filters.ranges.map(value => (_.toLower(value))) } },
         new_filters.hasOwnProperty("components") && { components: { $in: new_filters.components.map(value => (_.toLower(value))) } }
     )
@@ -116,7 +116,7 @@ router.get('/light', requireLogin, function (req, res, next) {
 //              name: 'some spell'
 //              schools: ['destruction'],
 //              levels: [1, 2]
-//              classes ['wizard']
+//              classTypes ['wizard']
 //              ranges: [-1, 0, 120]
 //              components: ['V', 'S', 'M'],
 //          }
