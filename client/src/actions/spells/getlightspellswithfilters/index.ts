@@ -1,9 +1,9 @@
-import { ISpellsWithFilters } from "models";
+import { IFilters, ISpell } from "models";
 import keys from "../../ActionTypeKeys";
 
 export interface IGetLightSpellsWithFiltersSuccessAction {
   readonly type: keys.GET_LIGHTSPELLSWITHFILTERS_SUCCESS;
-  readonly payload: ISpellsWithFilters;
+  readonly payload: { spells: ISpell[]; filters: IFilters };
 }
 
 export interface IGetLightSpellsWithFiltersInProgressAction {

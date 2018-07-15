@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { isNull } from 'util';
 import { ICharacter, IFilters, IStoreState } from '../models';
 
-// Derived data selectors = using reselect
+// Derived data selectors, using reselect
 const pendingActionsSelector = (state: IStoreState) => state.pendingActions;
 const getCharacterSelector = (state: IStoreState, characterId: string) => {
   if (isNull(state.userData)) {
@@ -12,11 +12,11 @@ const getCharacterSelector = (state: IStoreState, characterId: string) => {
   }
 };
 const getSpellsSelector = (state: IStoreState, filters: IFilters) => {
-  if(isNull(state.spellData.spellsWithFilters)) {
+  if(isNull(state.spellData.spells)) {
     return null;
   } else {
     // TODO: filter spells here.
-    return state.spellData.spellsWithFilters.spells;
+    return state.spellData.spells;
   }
 };
 

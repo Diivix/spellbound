@@ -3,8 +3,9 @@ export interface IStoreState {
   readonly isAuthenticated: boolean;
   readonly userData: IUserData | null;
   readonly spellData: {
-    readonly spellsWithFilters: ISpellsWithFilters | null,
     readonly currentSpell: ISpell | null;
+    readonly spells: ISpell[] | null;
+    readonly filters: IFilters | null;
   };
 };
 
@@ -45,11 +46,6 @@ export interface ICharacter extends ICharacterBase {
   dateCreated: number;
   dateLastModified: number;
   spells?: ISpell[];
-}
-
-export interface ISpellsWithFilters {
-  readonly filters: IFilters;
-  readonly spells: ISpell[];
 }
 
 export interface IFilters {

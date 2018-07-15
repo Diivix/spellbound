@@ -31,7 +31,7 @@ class SpellCardWithPopupComponent extends React.Component<IProps, IState> {
     );
 
     return (
-      <Popup trigger={spellCard} on="focus" position="bottom center" hideOnScroll={true}>
+      <Popup trigger={spellCard} on="click" position="bottom center" hideOnScroll={true}>
         <SpellMetaLayout spell={this.props.spell} />
 
         <Grid>

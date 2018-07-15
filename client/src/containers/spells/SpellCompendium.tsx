@@ -8,12 +8,13 @@ import { getLightSpellsWithFilters, getLightSpellsWithFiltersFromFilters } from 
 import CompendiumMenu from '../../components/CompendiumMenu';
 import SpellCardWithPopup from '../../components/spells/SpellCardWithPopup';
 import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
-import { IDropdownCollection, IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../../models';
+import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
 
 interface ISpellCompendiumStateProps {
+  filters: IFilters | null;
   isBusy: boolean;
-  spellsWithFilters: ISpellsWithFilters | null;
+  spells: ISpell[] | null;
 }
 
 interface ISpellCompendiumDispatchProps {
@@ -44,7 +45,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   }
 
   public componentDidMount() {
-    if (isNull(this.props.spellsWithFilters)) {
+    if (isNull(this.props.spells)) {
       this.props.getLightSpellsWithFilters();
     }
   }
@@ -103,12 +104,12 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
-    if (this.props.isBusy || isNull(this.props.spellsWithFilters)) {
+    if (this.props.isBusy || isNull(this.props.spells) || isNull(this.props.filters)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
-    const filters = this.props.spellsWithFilters.filters;
-    const sortedSpells = this.sortSpells(this.state.sortByValue, this.props.spellsWithFilters.spells);
+    const filters = this.props.filters;
+    const sortedSpells = this.sortSpells(this.state.sortByValue, this.props.spells);
     const spellCards = sortedSpells.map(spell => <SpellCardWithPopup key={spell._id} spell={spell} changeRoute={this.props.changeRoute}/>);
 
     // Format filter values for dropdowns
@@ -201,8 +202,9 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
 function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
   return {
+    filters: state.spellData.filters,
     isBusy: isBusy(state),
-    spellsWithFilters: state.spellData.spellsWithFilters
+    spells: state.spellData.spells
   };
 }
 

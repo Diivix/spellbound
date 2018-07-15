@@ -1,4 +1,4 @@
-import { IFilters, ISpell, ISpellsWithFilters } from 'models';
+import { IFilters, ISpell } from 'models';
 
 // GET
 // Gets a spell (full spell), from an id
@@ -24,7 +24,7 @@ export function getSpell(id: string): Promise<ISpell> {
 
 // GET
 // Gets all spells with filters
-export function getLightSpellsWithFilters(): Promise<ISpellsWithFilters> {
+export function getLightSpellsWithFilters(): Promise<{ spells: ISpell[]; filters: IFilters }> {
   const url: string = '/api/spells/light/withfilters';
 
   return fetch(url, {
@@ -39,14 +39,14 @@ export function getLightSpellsWithFilters(): Promise<ISpellsWithFilters> {
       }
     })
     .then(response => response.json())
-    .then((lightSpellsWithFilters: ISpellsWithFilters) => {
+    .then((lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }) => {
       return lightSpellsWithFilters;
     });
 }
 
 // POST
 // Gets all spells with filters, from provided filters
-export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise<ISpellsWithFilters> {
+export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise<{ spells: ISpell[]; filters: IFilters }> {
   const url: string = '/api/spells/light/withfilters';
 
   return fetch(url, {
@@ -65,7 +65,7 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise
       }
     })
     .then(response => response.json())
-    .then((lightSpellsWithFilters: ISpellsWithFilters) => {
+    .then((lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }) => {
       return lightSpellsWithFilters;
     });
 }

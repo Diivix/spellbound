@@ -5,7 +5,8 @@ const defaultState: IStoreState = {
   pendingActions: 0,
   spellData: {
     currentSpell: null,
-    spellsWithFilters: null
+    filters: null,
+    spells: null
   },
   userData: null
 };

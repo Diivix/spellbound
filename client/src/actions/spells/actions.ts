@@ -4,7 +4,7 @@ import {
   getLightSpellsWithFiltersFromFilters as getLightSpellsWithFiltersFromFiltersFromApi,
   getSpell as getSpellFromApi
 } from '../../api/spellsApi';
-import { IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../../models';
+import { IFilters, ISpell, IStoreState } from '../../models';
 import keys from '../ActionTypeKeys';
 import {
   IGetLightSpellsWithFiltersFailAction,
@@ -34,7 +34,7 @@ export function getLightSpellsWithFilters(): (dispatch: Dispatch<IStoreState>) =
     dispatch(lightSpellsWithFiltersInProgress());
 
     try {
-      const spellsWithFilters: ISpellsWithFilters = await getLightSpellsWithFiltersFromApi();
+      const spellsWithFilters: { spells: ISpell[]; filters: IFilters } = await getLightSpellsWithFiltersFromApi();
 
       dispatch(lightSpellsWithFiltersSuccess(spellsWithFilters));
     } catch (err) {
@@ -49,7 +49,7 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): (dispat
     dispatch(lightSpellsWithFiltersInProgress());
 
     try {
-      const spellsWithFilters: ISpellsWithFilters = await getLightSpellsWithFiltersFromFiltersFromApi(filters);
+      const spellsWithFilters: { spells: ISpell[]; filters: IFilters } = await getLightSpellsWithFiltersFromFiltersFromApi(filters);
 
       dispatch(lightSpellsWithFiltersSuccess(spellsWithFilters));
     } catch (err) {
@@ -75,7 +75,7 @@ function lightSpellsWithFiltersInProgress(): IGetLightSpellsWithFiltersInProgres
   };
 }
 
-function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: ISpellsWithFilters): IGetLightSpellsWithFiltersSuccessAction {
+function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }): IGetLightSpellsWithFiltersSuccessAction {
   return {
     payload: lightSpellsWithFilters,
     type: keys.GET_LIGHTSPELLSWITHFILTERS_SUCCESS
