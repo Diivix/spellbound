@@ -3,7 +3,7 @@ import CharacterEditablePopupComponent from 'components/characters/CharacterEdit
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
-import { isNull } from 'util';
+import { isUndefined } from 'util';
 import CompendiumMenu from '../../components/CompendiumMenu';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
@@ -11,7 +11,7 @@ import CharacterCard from './CharacterCard';
 
 interface ICharacterCompendiumStateProps {
   isBusy: boolean;
-  characters: ICharacter[] | null;
+  characters: ICharacter[] | undefined;
 }
 
 interface ICharacterCompendiumDispatchProps {
@@ -24,7 +24,7 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
   }
 
   public render() {
-    if (this.props.isBusy || isNull(this.props.characters)) {
+    if (this.props.isBusy || isUndefined(this.props.characters)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
@@ -57,7 +57,7 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
 
 function mapStateToProps(state: IStoreState): ICharacterCompendiumStateProps {
   return {
-    characters: isNull(state.userData) ? null : state.userData.characters,
+    characters: isUndefined(state.userData) ? undefined : state.userData.characters,
     isBusy: isBusy(state)
   };
 }

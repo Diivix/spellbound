@@ -1,25 +1,25 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
-import { isNull } from 'util';
+import { isUndefined } from 'util';
 import { ICharacter, ISpell, IStoreState } from '../models';
 
 // Input Selectors
 const pendingActionsSelector = (state: IStoreState) => state.pendingActions;
 
-const spellsInCacheSelector = (state: IStoreState): ISpell[] | null => state.spellData.spells;
+const spellsInCacheSelector = (state: IStoreState): ISpell[] | undefined => state.spellData.spells;
 
 const getCharacterSelector = (state: IStoreState, characterId: string) => {
-  if (isNull(state.userData)) {
-    return null;
+  if (isUndefined(state.userData)) {
+    return undefined;
   } else {
     return state.userData.characters.find(character => character._id === characterId);
   }
 };
 
 const getSpellsSelector = (state: IStoreState): ISpell[] | null => {
-  if (isNull(state.spellData.spells)) {
+  if (isUndefined(state.spellData.spells)) {
     return null;
-  } else if (isNull(state.spellData.appliedFilters)) {
+  } else if (isUndefined(state.spellData.appliedFilters)) {
     return state.spellData.spells;
   } else {
     const { appliedFilters } = state.spellData;
@@ -76,8 +76,8 @@ const getSpellsSelector = (state: IStoreState): ISpell[] | null => {
 // Memoised Selectors
 export const isBusy = createSelector([pendingActionsSelector], pendingActions => pendingActions > 0);
 
-export const hasSpells = createSelector([spellsInCacheSelector], (spells: ISpell[] | null) => {
-  if (isNull(spells) || spells.length === 0) {
+export const hasSpells = createSelector([spellsInCacheSelector], (spells: ISpell[]) => {
+  if (spells.length === 0) {
     return false;
   } else {
     return true;

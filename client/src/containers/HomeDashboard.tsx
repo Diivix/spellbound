@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
-import { isNull } from 'util';
+import { isUndefined } from 'util';
 import { createCharacter } from '../actions/characters/actions';
 import { getUserData } from '../actions/user/actions';
 import CharacterEditablePopupComponent from '../components/characters/CharacterEditablePopup';
@@ -15,7 +15,7 @@ import CharacterCard from './characters/CharacterCard';
 interface IUserDashboardStateProps {
   isAuthenticated: boolean;
   isBusy: boolean;
-  userData: IUserData | null;
+  userData: IUserData | undefined;
 }
 
 interface IUserDashboardDispatchProps {
@@ -29,7 +29,7 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
   }
 
   public componentDidMount() {
-    if (isNull(this.props.userData)) {
+    if (isUndefined(this.props.userData)) {
       this.props.getUserData();
     }
   }
@@ -40,7 +40,7 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
 
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
-    if (this.props.isBusy || isNull(this.props.userData)) {
+    if (this.props.isBusy || isUndefined(this.props.userData)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 

@@ -5,7 +5,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Card, Menu } from 'semantic-ui-react';
-import { isNullOrUndefined, isUndefined } from 'util';
+import { isUndefined } from 'util';
 import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
 import CharacterEditablePopupComponent from '../../components/characters/CharacterEditablePopup';
 import SpellCard from '../../components/spells/SpellCard';
@@ -13,7 +13,7 @@ import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { getCharacter, isBusy } from '../../selectors';
 
 interface ICharacterComponentStateProps {
-  character: ICharacter;
+  character: ICharacter | undefined;
   isBusy: boolean;
 }
 
@@ -39,13 +39,13 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 
   public render() {
-    if(isNullOrUndefined(this.props.character)) {
+    if(isUndefined(this.props.character)) {
       return (
         <div>Character not found.</div>
       );
     }
 
-    const spellCards = isNullOrUndefined(this.props.character.spells)
+    const spellCards = isUndefined(this.props.character.spells)
       ? null
       : this.props.character.spells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />);
 

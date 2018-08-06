@@ -1,12 +1,12 @@
 export interface IStoreState {
   readonly pendingActions: number;
   readonly isAuthenticated: boolean;
-  readonly userData: IUserData | null;
+  readonly userData: IUserData | undefined;
   readonly spellData: {
-    readonly currentSpell: ISpell | null;
-    readonly spells: ISpell[] | null;
-    readonly filters: IFilters | null;
-    readonly appliedFilters: IFilters | null;
+    readonly currentSpell: ISpell | undefined;
+    readonly spells: ISpell[] | undefined;
+    readonly filters: IFilters | undefined;
+    readonly appliedFilters: IFilters | undefined;
   };
 };
 

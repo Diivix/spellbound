@@ -3,7 +3,7 @@ import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
-import { isNull, isNullOrUndefined, isUndefined } from 'util';
+import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
 import CompendiumMenu from '../../components/CompendiumMenu';
 import SpellCardWithPopup from '../../components/spells/SpellCardWithPopup';
@@ -12,11 +12,11 @@ import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models
 import { getSpells, hasSpells, isBusy } from '../../selectors';
 
 interface ISpellCompendiumStateProps {
-  appliedFilters: IFilters | null;
+  appliedFilters?: IFilters | undefined;
   hasSpells: boolean;
   isBusy: boolean;
-  filters: IFilters | null;
-  getSpells: ISpell[] | null;
+  filters: IFilters | undefined;
+  getSpells: ISpell[] | undefined;
 }
 
 interface ISpellCompendiumDispatchProps {
@@ -38,7 +38,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   }
 
   public componentDidMount() {
-    if (!this.props.hasSpells || isNull(this.props.filters)) {
+    if (!this.props.hasSpells || isUndefined(this.props.filters)) {
       this.props.getLightSpellsWithFilters();
     }
   }
@@ -70,7 +70,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
   };
 
   public addFilter = (name: string, value: string): void => {
-    const tempFilters = !isNull(this.props.appliedFilters)
+    const tempFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
       : {
           classTypes: [],
@@ -96,11 +96,11 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
 
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
-    if (this.props.isBusy || isNullOrUndefined(this.props.getSpells) || isNullOrUndefined(this.props.filters)) {
+    if (this.props.isBusy || isUndefined(this.props.getSpells) || isUndefined(this.props.filters)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
-    const appliedFilters = !isNull(this.props.appliedFilters)
+    const appliedFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
       : {
           classTypes: [],

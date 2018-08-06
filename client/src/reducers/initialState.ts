@@ -4,12 +4,12 @@ const defaultState: IStoreState = {
   isAuthenticated: false,
   pendingActions: 0,
   spellData: {
-    appliedFilters: null,
-    currentSpell: null,
-    filters: null,
-    spells: null
+    appliedFilters: undefined,
+    currentSpell: undefined,
+    filters: undefined,
+    spells: undefined
   },
-  userData: null
+  userData: undefined
 };
 
 export default defaultState;
