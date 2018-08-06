@@ -4,6 +4,7 @@ const defaultState: IStoreState = {
   isAuthenticated: false,
   pendingActions: 0,
   spellData: {
+    appliedFilters: null,
     currentSpell: null,
     filters: null,
     spells: null

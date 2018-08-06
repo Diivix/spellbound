@@ -6,6 +6,7 @@ export interface IStoreState {
     readonly currentSpell: ISpell | null;
     readonly spells: ISpell[] | null;
     readonly filters: IFilters | null;
+    readonly appliedFilters: IFilters | null;
   };
 };
 

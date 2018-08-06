@@ -12,6 +12,7 @@ import {
   IGetLightSpellsWithFiltersSuccessAction
 } from './getlightspellswithfilters';
 import { IGetSpellFailAction, IGetSpellInProgressAction, IGetSpellSuccessAction } from './getspell';
+import { ISetFiltersFailAction, ISetFiltersInprogressAction, ISetFiltersSuccessAction } from './setAppliedFilters';
 
 export function getSpell(id: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
@@ -58,6 +59,17 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): (dispat
   };
 }
 
+export function setAppliedFilters(filters: IFilters): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>) => {
+    dispatch(setFiltersInProgress());
+    try {
+      dispatch(setFiltersSuccess(filters));
+    } catch (err) {
+      dispatch(setFiltersFail(err));
+    }
+  };
+}
+
 function lightSpellsWithFiltersFail(error: Error): IGetLightSpellsWithFiltersFailAction {
   const errorType: keys.GET_LIGHTSPELLSWITHFILTERS_FAIL | keys.GET_LIGHTSPELLSWITHFILTERS_UNAUTHORISED =
     error.message === 'Unauthorized' ? keys.GET_LIGHTSPELLSWITHFILTERS_UNAUTHORISED : keys.GET_LIGHTSPELLSWITHFILTERS_FAIL;
@@ -75,7 +87,10 @@ function lightSpellsWithFiltersInProgress(): IGetLightSpellsWithFiltersInProgres
   };
 }
 
-function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }): IGetLightSpellsWithFiltersSuccessAction {
+function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: {
+  spells: ISpell[];
+  filters: IFilters;
+}): IGetLightSpellsWithFiltersSuccessAction {
   return {
     payload: lightSpellsWithFilters,
     type: keys.GET_LIGHTSPELLSWITHFILTERS_SUCCESS
@@ -104,5 +119,30 @@ function spellSuccess(spellFromId: ISpell): IGetSpellSuccessAction {
   return {
     payload: spellFromId,
     type: keys.GET_SPELL_SUCCESS
+  };
+}
+
+function setFiltersFail(error: Error): ISetFiltersFailAction {
+  const errorType: keys.SET_FILTERS_FAIL | keys.SET_FILTERS_UNAUTHORISED =
+    error.message === 'Unauthorized' ? keys.SET_FILTERS_UNAUTHORISED : keys.SET_FILTERS_FAIL;
+
+  return {
+    payload: {
+      error
+    },
+    type: errorType
+  };
+}
+
+function setFiltersInProgress(): ISetFiltersInprogressAction {
+  return {
+    type: keys.SET_FILTERS_INPROGRESS
+  };
+}
+
+function setFiltersSuccess(filters: IFilters): ISetFiltersSuccessAction {
+  return {
+    payload: filters,
+    type: keys.SET_FILTERS_SUCCESS
   };
 }

@@ -9,6 +9,7 @@ import {
   IGetLightSpellsWithFiltersSuccessAction
 } from './spells/getlightspellswithfilters';
 import { IGetSpellFailAction, IGetSpellInProgressAction, IGetSpellSuccessAction } from './spells/getspell';
+import { ISetFiltersFailAction, ISetFiltersSuccessAction } from './spells/setAppliedFilters';
 import { IGetUserDataFailAction, IGetUserDataInProgressAction, IGetUserDataSuccessAction } from './user/getuserdata';
 
 type ActionTypes =
@@ -24,6 +25,9 @@ type ActionTypes =
   | IGetSpellFailAction
   | IGetSpellInProgressAction
   | IGetSpellSuccessAction
+  | ISetFiltersFailAction
+  | ISignInInProgressAction
+  | ISetFiltersSuccessAction
   | IGetUserDataFailAction
   | IGetUserDataInProgressAction
   | IGetUserDataSuccessAction

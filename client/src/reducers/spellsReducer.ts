@@ -7,10 +7,13 @@ export default function spellsReducer(state = initialState.spellData, action: Ac
   switch (action.type) {
     case ActionTypeKeys.GET_LIGHTSPELLSWITHFILTERS_SUCCESS:
       const spellsWithFiltersPayload: { spells: ISpell[]; filters: IFilters } = action.payload;
-      return Object.assign({}, state, spellsWithFiltersPayload );
+      return Object.assign({}, state, spellsWithFiltersPayload);
     case ActionTypeKeys.GET_SPELL_SUCCESS:
       const spellPayload: ISpell = action.payload;
       return Object.assign({}, state, { currentSpell: spellPayload });
+    case ActionTypeKeys.SET_FILTERS_SUCCESS:
+      const filerPayload: IFilters = action.payload;
+      return Object.assign({}, state, { appliedFilters: filerPayload });
     default:
       return state;
   }
