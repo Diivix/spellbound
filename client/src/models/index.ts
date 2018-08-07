@@ -1,10 +1,12 @@
 export interface IStoreState {
   readonly pendingActions: number;
   readonly isAuthenticated: boolean;
-  readonly userData: IUserData | null;
+  readonly userData: IUserData;
   readonly spellData: {
-    readonly spellsWithFilters: ISpellsWithFilters | null,
-    readonly currentSpell: ISpell | null;
+    readonly currentSpell?: ISpell;
+    readonly spells?: ISpell[];
+    readonly filters?: IFilters;
+    readonly appliedFilters?: IFilters;
   };
 };
 
@@ -21,7 +23,7 @@ export interface ISpell {
   atHigherLevels?: string;
   castingTime: string;
   castingTimeDescription: string;
-  classes: string[];
+  classTypes: string[];
   components: string[];
   description?: string;
   duration: string;
@@ -47,13 +49,8 @@ export interface ICharacter extends ICharacterBase {
   spells?: ISpell[];
 }
 
-export interface ISpellsWithFilters {
-  readonly filters: IFilters;
-  readonly spells: ISpell[];
-}
-
 export interface IFilters {
-  classes: string[];
+  classTypes: string[];
   components: string[];
   levels: number[];
   names: string[];

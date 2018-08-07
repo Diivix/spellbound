@@ -4,7 +4,7 @@ import {
   getLightSpellsWithFiltersFromFilters as getLightSpellsWithFiltersFromFiltersFromApi,
   getSpell as getSpellFromApi
 } from '../../api/spellsApi';
-import { IFilters, ISpell, ISpellsWithFilters, IStoreState } from '../../models';
+import { IFilters, ISpell, IStoreState } from '../../models';
 import keys from '../ActionTypeKeys';
 import {
   IGetLightSpellsWithFiltersFailAction,
@@ -12,6 +12,7 @@ import {
   IGetLightSpellsWithFiltersSuccessAction
 } from './getlightspellswithfilters';
 import { IGetSpellFailAction, IGetSpellInProgressAction, IGetSpellSuccessAction } from './getspell';
+import { ISetFiltersFailAction, ISetFiltersInprogressAction, ISetFiltersSuccessAction } from './setAppliedFilters';
 
 export function getSpell(id: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
@@ -34,7 +35,7 @@ export function getLightSpellsWithFilters(): (dispatch: Dispatch<IStoreState>) =
     dispatch(lightSpellsWithFiltersInProgress());
 
     try {
-      const spellsWithFilters: ISpellsWithFilters = await getLightSpellsWithFiltersFromApi();
+      const spellsWithFilters: { spells: ISpell[]; filters: IFilters } = await getLightSpellsWithFiltersFromApi();
 
       dispatch(lightSpellsWithFiltersSuccess(spellsWithFilters));
     } catch (err) {
@@ -49,11 +50,22 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): (dispat
     dispatch(lightSpellsWithFiltersInProgress());
 
     try {
-      const spellsWithFilters: ISpellsWithFilters = await getLightSpellsWithFiltersFromFiltersFromApi(filters);
+      const spellsWithFilters: { spells: ISpell[]; filters: IFilters } = await getLightSpellsWithFiltersFromFiltersFromApi(filters);
 
       dispatch(lightSpellsWithFiltersSuccess(spellsWithFilters));
     } catch (err) {
       dispatch(lightSpellsWithFiltersFail(err));
+    }
+  };
+}
+
+export function setAppliedFilters(filters: IFilters): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>) => {
+    dispatch(setFiltersInProgress());
+    try {
+      dispatch(setFiltersSuccess(filters));
+    } catch (err) {
+      dispatch(setFiltersFail(err));
     }
   };
 }
@@ -75,7 +87,10 @@ function lightSpellsWithFiltersInProgress(): IGetLightSpellsWithFiltersInProgres
   };
 }
 
-function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: ISpellsWithFilters): IGetLightSpellsWithFiltersSuccessAction {
+function lightSpellsWithFiltersSuccess(lightSpellsWithFilters: {
+  spells: ISpell[];
+  filters: IFilters;
+}): IGetLightSpellsWithFiltersSuccessAction {
   return {
     payload: lightSpellsWithFilters,
     type: keys.GET_LIGHTSPELLSWITHFILTERS_SUCCESS
@@ -104,5 +119,30 @@ function spellSuccess(spellFromId: ISpell): IGetSpellSuccessAction {
   return {
     payload: spellFromId,
     type: keys.GET_SPELL_SUCCESS
+  };
+}
+
+function setFiltersFail(error: Error): ISetFiltersFailAction {
+  const errorType: keys.SET_FILTERS_FAIL | keys.SET_FILTERS_UNAUTHORISED =
+    error.message === 'Unauthorized' ? keys.SET_FILTERS_UNAUTHORISED : keys.SET_FILTERS_FAIL;
+
+  return {
+    payload: {
+      error
+    },
+    type: errorType
+  };
+}
+
+function setFiltersInProgress(): ISetFiltersInprogressAction {
+  return {
+    type: keys.SET_FILTERS_INPROGRESS
+  };
+}
+
+function setFiltersSuccess(filters: IFilters): ISetFiltersSuccessAction {
+  return {
+    payload: filters,
+    type: keys.SET_FILTERS_SUCCESS
   };
 }

@@ -8,7 +8,7 @@ interface IProps {
   // addFilterFromEvent: Function;
 
   namesFilters: IDropdownCollection[];
-  classesFilters: IDropdownCollection[];
+  classTypesFilters: IDropdownCollection[];
   schoolsFilters: IDropdownCollection[];
   componentsFilters: IDropdownCollection[];
   rangesFilters: IDropdownCollection[];
@@ -21,7 +21,7 @@ class SpellFilterMenuComponent extends React.Component<IProps, {}> {
   }
 
   public render() {
-    const { addFilterFromEvent, namesFilters, classesFilters, schoolsFilters, componentsFilters, rangesFilters, filters } = this.props;
+    const { addFilterFromEvent, namesFilters, classTypesFilters, schoolsFilters, componentsFilters, rangesFilters, filters } = this.props;
 
     return (
       <Responsive as={Menu} vertical={true} floated={true} borderless={true} minWidth={Responsive.onlyTablet.minWidth}>
@@ -47,11 +47,11 @@ class SpellFilterMenuComponent extends React.Component<IProps, {}> {
             selection={true}
             search={true}
             closeOnChange={true}
-            name="classes"
+            name="classTypes"
             placeholder="Classes"
-            options={classesFilters}
+            options={classTypesFilters}
             onChange={addFilterFromEvent}
-            value={filters.classes}
+            value={filters.classTypes}
           />
         </Menu.Item>
         <Menu.Item>

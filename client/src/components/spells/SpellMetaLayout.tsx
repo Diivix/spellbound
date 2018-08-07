@@ -55,7 +55,7 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
     const levelWithSchool = this.buildLevelWithSchool(this.props.spell.level, this.props.spell.school, false);
     const components = this.props.spell.components.map(component => _.upperCase(component)).join(', ');
 
-    const classes = this.props.spell.classes.map(clss => _.capitalize(clss)).join(' · ');
+    const classTypes = this.props.spell.classTypes.map(clss => _.capitalize(clss)).join(' · ');
 
     const castingTime = this.props.spell.castingTimeDescription
       ? this.props.spell.castingTime + ' ' + this.props.spell.castingTimeDescription
@@ -126,7 +126,7 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
             <div style={{ color: 'grey' }}>
-              <i>{classes}</i>
+              <i>{classTypes}</i>
             </div>
           </Grid.Column>
         </Grid.Row>
