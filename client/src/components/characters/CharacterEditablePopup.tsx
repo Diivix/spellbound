@@ -108,6 +108,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
     const characterDescription = _.capitalize(this.state.description);
     const isValidForm = this.state.isValidLevel && this.state.isValidName;
     const buttonContent = this.props.isCreate ? 'Create' : 'Edit';
+    const deleteButtonDivStyle = { paddingTop: '10px' };
 
     return (
       <Popup trigger={this.props.trigger} on="focus" position="bottom center" hideOnScroll={true} flowing={true}>
@@ -137,13 +138,20 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
             value={characterDescription}
             onChange={this.handleChange}
           />
-          {/* TODO: make sure the buttons are on the same line. */}
-          <Form.Group>
-            <Form.Button type="submit" content={buttonContent} color="violet" disabled={!isValidForm} loading={this.props.isBusy} />
-          </Form.Group>
+          <Button content={buttonContent} color="violet" disabled={!isValidForm} loading={this.props.isBusy} fluid={true} />
         </Form>
         {!this.props.isCreate && (
-          <Button content="Delete" negative={true} basic={true} floated="right" onClick={this.handleDelete} loading={this.props.isBusy} />
+          <div style={deleteButtonDivStyle}>
+            <Button
+              content="Delete"
+              negative={true}
+              basic={true}
+              floated="right"
+              onClick={this.handleDelete}
+              loading={this.props.isBusy}
+              fluid={true}
+            />
+          </div>
         )}
       </Popup>
     );
