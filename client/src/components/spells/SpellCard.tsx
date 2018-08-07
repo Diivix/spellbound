@@ -59,40 +59,28 @@ class SpellCardComponent extends React.Component<IProps, {}> {
   };
 
   private setIcon = (school: string) => {
-    const iconStyle = { paddingRight: '5px' };
-    let icon = <i className="ra ra-dragon-breath" style={iconStyle} />;
+    const iconStyle = { paddingRight: '5px', color: '#2ab5ab' };
 
     switch (school) {
       case 'abjuration':
-        icon = <i className="ra ra-level-three-advanced" style={iconStyle} />;
-        break;
+        return <i className="ra ra-level-three-advanced ra-lg" style={iconStyle} />;
       case 'conjuration':
-        icon = <i className="ra ra-blade-bite" style={iconStyle} />;
-        break;
+        return <i className="ra ra-blade-bite ra-lg" style={iconStyle} />;
       case 'divination':
-        icon = <i className="ra ra-crystal-ball" style={iconStyle} />;
-        break;
+        return <i className="ra ra-crystal-ball ra-lg" style={iconStyle} />;
       case 'enchantment':
-        icon = <i className="ra ra-hand" style={iconStyle} />;
-        break;
+        return <i className="ra ra-hand ra-lg" style={iconStyle} />;
       case 'evocation':
-        icon = <i className="ra ra-lightning-trio" style={iconStyle} />;
-        break;
+        return <i className="ra ra-lightning-trio ra-lg" style={iconStyle} />;
       case 'illusion':
-        icon = <i className="ra ra-burning-eye" style={iconStyle} />;
-        break;
+        return <i className="ra ra-burning-eye ra-lg" style={iconStyle} />;
       case 'necromancy':
-        icon = <i className="ra ra-death-skull" style={iconStyle} />;
-        break;
+        return <i className="ra ra-death-skull ra-lg" style={iconStyle} />;
       case 'transmutation':
-        icon = <i className="ra ra-doubled" style={iconStyle} />;
-        break;
+        return <i className="ra ra-doubled ra-lg" style={iconStyle} />;
       default:
-        icon = <i className="ra ra-dragon-breath" style={iconStyle} />;
-        break;
+        return <i className="ra ra-dragon-breath ra-lg" style={iconStyle} />;
     }
-
-    return icon;
   };
 }
 
