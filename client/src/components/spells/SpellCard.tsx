@@ -20,14 +20,14 @@ class SpellCardComponent extends React.Component<IProps, {}> {
 
     const cardStyle = { margin: '5px' };
     const headerStyle = { display: 'inline' };
+    const metaStyle = { paddingLeft: '22px' };
 
     return (
       <Card style={cardStyle} link={true}>
         <Card.Content>
-          {/* <Image floated="left" size="mini" src={require('../../assets/alteration-64x64.png')} /> */}
           {this.setIcon(this.props.school)}
           <Card.Header style={headerStyle}>{name}</Card.Header>
-          <Card.Meta textAlign="left">{meta}</Card.Meta>
+          <Card.Meta style={metaStyle} textAlign="left">{meta}</Card.Meta>
         </Card.Content>
       </Card>
     );
