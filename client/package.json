@@ -19,6 +19,7 @@
     "redux-persist": "~5.9.1",
     "redux-thunk": "~2.2.0",
     "reselect": "^3.0.1",
+    "rpg-awesome": "^0.2.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.81.1",
     "whatwg-fetch": "^2.0.3"

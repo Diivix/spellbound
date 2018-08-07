@@ -3,13 +3,14 @@ import { IStoreState } from '../models';
 const defaultState: IStoreState = {
   isAuthenticated: false,
   pendingActions: 0,
-  spellData: {
-    appliedFilters: undefined,
-    currentSpell: undefined,
-    filters: undefined,
-    spells: undefined
-  },
-  userData: undefined
+  spellData: {},
+  userData: {
+    characters: [],
+    email: "",
+    favouriteSpells: [],
+    lastSignedIn: 0,
+    username: ""
+  }
 };
 
 export default defaultState;

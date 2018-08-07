@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Loader, Responsive, Segment } from 'semantic-ui-react';
-import { isUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 import { getSpell } from '../../actions/spells/actions';
 import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
 import { ISpell, IStoreState } from '../../models';
@@ -33,7 +33,7 @@ class SpellComponent extends React.Component<IProps, {}> {
 
   public render() {
     // If busy, return immediatley.
-    if (this.props.isBusy || isUndefined(this.props.spell)) {
+    if (this.props.isBusy || isNullOrUndefined(this.props.spell)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
