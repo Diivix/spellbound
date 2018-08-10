@@ -160,8 +160,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
         return { key: filterValue, text: fullValue, value: filterValue };
       });
 
-      // tslint:disable-next-line:only-arrow-functions
-      rangesFilters = _.sortBy(rangesFilters, function(o) {
+      rangesFilters = _.sortBy(rangesFilters, (o) => {
         const v = parseInt(o.key, 10);
         return isNaN(v) ? o : v;
       });
@@ -180,8 +179,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     return (
       <div>
         <CompendiumMenu>
-          <Menu.Item disabled={true} name="Spells" position="left" icon="lightning" />
-          <Menu.Item name="Sort by" position="right" disabled={true} />
+          <Menu.Item name="Spell Compendium" position="left" icon="book" style={{color: '#2ab5ab'}}/>
+          <Menu.Item name="Sort by" position="right" icon="sort" style={{color: '#6342c3'}}/>
           <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
           <Menu.Item name="school" active={this.state.sortByValue === 'school'} onClick={this.setSortByValue} />
           <Menu.Item name="level" active={this.state.sortByValue === 'level'} onClick={this.setSortByValue} />

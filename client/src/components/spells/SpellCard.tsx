@@ -18,16 +18,14 @@ class SpellCardComponent extends React.Component<IProps, {}> {
     const name = _.truncate(_.startCase(_.toLower(this.props.name)), { length: 20 });
     const meta = this.buildLevelWithSchool(this.props.level, this.props.school, true);
 
-    const cardStyle = { margin: '5px' };
-    const headerStyle = { display: 'inline' };
-    const metaStyle = { paddingLeft: '22px' };
-
     return (
-      <Card style={cardStyle} link={true}>
+      <Card style={{ margin: '5px' }} link={true}>
         <Card.Content>
           {this.setIcon(this.props.school)}
-          <Card.Header style={headerStyle}>{name}</Card.Header>
-          <Card.Meta style={metaStyle} textAlign="left">{meta}</Card.Meta>
+          <Card.Header style={{ display: 'inline' }}>{name}</Card.Header>
+          <Card.Meta style={{ paddingLeft: '22px' }} textAlign="left">
+            {meta}
+          </Card.Meta>
         </Card.Content>
       </Card>
     );
