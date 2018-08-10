@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, Header, Loader, Responsive, Segment } from 'semantic-ui-react';
+import { Grid, Header, Loader, Responsive } from 'semantic-ui-react';
 import { isNullOrUndefined } from 'util';
+import { SetSpellIcon } from 'utils/ui';
 import { getSpell } from '../../actions/spells/actions';
 import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
 import { ISpell, IStoreState } from '../../models';
@@ -32,56 +33,56 @@ class SpellComponent extends React.Component<IProps, {}> {
   }
 
   public render() {
+    const { spell } = this.props;
+
     // If busy, return immediatley.
-    if (this.props.isBusy || isNullOrUndefined(this.props.spell)) {
+    if (this.props.isBusy || isNullOrUndefined(spell)) {
       return <Loader active={true} inline="centered" size="big" />;
     }
 
-    const spellName = _.upperFirst(this.props.spell.name);
-    const padding = { paddingTop: '10px' };
+    const spellName = _.upperCase(spell.name);
+    const icon = SetSpellIcon(spell.school, '#2ab5ab');
+    const paddingStyle = { paddingTop: '10px' };
 
     const descriptionElement = (
-      <div style={padding}>
+      <div style={paddingStyle}>
         <Header sub={true} color="grey" size="medium">
           Description
         </Header>
-        <p>{_.upperFirst(this.props.spell.description)}.</p>
+        <p>{_.upperFirst(spell.description)}.</p>
       </div>
     );
 
-    let materialElement = <div />;
-    if (!_.isEmpty(this.props.spell.materials)) {
-      materialElement = (
-        <div style={padding}>
-          <Header sub={true} color="grey" size="medium">
-            Materials
-          </Header>
-          <p>{_.upperFirst(this.props.spell.materials)}.</p>
-        </div>
-      );
-    }
+    const materialElement = !_.isEmpty(spell.materials) ? (
+      <div style={paddingStyle}>
+        <Header sub={true} color="grey" size="medium">
+          Materials
+        </Header>
+        <p>{_.upperFirst(spell.materials)}.</p>
+      </div>
+    ) : null;
 
-    let atHigherLevelsElement = <div />;
-    if (!_.isEmpty(this.props.spell.atHigherLevels)) {
-      atHigherLevelsElement = (
-        <div style={padding}>
-          <Header sub={true} color="grey" size="medium">
-            At Higher Levels
-          </Header>
-          <p>{_.upperFirst(this.props.spell.atHigherLevels)}.</p>
-        </div>
-      );
-    }
+    const atHigherLevelsElement = !_.isEmpty(spell.atHigherLevels) ? (
+      <div style={paddingStyle}>
+        <Header sub={true} color="grey" size="medium">
+          At Higher Levels
+        </Header>
+        <p>{_.upperFirst(spell.atHigherLevels)}.</p>
+      </div>
+    ) : null;
 
     return (
       <div>
-        <Header as="h1" color="grey">
-          {spellName}
-        </Header>
-        <Grid as={Segment} celled="internally">
+        <div style={{ textAlign: 'center', paddingBottom: '30px' }}>
+          <Header as="h1" color="grey">
+            {icon}
+            {spellName}
+          </Header>
+        </div>
+        <Grid celled="internally">
           <Grid.Row>
             <Responsive as={Grid.Column} width={5} minWidth={Responsive.onlyTablet.minWidth}>
-              <SpellMetaLayout spell={this.props.spell} />
+              <SpellMetaLayout spell={spell} />
             </Responsive>
             <Grid.Column width={11}>
               {descriptionElement}
@@ -108,5 +109,8 @@ function mapDispatchToProps(dispatch: any): ISpellDispatchProps {
   };
 }
 
-const Spell = connect(mapStateToProps, mapDispatchToProps)(SpellComponent);
+const Spell = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SpellComponent);
 export default Spell;
