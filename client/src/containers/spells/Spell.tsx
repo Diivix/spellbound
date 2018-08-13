@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, Header, Loader, Responsive } from 'semantic-ui-react';
+import { push } from 'react-router-redux';
+import { Button, Grid, Header, Loader, Responsive } from 'semantic-ui-react';
 import { isNullOrUndefined } from 'util';
 import { SetSpellIcon } from 'utils/ui';
 import { getSpell } from '../../actions/spells/actions';
@@ -15,8 +16,8 @@ interface ISpellStateProps {
 }
 
 interface ISpellDispatchProps {
-  // tslint:disable-next-line:ban-types
-  getSpell: Function;
+  changeRoute: (path: string) => {};
+  getSpell: (id: string) => {};
 }
 
 interface IProps extends ISpellStateProps, ISpellDispatchProps {
@@ -91,8 +92,13 @@ class SpellComponent extends React.Component<IProps, {}> {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <Button style={{marginTop: '50px'}} content="Spells" icon="chevron left" primary={false} basic={true} color="violet" onClick={this.changeRoute} />
       </div>
     );
+  }
+
+  private changeRoute =() => {
+    this.props.changeRoute("/spells");
   }
 }
 
@@ -105,6 +111,7 @@ function mapStateToProps(state: IStoreState): ISpellStateProps {
 
 function mapDispatchToProps(dispatch: any): ISpellDispatchProps {
   return {
+    changeRoute: (path: string) => dispatch(push(path)),
     getSpell: (id: string) => dispatch(getSpell(id))
   };
 }
