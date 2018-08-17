@@ -38,6 +38,7 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 
 ## TODO
 
+- Need to add materials to spells!!!!!
 - Move menu to it own header component. The menu shouldn;t be shown on the signin page.
 - Fix bug with sorting of the ranges filter.
 - Fix the any types for the functions used in the SpellModal.
@@ -47,3 +48,6 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Refresh the session expirery date when we ever the user hits the api/database.
 - Fix spell cards and popups.
 - Need to add checks for characters, {insert others, here}, to periodically update data. I.e. character data.
+- Implement Passport authentication.
+- Favoutites
+- Equip spells to characters.

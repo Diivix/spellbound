@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
+import { BuildLevelWithSchool } from 'utils/ui';
 import { ISpell } from '../../models';
 
 interface IProps {
@@ -12,69 +13,21 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
     super(props);
   }
 
-  public buildCastingTimeValue = (castingTime: string, castingTimeDescription: string) => {
-    if (castingTimeDescription) {
-      castingTime = +' (' + castingTimeDescription + ')';
-    }
-    return castingTime;
-  };
-
-  public buildRangeValue = (range: string, rangeDescription: string) => {
-    if (rangeDescription) {
-      range += ' (' + rangeDescription + ')';
-    }
-    return range;
-  };
-
-  public buildLevelWithSchool = (level: number, school: string, truncateValue: boolean) => {
-    school = _.upperFirst(school);
-
-    let value;
-    switch (level) {
-      case 0:
-        value = school + ' cantrip';
-        break;
-      case 1:
-        value = level + 'st level ' + school;
-        break;
-      case 2:
-        value = level + 'nd level ' + school;
-        break;
-      case 3:
-        value = level + 'rd level ' + school;
-        break;
-      default:
-        value = level + 'th level ' + school;
-        break;
-    }
-
-    return (value = truncateValue ? _.truncate(value, { length: 20 }) : value);
-  };
-
   public render() {
-    const levelWithSchool = this.buildLevelWithSchool(this.props.spell.level, this.props.spell.school, false);
-    const components = this.props.spell.components.map(component => _.upperCase(component)).join(', ');
-
-    const classTypes = this.props.spell.classTypes.map(clss => _.capitalize(clss)).join(' · ');
-
-    const castingTime = this.props.spell.castingTimeDescription
-      ? this.props.spell.castingTime + ' ' + this.props.spell.castingTimeDescription
-      : this.props.spell.castingTime;
-
-    const range = this.props.spell.rangeDescription
-      ? this.props.spell.range + ' ' + this.props.spell.rangeDescription
-      : this.props.spell.range;
-
-    const duration = this.props.spell.durationDescription
-      ? this.props.spell.duration + ' ' + this.props.spell.durationDescription
-      : this.props.spell.duration;
+    const { spell } = this.props;
+    const levelWithSchool = BuildLevelWithSchool(spell.level, spell.school, false);
+    const components = spell.components.map(component => _.upperCase(component)).join(', ');
+    const classTypes = spell.classTypes.map(clss => _.capitalize(clss)).join(' · ');
+    const castingTime = spell.castingTimeDescription ? spell.castingTime + ' ' + spell.castingTimeDescription : spell.castingTime;
+    const range = spell.rangeDescription ? spell.range + ' ' + spell.rangeDescription : spell.range;
+    const duration = spell.durationDescription ? spell.duration + ' ' + spell.durationDescription : spell.duration;
 
     let materialElement = <div />;
-    if (!_.isEmpty(this.props.spell.materials)) {
+    if (!_.isEmpty(spell.materials)) {
       materialElement = (
         <Grid.Row columns="1">
           <Grid.Column textAlign="center">
-                <i>{_.upperFirst(this.props.spell.materials)}.</i>
+            <i>{_.upperFirst(spell.materials)}.</i>
           </Grid.Column>
         </Grid.Row>
       );
@@ -84,40 +37,40 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
       <Grid celled="internally">
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
-              <Header sub={true} color="grey" size="tiny">
-                {this.props.spell.name}
-              </Header>
-                <i>{levelWithSchool}</i>
+            <Header sub={true} color="grey" size="tiny">
+              {spell.name}
+            </Header>
+            <i>{levelWithSchool}</i>
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row columns="2" textAlign="center">
           <Grid.Column>
-              <Header sub={true} color="grey" size="tiny">
-                Casting Time
-              </Header>
-              {castingTime}
+            <Header sub={true} color="grey" size="tiny">
+              Casting Time
+            </Header>
+            {castingTime}
           </Grid.Column>
           <Grid.Column>
-              <Header sub={true} color="grey" size="tiny">
-                Range
-              </Header>
-              {range}
+            <Header sub={true} color="grey" size="tiny">
+              Range
+            </Header>
+            {range}
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row columns="2" textAlign="center">
           <Grid.Column>
-              <Header sub={true} color="grey" size="tiny">
-                Components
-              </Header>
-              {_.isEmpty(components) ? '-' : <span>{components}</span>}
+            <Header sub={true} color="grey" size="tiny">
+              Components
+            </Header>
+            {_.isEmpty(components) ? '-' : <span>{components}</span>}
           </Grid.Column>
           <Grid.Column>
-              <Header sub={true} color="grey" size="tiny">
-                Duration
-              </Header>
-              {duration}
+            <Header sub={true} color="grey" size="tiny">
+              Duration
+            </Header>
+            {duration}
           </Grid.Column>
         </Grid.Row>
 

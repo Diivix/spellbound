@@ -11,7 +11,7 @@ import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
 import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
 import { getSpells, hasSpells, isBusy } from '../../selectors';
 
-interface ISpellCompendiumStateProps {
+interface IStateProps {
   appliedFilters?: IFilters | undefined;
   hasSpells: boolean;
   isBusy: boolean;
@@ -19,18 +19,18 @@ interface ISpellCompendiumStateProps {
   getSpells: ISpell[] | undefined;
 }
 
-interface ISpellCompendiumDispatchProps {
+interface IDispatchProps {
   changeRoute: (path: string) => {};
   getLightSpellsWithFilters: () => {};
   setAppliedFilters: (filters: IFilters) => {};
 }
 
-interface IState {
+interface IOwnState {
   sortByValue: string;
 }
 
-class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProps & ISpellCompendiumDispatchProps, IState> {
-  constructor(props: ISpellCompendiumStateProps & ISpellCompendiumDispatchProps) {
+class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchProps, IOwnState> {
+  constructor(props: IStateProps & IDispatchProps) {
     super(props);
     this.state = {
       sortByValue: 'name'
@@ -42,57 +42,6 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
       this.props.getLightSpellsWithFilters();
     }
   }
-
-  public setSortByValue = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
-    this.setState({
-      sortByValue: data.name
-    });
-  };
-
-  public sortSpells = (name: string, spells?: ISpell[]): ISpell[] => {
-    let sortedSpells = [];
-    switch (name) {
-      case 'name':
-        sortedSpells = _.sortBy(spells, ['name', 'level', 'school']);
-        break;
-      case 'school':
-        sortedSpells = _.sortBy(spells, ['school', 'name', 'level']);
-        break;
-      case 'level':
-        sortedSpells = _.sortBy(spells, ['level', 'name', 'school']);
-        break;
-      default:
-        sortedSpells = _.sortBy(spells, ['name', 'level', 'school']);
-        break;
-    }
-
-    return sortedSpells;
-  };
-
-  public addFilter = (name: string, value: string): void => {
-    const tempFilters = !isUndefined(this.props.appliedFilters)
-      ? this.props.appliedFilters
-      : {
-          classTypes: [],
-          components: [],
-          levels: [],
-          names: [],
-          ranges: [],
-          schools: []
-        };
-
-    if (_.isEmpty(value) && tempFilters[name]) {
-      tempFilters[name] = [];
-    } else {
-      tempFilters[name] = value;
-    }
-
-    this.props.setAppliedFilters(tempFilters)
-  };
-
-  public addFilterFromEvent = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
-    this.addFilter(data.name, data.value);
-  };
 
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
@@ -160,8 +109,7 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
         return { key: filterValue, text: fullValue, value: filterValue };
       });
 
-      // tslint:disable-next-line:only-arrow-functions
-      rangesFilters = _.sortBy(rangesFilters, function(o) {
+      rangesFilters = _.sortBy(rangesFilters, (o) => {
         const v = parseInt(o.key, 10);
         return isNaN(v) ? o : v;
       });
@@ -180,8 +128,8 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
     return (
       <div>
         <CompendiumMenu>
-          <Menu.Item disabled={true} name="Spells" position="left" icon="lightning" />
-          <Menu.Item name="Sort by" position="right" disabled={true} />
+          <Menu.Item name="Spell Compendium" position="left" icon="book" style={{color: '#2ab5ab'}}/>
+          <Menu.Item name="Sort by" position="right" icon="sort" style={{color: '#6342c3'}}/>
           <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
           <Menu.Item name="school" active={this.state.sortByValue === 'school'} onClick={this.setSortByValue} />
           <Menu.Item name="level" active={this.state.sortByValue === 'level'} onClick={this.setSortByValue} />
@@ -203,9 +151,60 @@ class SpellCompendiumComponent extends React.Component<ISpellCompendiumStateProp
       </div>
     );
   }
+
+  private setSortByValue = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
+    this.setState({
+      sortByValue: data.name
+    });
+  };
+
+  private sortSpells = (name: string, spells?: ISpell[]): ISpell[] => {
+    let sortedSpells = [];
+    switch (name) {
+      case 'name':
+        sortedSpells = _.sortBy(spells, ['name', 'level', 'school']);
+        break;
+      case 'school':
+        sortedSpells = _.sortBy(spells, ['school', 'name', 'level']);
+        break;
+      case 'level':
+        sortedSpells = _.sortBy(spells, ['level', 'name', 'school']);
+        break;
+      default:
+        sortedSpells = _.sortBy(spells, ['name', 'level', 'school']);
+        break;
+    }
+
+    return sortedSpells;
+  };
+
+  private addFilter = (name: string, value: string): void => {
+    const tempFilters = !isUndefined(this.props.appliedFilters)
+      ? this.props.appliedFilters
+      : {
+          classTypes: [],
+          components: [],
+          levels: [],
+          names: [],
+          ranges: [],
+          schools: []
+        };
+
+    if (_.isEmpty(value) && tempFilters[name]) {
+      tempFilters[name] = [];
+    } else {
+      tempFilters[name] = value;
+    }
+
+    this.props.setAppliedFilters(tempFilters)
+  };
+
+  private addFilterFromEvent = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
+    this.addFilter(data.name, data.value);
+  };
 }
 
-function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
+function mapStateToProps(state: IStoreState): IStateProps {
   return {
     appliedFilters: state.spellData.appliedFilters,
     filters: state.spellData.filters,
@@ -215,7 +214,7 @@ function mapStateToProps(state: IStoreState): ISpellCompendiumStateProps {
   };
 }
 
-function mapDispatchToProps(dispatch: any): ISpellCompendiumDispatchProps {
+function mapDispatchToProps(dispatch: any): IDispatchProps {
   return {
     changeRoute: (path: string) => dispatch(push(path)),
     getLightSpellsWithFilters: () => dispatch(getLightSpellsWithFilters()),

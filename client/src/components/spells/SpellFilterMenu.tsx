@@ -25,6 +25,7 @@ class SpellFilterMenuComponent extends React.Component<IProps, {}> {
 
     return (
       <Responsive as={Menu} vertical={true} floated={true} borderless={true} minWidth={Responsive.onlyTablet.minWidth}>
+        <Menu.Item name="Filters" icon="filter" style={{ color: '#6342c3' }} />
         <Menu.Item>
           <Dropdown
             fluid={true}
