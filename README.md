@@ -48,3 +48,6 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Refresh the session expirery date when we ever the user hits the api/database.
 - Fix spell cards and popups.
 - Need to add checks for characters, {insert others, here}, to periodically update data. I.e. character data.
+- Implement Passport authentication.
+- Favoutites
+- Equip spells to characters.
