@@ -72,6 +72,15 @@ class SpellComponent extends React.Component<IProps, {}> {
       </div>
     ) : null;
 
+    const referenceElement = (
+      <div style={paddingStyle}>
+        <Header sub={true} color="grey" size="medium">
+          Reference
+        </Header>
+        <p>{_.upperFirst(spell.reference)}.</p>
+      </div>
+    );
+
     return (
       <div>
         <div style={{ textAlign: 'center', paddingBottom: '30px' }}>
@@ -89,6 +98,7 @@ class SpellComponent extends React.Component<IProps, {}> {
               {descriptionElement}
               {materialElement}
               {atHigherLevelsElement}
+              {referenceElement}
             </Grid.Column>
           </Grid.Row>
         </Grid>

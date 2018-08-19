@@ -7,17 +7,15 @@ test('Show Spell Metadata', () => {
   const spell: ISpell = {
     _id: "0",
     atHigherLevels: '',
-    castingTime: '1',
-    castingTimeDescription: 'Action',
+    castingTime: '1 Action',
     classTypes: ['Sorcerer', 'Wizard'],
     components: ['V', 'S'],
     description: '',
     duration: 'action',
-    durationDescription: '',
     level: 6,
     name: 'Fire Bolt',
-    range: '20',
-    rangeDescription: 'feet',
+    range: '20 feet',
+    reference: 'Page: 1 of Players Handbook',
     school: 'Destruction'
   }
 

@@ -22,17 +22,15 @@ export interface ISpell {
   _id: string;
   atHigherLevels?: string;
   castingTime: string;
-  castingTimeDescription: string;
   classTypes: string[];
   components: string[];
   description?: string;
   duration: string;
-  durationDescription: string;
   level: number;
   materials?: string;
   name: string;
   range: string;
-  rangeDescription: string;
+  reference: string;
   school: string;
 }
 

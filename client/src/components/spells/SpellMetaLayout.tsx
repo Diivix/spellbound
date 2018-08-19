@@ -18,9 +18,9 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
     const levelWithSchool = BuildLevelWithSchool(spell.level, spell.school, false);
     const components = spell.components.map(component => _.upperCase(component)).join(', ');
     const classTypes = spell.classTypes.map(clss => _.capitalize(clss)).join(' · ');
-    const castingTime = spell.castingTimeDescription ? spell.castingTime + ' ' + spell.castingTimeDescription : spell.castingTime;
-    const range = spell.rangeDescription ? spell.range + ' ' + spell.rangeDescription : spell.range;
-    const duration = spell.durationDescription ? spell.duration + ' ' + spell.durationDescription : spell.duration;
+    const castingTime = spell.castingTime;
+    const range = spell.range;
+    const duration = spell.duration;
 
     let materialElement = <div />;
     if (!_.isEmpty(spell.materials)) {
