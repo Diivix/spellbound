@@ -41,7 +41,7 @@ export const SetSpellIcon = (school: string, colour: string) => {
     case 'enchantment':
       return <i className="ra ra-hand ra-lg" style={iconStyle} />;
     case 'evocation':
-      return <i className="ra ra-lightning-trio ra-lg" style={iconStyle} />;
+      return <i className="ra ra-lightning-bolt ra-lg" style={iconStyle} />;
     case 'illusion':
       return <i className="ra ra-burning-eye ra-lg" style={iconStyle} />;
     case 'necromancy':
