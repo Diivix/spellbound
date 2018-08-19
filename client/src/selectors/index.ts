@@ -77,7 +77,7 @@ const getSpellsSelector = (state: IStoreState): ISpell[] | null => {
 export const isBusy = createSelector([pendingActionsSelector], pendingActions => pendingActions > 0);
 
 export const hasSpells = createSelector([spellsInCacheSelector], (spells: ISpell[]) => {
-  if (spells.length === 0) {
+  if (isUndefined(spells) || spells.length === 0) {
     return false;
   } else {
     return true;
