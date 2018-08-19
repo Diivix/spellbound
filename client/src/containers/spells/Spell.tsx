@@ -43,7 +43,7 @@ class SpellComponent extends React.Component<IProps, {}> {
 
     const spellName = _.upperCase(spell.name);
     const icon = SetSpellIcon(spell.school, '#2ab5ab');
-    const paddingStyle = { paddingTop: '10px' };
+    const paddingStyle = { paddingTop: '10px', paddingBottom: '10px' };
 
     const descriptionElement = (
       <div style={paddingStyle}>
