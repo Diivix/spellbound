@@ -29,7 +29,7 @@ class HomeDashboardComponent extends React.Component<IUserDashboardStateProps & 
   }
 
   public componentDidMount() {
-    if (isUndefined(this.props.userData)) {
+    if (isUndefined(this.props.userData) || _.isEmpty(this.props.userData.email)) {
       this.props.getUserData();
     }
   }

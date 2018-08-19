@@ -43,7 +43,7 @@ class SpellComponent extends React.Component<IProps, {}> {
 
     const spellName = _.upperCase(spell.name);
     const icon = SetSpellIcon(spell.school, '#2ab5ab');
-    const paddingStyle = { paddingTop: '10px' };
+    const paddingStyle = { paddingTop: '10px', paddingBottom: '10px' };
 
     const descriptionElement = (
       <div style={paddingStyle}>
@@ -72,6 +72,15 @@ class SpellComponent extends React.Component<IProps, {}> {
       </div>
     ) : null;
 
+    const referenceElement = (
+      <div style={paddingStyle}>
+        <Header sub={true} color="grey" size="medium">
+          Reference
+        </Header>
+        <p>{_.upperFirst(spell.reference)}.</p>
+      </div>
+    );
+
     return (
       <div>
         <div style={{ textAlign: 'center', paddingBottom: '30px' }}>
@@ -89,6 +98,7 @@ class SpellComponent extends React.Component<IProps, {}> {
               {descriptionElement}
               {materialElement}
               {atHigherLevelsElement}
+              {referenceElement}
             </Grid.Column>
           </Grid.Row>
         </Grid>
