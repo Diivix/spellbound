@@ -1,6 +1,6 @@
 import ActionTypeKeys, { ActionTypeStates } from '../actions/ActionTypeKeys';
 import ActionTypes from '../actions/ActionTypes';
-import initialState from './initialState';
+import { initialState } from '../store/initialState';
 
 export default function pendingActionsReducer(state = initialState.pendingActions, action: ActionTypes): number {
   if (actionTypeEndsInInProgress(action.type)) {

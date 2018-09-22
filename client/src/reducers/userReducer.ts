@@ -1,7 +1,7 @@
 import ActionTypeKeys from '../actions/ActionTypeKeys';
 import ActionTypes from '../actions/ActionTypes';
 import { IUserData } from '../models';
-import initialState from './initialState';
+import { initialState } from '../store/initialState';
 
 export default function userReducer(state = initialState.userData, action: ActionTypes) {
   switch (action.type) {

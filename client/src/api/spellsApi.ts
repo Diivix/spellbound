@@ -11,12 +11,11 @@ export function getSpell(id: string): Promise<ISpell> {
   })
     .then(response => {
       if (response.status === 200) {
-        return response;
+        return response.json();
       } else {
         throw Error(response.statusText);
       }
     })
-    .then(response => response.json())
     .then((spell: ISpell) => {
       return spell;
     });
@@ -57,15 +56,5 @@ export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise
     },
     method: 'POST'
   })
-    .then(response => {
-      if (response.status === 200) {
-        return response;
-      } else {
-        throw Error(response.statusText);
-      }
-    })
     .then(response => response.json())
-    .then((lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }) => {
-      return lightSpellsWithFilters;
-    });
 }
