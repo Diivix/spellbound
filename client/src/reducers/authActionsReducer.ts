@@ -1,29 +1,12 @@
-import ActionTypeKeys, { ActionTypeStates } from '../actions/ActionTypeKeys';
-import ActionTypes from '../actions/ActionTypes';
-import { initialState } from '../store/initialState';
+import { IStoreState } from 'models';
+import { setWith, TypedReducer } from 'redoodle';
+import { SignIn, SignOut } from '../actions/authentication/types';
 
-export default function authActionsReducer(state = initialState.isAuthenticated, action: ActionTypes): boolean {
-  if (action.type === ActionTypeKeys.SIGNOUT_SUCCESS) {
-    return false;
-  } else if (actionTypeEndsInSuccess(action.type)) {
-    return true;
-  } else if (actionTypeEndsInUnauthorised(action.type) || actionTypeIsSignInOrSignOutFail(action.type)) {
-    return false;
-  } else {
-    return state;
-  }
-}
-
-function actionTypeEndsInSuccess(type: ActionTypeKeys): boolean {
-  const success = ActionTypeStates.SUCCESS;
-  return type.substring(type.length - success.length) === success;
-}
-
-function actionTypeEndsInUnauthorised(type: ActionTypeKeys): boolean {
-  const unauthorised = ActionTypeStates.UNAUTHORISED;
-  return type.substring(type.length - unauthorised.length) === unauthorised;
-}
-
-function actionTypeIsSignInOrSignOutFail(type: ActionTypeKeys): boolean {
-  return type === ActionTypeKeys.SIGNIN_FAIL || type === ActionTypeKeys.SIGNOUT_FAIL;
-}
+export const authReducer = TypedReducer.builder<boolean>()
+  .withHandler(SignIn.TYPE, (state) => {
+    return setWith(state, true);
+  })
+  .withHandler(SignOut.TYPE, (state) => {
+    return setWith(state, false)
+  })
+  .build()
