@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Card, Menu } from 'semantic-ui-react';
 import { isUndefined } from 'util';
-import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
+import { deleteCharacter, updateCharacter } from '../../actions/user/actions';
 import CharacterEditablePopupComponent from '../../components/characters/CharacterEditablePopup';
 import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';

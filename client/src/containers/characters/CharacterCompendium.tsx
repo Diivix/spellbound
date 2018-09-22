@@ -1,4 +1,4 @@
-import { createCharacter } from 'actions/characters/actions';
+import { createCharacter } from 'actions/user/actions';
 import CharacterEditablePopupComponent from 'components/characters/CharacterEditablePopup';
 import * as React from 'react';
 import { connect } from 'react-redux';
