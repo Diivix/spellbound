@@ -1,45 +1,63 @@
 import { Dispatch } from 'redux';
+import {
+  createCharacter as createCharacterFromApi,
+  deleteCharacter as deleteCharacterFromApi,
+  updateCharacter as updateCharacterFromApi
+} from '../../api/charactersApi';
 import { getUserData as getUserDataFromApi } from '../../api/userApi';
-import { IStoreState, IUserData } from '../../models';
-import keys from '../ActionTypeKeys';
-import { IGetUserDataFailAction, IGetUserDataInProgressAction, IGetUserDataSuccessAction } from './getuserdata';
+import { ICharacterBase, IStoreState, IUserData } from '../../models';
+import { dispatchError } from '../common/actions';
+import { InProgress } from '../common/types';
+import { CreateCharacter, DeleteCharacter, GetUser, UpdateCharacter } from './types';
 
 export function getUserData(): (dispatch: Dispatch<IStoreState>) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
-    // Signal work in progress.
-    dispatch(userInProgress());
+    dispatch(InProgress.create());
 
     try {
-      const spell: IUserData = await getUserDataFromApi();
-
-      dispatch(userSuccess(spell));
-    } catch (err) {
-      dispatch(userFail(err));
+      const user: IUserData = await getUserDataFromApi();
+      dispatch(GetUser.create({ user }));
+    } catch (error) {
+      dispatchError(dispatch, error);
     }
   };
 }
 
-function userFail(error: Error): IGetUserDataFailAction {
-  const errorType: keys.GET_USERDATA_FAIL | keys.GET_USERDATA_UNAUTHORISED =
-    error.message === 'Unauthorized' ? keys.GET_USERDATA_UNAUTHORISED : keys.GET_USERDATA_FAIL;
+export function createCharacter(character: ICharacterBase): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>) => {
+    dispatch(InProgress.create());
 
-  return {
-    payload: {
-      error
-    },
-    type: errorType
+    try {
+      const user: IUserData = await createCharacterFromApi(character);
+      dispatch(CreateCharacter.create({ user }));
+    } catch (error) {
+      dispatchError(dispatch, error);
+    }
   };
 }
 
-function userInProgress(): IGetUserDataInProgressAction {
-  return {
-    type: keys.GET_USERDATA_INPROGRESS
+export function updateCharacter(character: { id: string } & ICharacterBase): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>) => {
+    dispatch(InProgress.create());
+
+    try {
+      const user: IUserData = await updateCharacterFromApi(character);
+      dispatch(UpdateCharacter.create({ user }));
+    } catch (error) {
+      dispatchError(dispatch, error);
+    }
   };
 }
 
-function userSuccess(userData: IUserData): IGetUserDataSuccessAction {
-  return {
-    payload: userData,
-    type: keys.GET_USERDATA_SUCCESS
+export function deleteCharacter(characterId: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>) => {
+    dispatch(InProgress.create());
+
+    try {
+      const user: IUserData = await deleteCharacterFromApi({ characterId });
+      dispatch(DeleteCharacter.create({ user }));
+    } catch (error) {
+      dispatchError(dispatch, error);
+    }
   };
 }

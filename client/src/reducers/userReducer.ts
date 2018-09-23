@@ -1,23 +1,18 @@
-import ActionTypeKeys from '../actions/ActionTypeKeys';
-import ActionTypes from '../actions/ActionTypes';
-import { IUserData } from '../models';
-import initialState from './initialState';
+import { IUserData } from 'models';
+import { TypedReducer } from 'redoodle';
+import { CreateCharacter, DeleteCharacter, GetUser, UpdateCharacter } from '../actions/user/types';
 
-export default function userReducer(state = initialState.userData, action: ActionTypes) {
-  switch (action.type) {
-    case ActionTypeKeys.GET_USERDATA_SUCCESS:
-      const userPayload: IUserData = action.payload;
-      return Object.assign({}, state, userPayload );
-    case ActionTypeKeys.CREATE_CHARACTER_SUCCESS:
-      const userCreateCharacterPayload: IUserData = action.payload;
-      return Object.assign({}, state, userCreateCharacterPayload);
-    case ActionTypeKeys.UPDATE_CHARACTER_SUCCESS:
-      const userUpdateCharacterPayload: IUserData = action.payload;
-      return Object.assign({}, state, userUpdateCharacterPayload);
-    case ActionTypeKeys.DELETE_CHARACTER_SUCCESS:
-      const userDeleteCharacterPayload: IUserData = action.payload;
-      return Object.assign({}, state, userDeleteCharacterPayload);
-    default:
-      return state;
-  }
-}
+export const userReducer = TypedReducer.builder<IUserData>()
+  .withHandler(GetUser.TYPE, (state, payload) => {
+    return Object.assign({}, state, payload.user);
+  })
+  .withHandler(CreateCharacter.TYPE , (state, payload) => {
+    return Object.assign({}, state, payload.user);
+  })
+  .withHandler(UpdateCharacter.TYPE , (state, payload) => {
+    return Object.assign({}, state, payload.user);
+  })
+  .withHandler(DeleteCharacter.TYPE , (state, payload) => {
+    return Object.assign({}, state, payload.user);
+  })
+  .build()

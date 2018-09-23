@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Loader, Menu } from 'semantic-ui-react';
 import { isUndefined } from 'util';
-import { createCharacter } from '../actions/characters/actions';
+import { createCharacter } from '../actions/user/actions';
 import { getUserData } from '../actions/user/actions';
 import CharacterEditablePopupComponent from '../components/characters/CharacterEditablePopup';
 import CompendiumMenu from '../components/CompendiumMenu';

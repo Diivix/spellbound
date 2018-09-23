@@ -38,6 +38,8 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 
 ## TODO
 
+- BUG: Spell filters. Mage Hand should appear when filtering on class 'Wizard' and school 'Conjuration', but it doesn't. It looks like
+all spells with more than one class are removed, leaving spells with only a wizard class.
 - Move menu to it own header component. The menu shouldn;t be shown on the signin page.
 - Fix bug with sorting of the ranges filter.
 - Fix the any types for the functions used in the SpellModal.
@@ -51,3 +53,4 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - Favoutites
 - Equip spells to characters.
 - Look at adding the reference property as a filter. May need to spilt out the property into pageReference and bookReference.
+

@@ -1,13 +1,11 @@
+import { RouterState } from "react-router-redux";
+
 export interface IStoreState {
-  readonly pendingActions: number;
-  readonly isAuthenticated: boolean;
-  readonly userData: IUserData;
-  readonly spellData: {
-    readonly currentSpell?: ISpell;
-    readonly spells?: ISpell[];
-    readonly filters?: IFilters;
-    readonly appliedFilters?: IFilters;
-  };
+  pendingActions: number;
+  isAuthenticated: boolean;
+  userData: IUserData;
+  spellData: ISpellData;
+  router?: RouterState;
 };
 
 export interface IUserData {
@@ -16,6 +14,13 @@ export interface IUserData {
   lastSignedIn: number;
   favouriteSpells: ISpell[];
   characters: ICharacter[];
+}
+
+export interface ISpellData {
+  currentSpell?: ISpell;
+  spells?: ISpell[];
+  filters?: IFilters;
+  appliedFilters?: IFilters;
 }
 
 export interface ISpell {
