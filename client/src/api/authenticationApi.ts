@@ -1,4 +1,5 @@
 import { ICredentials } from 'models';
+import ApiError from './ApiError';
 
 export function signIn(credentials: ICredentials): Promise<{}> {
   const url = '/api/auth/signin';
@@ -14,7 +15,7 @@ export function signIn(credentials: ICredentials): Promise<{}> {
     if (response.status === 200) {
       return response;
     } else {
-      throw Error(response.statusText);
+      throw new ApiError(response.status, response.statusText);
     }
   });
 }
@@ -29,7 +30,7 @@ export function signOut(): Promise<{}> {
     if (response.status === 200) {
       return response;
     } else {
-      throw Error(response.statusText);
+      throw new ApiError(response.status, response.statusText);
     }
   });
 }

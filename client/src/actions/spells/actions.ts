@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
 import { getLightSpellsWithFilters as getLightSpellsWithFiltersFromApi, getSpell as getSpellFromApi } from '../../api/spellsApi';
 import { IFilters, ISpell, IStoreState } from '../../models';
-import { Fail, InProgress } from '../common/types';
+import { dispatchError } from '../common/actions';
+import { InProgress } from '../common/types';
 import { GetSpell, GetSpells, SetFilters } from './types';
 
 export function getSpell(id: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
@@ -13,7 +14,7 @@ export function getSpell(id: string): (dispatch: Dispatch<IStoreState>) => Promi
       const spell: ISpell = await getSpellFromApi(id);
       dispatch(GetSpell.create({ spell }));
     } catch (error) {
-      dispatch(Fail.create({ error }));
+      dispatchError(dispatch, error);
     }
   };
 }
@@ -25,7 +26,7 @@ export function getLightSpellsWithFilters(): (dispatch: Dispatch<IStoreState>) =
       const spellsWithFilters: { spells: ISpell[]; filters: IFilters } = await getLightSpellsWithFiltersFromApi();
       dispatch(GetSpells.create(spellsWithFilters));
     } catch (error) {
-      dispatch(GetSpells.create(error));
+      dispatchError(dispatch, error);
     }
   };
 }

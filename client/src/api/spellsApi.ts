@@ -1,4 +1,5 @@
 import { IFilters, ISpell } from 'models';
+import ApiError from './ApiError';
 
 // GET
 // Gets a spell (full spell), from an id
@@ -13,7 +14,7 @@ export function getSpell(id: string): Promise<ISpell> {
       if (response.status === 200) {
         return response.json();
       } else {
-        throw Error(response.statusText);
+        throw new ApiError(response.status, response.statusText);
       }
     })
     .then((spell: ISpell) => {
@@ -34,27 +35,11 @@ export function getLightSpellsWithFilters(): Promise<{ spells: ISpell[]; filters
       if (response.status === 200) {
         return response;
       } else {
-        throw Error(response.statusText);
+        throw new ApiError(response.status, response.statusText);
       }
     })
     .then(response => response.json())
     .then((lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }) => {
       return lightSpellsWithFilters;
     });
-}
-
-// POST
-// Gets all spells with filters, from provided filters
-export function getLightSpellsWithFiltersFromFilters(filters: IFilters): Promise<{ spells: ISpell[]; filters: IFilters }> {
-  const url: string = '/api/spells/light/withfilters';
-
-  return fetch(url, {
-    body: JSON.stringify(filters),
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'POST'
-  })
-    .then(response => response.json())
 }

@@ -1,4 +1,5 @@
 import { ICharacterBase, IUserData } from 'models';
+import ApiError from './ApiError';
 
 // CREATE
 // Creates a new Character, from the current user
@@ -17,7 +18,7 @@ export function createCharacter(character: ICharacterBase): Promise<IUserData> {
       if (response.status === 200) {
         return response;
       } else {
-        throw Error(response.statusText);
+        throw new ApiError(response.status, response.statusText);
       }
     })
     .then(response => response.json())
@@ -43,7 +44,7 @@ export function updateCharacter(character: { id: string } & ICharacterBase): Pro
       if (response.status === 200) {
         return response;
       } else {
-        throw Error(response.statusText);
+        throw new ApiError(response.status, response.statusText);
       }
     })
     .then(response => response.json())
@@ -54,7 +55,7 @@ export function updateCharacter(character: { id: string } & ICharacterBase): Pro
 
 // DELETE
 // Deletes a Character, from the current user
-export function deleteCharacter(characterId: {characterId: string}): Promise<IUserData> {
+export function deleteCharacter(characterId: { characterId: string }): Promise<IUserData> {
   const url: string = '/api/users/characters/delete';
 
   return fetch(url, {
@@ -69,7 +70,7 @@ export function deleteCharacter(characterId: {characterId: string}): Promise<IUs
       if (response.status === 200) {
         return response;
       } else {
-        throw Error(response.statusText);
+        throw new ApiError(response.status, response.statusText);
       }
     })
     .then(response => response.json())

@@ -1,4 +1,5 @@
-import { IUserData } from "models";
+import { IUserData } from 'models';
+import ApiError from './ApiError';
 
 // GET
 // Gets user data, from current session
@@ -13,7 +14,7 @@ export function getUserData(): Promise<IUserData> {
       if (response.status === 200) {
         return response;
       } else {
-        throw Error(response.statusText);
+        throw new ApiError(response.status, response.statusText);
       }
     })
     .then(response => response.json())
