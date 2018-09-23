@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router';
 import { push } from 'react-router-redux';
-import { InputOnChangeData, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import { signOut } from '../actions/authentication/actions';
 import { IStoreState } from '../models';
 import Routes from '../routes/Routes';
@@ -23,16 +23,15 @@ interface IState {
   activeItem: string;
 }
 
-
 class AppComponent extends React.Component<IStateProps & IDispatchProps, IState> {
   constructor(props: IStateProps & IDispatchProps) {
     super(props);
     this.state = { activeItem: 'home' };
   }
 
-  public handleItemClick = (e: any, data: InputOnChangeData) => {
-    this.props.changeRoute('/' + data.name);
-    this.setState({ activeItem: data.name });
+  public handleItemClick = (event: any) => {
+    this.props.changeRoute('/' + event.currentTarget.name);
+    this.setState({ activeItem: event.name });
   };
 
   public handleSignOut = () => {
@@ -42,12 +41,15 @@ class AppComponent extends React.Component<IStateProps & IDispatchProps, IState>
   public render() {
     // TODO: get route info to set the active menu item.
     // Note, the name of the menue items must match the route paths!
+    const { isAuthenticated } = this.props;
     return (
       <div>
-        <HeaderComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
+        {isAuthenticated && (
+          <HeaderComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
+        )}
         <Segment basic={true}>
           <Switch>
-            <Routes isAuthenticated={this.props.isAuthenticated} />
+            <Routes isAuthenticated={isAuthenticated} />
           </Switch>
         </Segment>
       </div>

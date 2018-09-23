@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
 import { Card } from 'semantic-ui-react';
-import '../../../node_modules/rpg-awesome/css/rpg-awesome.min.css';
 import { BuildLevelWithSchool, SetSpellIcon } from '../../utils/ui';
 
 interface IProps {

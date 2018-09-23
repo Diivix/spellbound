@@ -1,7 +1,6 @@
 
 import _ from 'lodash';
 import React from 'react';
-import '../../node_modules/rpg-awesome/css/rpg-awesome.min.css';
 
 export const BuildLevelWithSchool = (level: number, school: string, truncateValue: boolean) => {
   school = _.upperFirst(school);

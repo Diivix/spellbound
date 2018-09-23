@@ -4,10 +4,11 @@
   "private": true,
   "proxy": "http://localhost:3084/",
   "dependencies": {
+    "@blueprintjs/core": "^3.6.1",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
