@@ -31,7 +31,7 @@ class AppComponent extends React.Component<IStateProps & IDispatchProps, IState>
 
   public handleItemClick = (event: any) => {
     this.props.changeRoute('/' + event.currentTarget.name);
-    this.setState({ activeItem: event.name });
+    this.setState({ activeItem: event.currentTarget.name });
   };
 
   public handleSignOut = () => {

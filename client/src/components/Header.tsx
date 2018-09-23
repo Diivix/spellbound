@@ -15,7 +15,6 @@ class HeaderComponent extends React.Component<IProps, {}> {
 
   public render() {
     const { activeItem, handleItemClick, handleSignOut } = this.props;
-    // const menuStyle = { borderRadius: 0 };
     const headerStyle = { backgroundColor: '#6442c3', color: '#FFFFFF' };
     const headerIconStyle = { color: '#FFFFFF', paddingRight: '5px' };
     const colourStyle = { color: '#FFFFFF' };
@@ -23,25 +22,6 @@ class HeaderComponent extends React.Component<IProps, {}> {
     // Note, the name of the menue items must match the route paths!
     return (
       <div>
-        {/* <Menu inverted={true} icon={true} color="violet" style={menuStyle}>
-          <Menu.Item name="home" onClick={handleItemClick}>
-            <Icon name="book" size="large" link={true} />
-            SpellBound
-          </Menu.Item>
-          <Menu.Item name="characters" active={activeItem === 'characters'} onClick={handleItemClick}>
-            <Icon name="users" />
-          </Menu.Item>
-          <Menu.Item name="spells" active={activeItem === 'spells'} onClick={handleItemClick}>
-            <Icon name="book" size="large" />
-          </Menu.Item>
-
-          <Menu.Menu position="right">
-            <Menu.Item name="auth" onClick={handleSignOut}>
-              <Icon inverted={true} name="log out" size="large" />
-              {'Sign Out'}
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu> */}
         <Navbar fixedToTop={false} style={headerStyle}>
           <Navbar.Group align={Alignment.LEFT}>
             <i className="ra ra-scroll-unfurled ra-lg" style={headerIconStyle} />
