@@ -2,6 +2,9 @@
 import _ from 'lodash';
 import React from 'react';
 
+// Violet
+export const primaryColour = "#6442c3";
+
 export const BuildLevelWithSchool = (level: number, school: string, truncateValue: boolean) => {
   school = _.upperFirst(school);
 

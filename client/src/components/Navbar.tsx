@@ -1,6 +1,7 @@
 // import { Icon, InputOnChangeData, Menu } from 'semantic-ui-react';
 import { Alignment, Button, Colors, Icon, Navbar } from '@blueprintjs/core';
 import * as React from 'react';
+import { primaryColour } from 'utils/ui';
 
 interface IProps {
   activeItem: string;
@@ -8,18 +9,18 @@ interface IProps {
   handleSignOut: () => void;
 }
 
-class HeaderComponent extends React.Component<IProps, {}> {
+class NavbarComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
 
   public render() {
     const { activeItem, handleItemClick, handleSignOut } = this.props;
-    const headerStyle = { backgroundColor: '#6442c3', color: '#FFFFFF' };
+    const headerStyle = { backgroundColor: primaryColour, color: '#FFFFFF' };
     const headerIconStyle = { color: '#FFFFFF', paddingRight: '5px' };
     const colourStyle = { color: '#FFFFFF' };
 
-    // Note, the name of the menue items must match the route paths!
+    // Note, the name of the buttons must match the route paths!
     return (
       <div>
         <Navbar fixedToTop={false} style={headerStyle}>
@@ -49,7 +50,7 @@ class HeaderComponent extends React.Component<IProps, {}> {
               className="bp3-minimal"
               style={colourStyle}
               text="Spells"
-              icon={<Icon icon="book" color={Colors.WHITE} />}
+              icon={<Icon icon="flame" color={Colors.WHITE} />}
               onClick={handleItemClick}
               active={activeItem === 'spells'}
             />
@@ -70,4 +71,4 @@ class HeaderComponent extends React.Component<IProps, {}> {
   }
 }
 
-export default HeaderComponent;
+export default NavbarComponent;

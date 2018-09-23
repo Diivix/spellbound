@@ -1,4 +1,4 @@
-import HeaderComponent from 'components/Header';
+import NavbarComponent from 'components/Navbar';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router';
@@ -45,7 +45,7 @@ class AppComponent extends React.Component<IStateProps & IDispatchProps, IState>
     return (
       <div>
         {isAuthenticated && (
-          <HeaderComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
+          <NavbarComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
         )}
         <Segment basic={true}>
           <Switch>
