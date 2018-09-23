@@ -14,10 +14,8 @@ interface IAppStateProps {
 }
 
 interface IAppDispatchProps {
-  // tslint:disable-next-line:ban-types
-  readonly changeRoute: Function;
-  // tslint:disable-next-line:ban-types
-  readonly signOut: Function;
+  readonly changeRoute: (routeName: string) => void;
+  readonly signOut: () => void;
 }
 
 interface IAppState {

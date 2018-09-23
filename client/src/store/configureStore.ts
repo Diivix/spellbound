@@ -6,7 +6,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunkMiddleware from 'redux-thunk';
 import { IStoreState } from '../models';
-import rootReducer from '../reducers/rootReducer';
+import { rootReducer } from '../reducers/rootReducer';
 import { initialState } from './initialState';
 
 const persistConfig = {
@@ -16,7 +16,6 @@ const persistConfig = {
 };
 
 const loggerMiddleware = createLogger();
-// TODO: Fix this!
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default function configureStore(history: History) {
