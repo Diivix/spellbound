@@ -7,13 +7,13 @@ import { isUndefined } from 'util';
 import { ICharacter, IStoreState } from '../../models';
 
 // tslint:disable-next-line:no-empty-interface
-interface ICharacterCardStateProps {}
+interface IStateProps {}
 
-interface ICharacterCardDispatchProps {
+interface IDispatchProps {
   changeRoute: (path: string) => {};
 }
 
-interface IProps extends ICharacterCardStateProps, ICharacterCardDispatchProps{
+interface IProps extends IStateProps, IDispatchProps{
   character: ICharacter;
 }
 
@@ -43,11 +43,11 @@ class CharacterCardComponet extends React.Component<IProps, {}> {
   }
 }
 
-const mapStateToProps = (state: IStoreState): ICharacterCardStateProps => {
+const mapStateToProps = (state: IStoreState): IStateProps => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch: any): ICharacterCardDispatchProps => {
+const mapDispatchToProps = (dispatch: any): IDispatchProps => {
   return {
     changeRoute: (path: string) => dispatch(push(path))
   };

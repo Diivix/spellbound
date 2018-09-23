@@ -8,17 +8,17 @@ import { ICredentials, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
 
 // Props & State
-interface ISigninComponentStateProps {
+interface IStateProps {
   isAuthenticated: boolean;
   isBusy: boolean;
 }
 
-interface ISigninComponentDispatchProps {
+interface IDispatchProps {
   // tslint:disable-next-line:ban-types
   signin: Function;
 }
 
-interface IProps extends ISigninComponentStateProps, ISigninComponentDispatchProps {
+interface IProps extends IStateProps, IDispatchProps {
   // tslint:disable-next-line:ban-types
   changeRoute: Function;
 }
@@ -118,14 +118,14 @@ class SigninComponent extends React.Component<IProps, IState> {
   }
 }
 
-function mapStateToProps(state: IStoreState): ISigninComponentStateProps {
+function mapStateToProps(state: IStoreState): IStateProps {
   return {
     isAuthenticated: state.isAuthenticated,
     isBusy: isBusy(state)
   };
 }
 
-function mapDispatchToProps(dispatch: any): ISigninComponentDispatchProps {
+function mapDispatchToProps(dispatch: any): IDispatchProps {
   return {
     signin: (credentials: ICredentials) => dispatch(signIn(credentials))
   };
