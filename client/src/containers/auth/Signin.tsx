@@ -38,8 +38,6 @@ class SigninComponent extends React.Component<IProps, IState> {
   }
 
   public handleChange = (event: any) => {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     if (event.currentTarget.name === 'email') {
       this.setState({ email: event.currentTarget.value });
     } else if (event.currentTarget.name === 'password') {
