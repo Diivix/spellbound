@@ -4,9 +4,6 @@ import { IDropdownCollection, IFilters } from '../../models';
 
 interface IProps {
   addFilterFromEvent: ((event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void);
-  // tslint:disable-next-line:ban-types
-  // addFilterFromEvent: Function;
-
   namesFilters: IDropdownCollection[];
   classTypesFilters: IDropdownCollection[];
   schoolsFilters: IDropdownCollection[];

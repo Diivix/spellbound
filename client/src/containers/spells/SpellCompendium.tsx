@@ -6,7 +6,7 @@ import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
 import CompendiumMenu from '../../components/CompendiumMenu';
-import SpellCardWithPopup from '../../components/spells/SpellCardWithPopup';
+import PopoverComponent from '../../components/spells/Popover';
 import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
 import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
 import { getSpells, hasSpells, isBusy } from '../../selectors';
@@ -63,7 +63,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     const possibleFilterValues: IFilters = this.props.filters;
     const sortedSpells: ISpell[] = this.sortSpells(this.state.sortByValue, this.props.getSpells);
     const spellCards: JSX.Element[] = sortedSpells.map(spell => (
-      <SpellCardWithPopup key={spell._id} spell={spell} changeRoute={this.props.changeRoute} />
+      <PopoverComponent key={spell._id} spell={spell} changeRoute={this.props.changeRoute} />
     ));
 
     // Format filter values for dropdowns
