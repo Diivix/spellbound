@@ -1,11 +1,13 @@
 // import PropTypes from 'prop-types';
 import { Button, FormGroup, H2, InputGroup, Intent } from '@blueprintjs/core';
 import * as React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { Grid, Image, Responsive } from 'semantic-ui-react';
 import { signIn } from '../../actions/authentication/actions';
 import { ICredentials, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
+import './Signin.css'
 
 // Props & State
 interface IStateProps {
@@ -62,7 +64,9 @@ class SigninComponent extends React.Component<IProps, IState> {
         <Grid celled="internally" verticalAlign="middle" columns={2}>
           <Grid.Row>
             <Responsive as={Grid.Column} width={8} minWidth={Responsive.onlyTablet.minWidth} verticalAlign="middle">
-              <Image src={require('../../assets/frame.png')} fluid={true} />
+              <ReactCSSTransitionGroup transitionName="front-image" transitionAppear={true} transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+                <Image key="front-image" src={require('../../assets/frame.png')} fluid={true} />
+              </ReactCSSTransitionGroup>
             </Responsive>
             <Grid.Column width={8}>
               <H2 style={{ color: '#A7B6C2' }}>Welcome to Spellbound</H2>
