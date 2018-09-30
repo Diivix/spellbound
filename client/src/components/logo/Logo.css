@@ -1,0 +1,35 @@
+.logo {
+  position: relative;
+  margin: auto;
+  /* width: 400px; */
+  /* height: 380px; */
+}
+
+.sphere {
+  /* position: absolute; */
+  bottom: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 100%;
+}
+
+.negative-sphere {
+  position: absolute;
+  bottom: 0;
+  top: 0px;
+  right: 35px;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  background: #fff;
+}
+
+.inner-sphere {
+  position: absolute;
+  bottom: 0;
+  top: 142px;
+  right: 110px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}

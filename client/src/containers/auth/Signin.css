@@ -1,26 +1,28 @@
-.front-image-enter {
-  opacity: 2;
+
+/* Flexbox */
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px
 }
 
-.front-image-enter.front-image-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
+.logo-container {
+  margin-right: 40px;
 }
 
-.front-image-leave {
-  opacity: 1;
+.signin-container {
+  padding-left: 20px;
+  border-left: 1px #bcbec0 solid;
 }
 
-.front-image-leave.front-image-leave-active {
-  opacity: 2;
-  transition: opacity 300ms ease-in;
+/* Logo animation */
+.logo-appear {
+  opacity: 0;
 }
 
-.front-image-appear {
-  opacity: 0.01;
-}
-
-.front-image-appear.front-image-appear-active {
+.logo-appear.logo-appear-active {
   opacity: 1;
   transition: opacity 2s ease-in;
 }

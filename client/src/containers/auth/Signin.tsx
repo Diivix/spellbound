@@ -1,13 +1,14 @@
 // import PropTypes from 'prop-types';
 import { Button, FormGroup, H2, InputGroup, Intent } from '@blueprintjs/core';
+import { Logo } from 'components/logo/Logo';
 import * as React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CssTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
-import { Grid, Image, Responsive } from 'semantic-ui-react';
+import { backgroundColour, primaryColour } from 'utils/ui';
 import { signIn } from '../../actions/authentication/actions';
 import { ICredentials, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
-import './Signin.css'
+import './Signin.css';
 
 // Props & State
 interface IStateProps {
@@ -16,14 +17,10 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-  // tslint:disable-next-line:ban-types
-  signin: Function;
+  signin: (credentials: ICredentials) => void;
 }
 
-interface IProps extends IStateProps, IDispatchProps {
-  // tslint:disable-next-line:ban-types
-  changeRoute: Function;
-}
+interface IProps extends IStateProps, IDispatchProps {}
 
 interface IState {
   email: string;
@@ -60,46 +57,49 @@ class SigninComponent extends React.Component<IProps, IState> {
     const margin = { marginBottom: '5px' };
 
     return (
-      <div>
-        <Grid celled="internally" verticalAlign="middle" columns={2}>
-          <Grid.Row>
-            <Responsive as={Grid.Column} width={8} minWidth={Responsive.onlyTablet.minWidth} verticalAlign="middle">
-              <ReactCSSTransitionGroup transitionName="front-image" transitionAppear={true} transitionEnterTimeout={700} transitionLeaveTimeout={700}>
-                <Image key="front-image" src={require('../../assets/frame.png')} fluid={true} />
-              </ReactCSSTransitionGroup>
-            </Responsive>
-            <Grid.Column width={8}>
-              <H2 style={{ color: '#A7B6C2' }}>Welcome to Spellbound</H2>
-
-              <FormGroup>
-                <InputGroup
-                  id="email-input"
-                  name="email"
-                  style={margin}
-                  large={true}
-                  leftIcon="envelope"
-                  placeholder="Enter your email address"
-                  value={email}
-                  autoComplete="email"
-                  onChange={this.handleChange}
-                />
-                <InputGroup
-                  id="password-input"
-                  name="password"
-                  style={margin}
-                  large={true}
-                  leftIcon="lock"
-                  placeholder="Enter your password"
-                  value={password}
-                  autoComplete="current-password"
-                  onChange={this.handleChange}
-                  type="password"
-                />
-                <Button icon="log-in" intent={Intent.PRIMARY} text="Login" onClick={this.handleSubmit} loading={isLoading} />
-              </FormGroup>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+      <div className="container">
+        <div className="logo-container">
+          <CssTransitionGroup
+            transitionName="logo"
+            transitionAppear={true}
+            transitionAppearTimeout={2000}
+            transitionEnterTimeout={2000}
+            transitionLeaveTimeout={2000}
+          >
+            <Logo scale={1} primaryColour={primaryColour} secondaryColour={backgroundColour} />
+          </CssTransitionGroup>
+        </div>
+        <div className="signin-container">
+          <H2>Welcome to Spellbound</H2>
+          <form onClick={this.handleSubmit}>
+            <FormGroup>
+              <InputGroup
+                id="email-input"
+                name="email"
+                style={margin}
+                large={true}
+                leftIcon="envelope"
+                placeholder="Enter your email address"
+                value={email}
+                autoComplete="email"
+                onChange={this.handleChange}
+              />
+              <InputGroup
+                id="password-input"
+                name="password"
+                style={margin}
+                large={true}
+                leftIcon="lock"
+                placeholder="Enter your password"
+                value={password}
+                autoComplete="current-password"
+                onChange={this.handleChange}
+                type="password"
+              />
+              <Button icon="log-in" intent={Intent.PRIMARY} text="Login" loading={isLoading} />
+            </FormGroup>
+          </form>
+        </div>
       </div>
     );
   }

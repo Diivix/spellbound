@@ -2,11 +2,15 @@
 import _ from 'lodash';
 import React from 'react';
 
+// Colour pallet.
 // Violet
 export const primaryColour = "#6435C9";
 export const primaryColourHover = "#5829bb";
 export const primaryColourActive = "#5626bf";
-
+// light grey
+export const secondaryColour = '#bcbec0';
+// white
+export const backgroundColour = '#ffffff';
 
 export const BuildLevelWithSchool = (level: number, school: string, truncateValue: boolean) => {
   school = _.upperFirst(school);

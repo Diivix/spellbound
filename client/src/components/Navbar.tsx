@@ -16,8 +16,8 @@ class NavbarComponent extends React.Component<IProps, {}> {
 
   public render() {
     const { activeItem, handleItemClick, handleSignOut } = this.props;
+    // TODO: Move these to css file.
     const headerStyle = { backgroundColor: primaryColour, color: '#FFFFFF' };
-    const headerIconStyle = { color: '#FFFFFF', paddingRight: '5px' };
     const colourStyle = { color: '#FFFFFF' };
 
     // Note, the name of the buttons must match the route paths!
@@ -25,7 +25,9 @@ class NavbarComponent extends React.Component<IProps, {}> {
       <div>
         <Navbar fixedToTop={false} style={headerStyle}>
           <Navbar.Group align={Alignment.LEFT}>
-            <i className="ra ra-scroll-unfurled ra-lg" style={headerIconStyle} />
+            {/* <div>
+              <Logo scale={0.1} primaryColour={backgroundColour} secondaryColour={primaryColour} />
+            </div> */}
             <Navbar.Heading>SpellBound</Navbar.Heading>
             <Navbar.Divider />
             <Button
