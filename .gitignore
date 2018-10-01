@@ -31,3 +31,6 @@ nodemon.json
 # misc
 .DS_Store
 certificates/*
+
+# css, using sass which compiles to css so we dont need the css file in git.
+.css

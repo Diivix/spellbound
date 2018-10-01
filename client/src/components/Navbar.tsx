@@ -28,7 +28,7 @@ class NavbarComponent extends React.Component<IProps, {}> {
             {/* <div>
               <Logo scale={0.1} primaryColour={backgroundColour} secondaryColour={primaryColour} />
             </div> */}
-            <Navbar.Heading>SpellBound</Navbar.Heading>
+            <Navbar.Heading>Spellbound</Navbar.Heading>
             <Navbar.Divider />
             <Button
               name="home"
