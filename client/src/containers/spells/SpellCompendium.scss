@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sidebar {
+  flex-shrink: 0;
+}
+
+.card-group {
+  flex-flow: row wrap;
+  width: 100%;
+}

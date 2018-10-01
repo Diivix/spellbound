@@ -22,7 +22,7 @@ class NavbarComponent extends React.Component<IProps, {}> {
 
     // Note, the name of the buttons must match the route paths!
     return (
-      <div>
+      <div className="header">
         <Navbar fixedToTop={false} style={headerStyle}>
           <Navbar.Group align={Alignment.LEFT}>
             {/* <div>

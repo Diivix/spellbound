@@ -1,3 +1,4 @@
+import { Tab, TabId, Tabs } from '@blueprintjs/core';
 import * as React from 'react';
 import { Dropdown, DropdownProps, Menu, Responsive } from 'semantic-ui-react';
 import { IDropdownCollection, IFilters } from '../../models';
@@ -10,9 +11,10 @@ interface IProps {
   componentsFilters: IDropdownCollection[];
   rangesFilters: IDropdownCollection[];
   filters: IFilters;
+  handleSortBy: (newTabId: TabId, prevTabId: TabId, event: any) => void;
 }
 
-class SpellFilterMenuComponent extends React.Component<IProps, {}> {
+class SpellSidebarComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
@@ -22,6 +24,12 @@ class SpellFilterMenuComponent extends React.Component<IProps, {}> {
 
     return (
       <Responsive as={Menu} vertical={true} floated={true} borderless={true} minWidth={Responsive.onlyTablet.minWidth}>
+        <Menu.Item name="Sort By" icon="arrow" style={{ color: '#6342c3' }} />
+        <Tabs id="TabsExample" onChange={this.props.handleSortBy} defaultSelectedTabId="name">
+          <Tab id="name" title="Name" />
+          <Tab id="school" title="School" />
+          <Tab id="level" title="Level" />
+        </Tabs>
         <Menu.Item name="Filters" icon="filter" style={{ color: '#6342c3' }} />
         <Menu.Item>
           <Dropdown
@@ -99,4 +107,4 @@ class SpellFilterMenuComponent extends React.Component<IProps, {}> {
   }
 }
 
-export default SpellFilterMenuComponent;
+export default SpellSidebarComponent;

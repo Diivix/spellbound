@@ -12,7 +12,7 @@ export function Logo(props: IProps) {
     <div className="logo" style={{transform: `scale(${props!.scale})`}}>
       <div className="sphere" style={{background: props.primaryColour}}>
         <div className="negative-sphere" style={{background: props.secondaryColour}}>
-          <div className="inner-sphere" style={{background: props.primaryColour}}/>
+          <div className="inner-sphere" style={{background: props.secondaryColour}}/>
         </div>
       </div>
     </div>

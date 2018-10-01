@@ -1,15 +1,17 @@
+import { TabId } from '@blueprintjs/core';
 import _ from 'lodash';
 import React, { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
+import { InputOnChangeData, Loader } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
-import CompendiumMenu from '../../components/CompendiumMenu';
+// import CompendiumMenu from '../../components/CompendiumMenu';
 import PopoverComponent from '../../components/spells/Popover';
-import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
+import SpellSidebar from '../../components/spells/SpellSidebar';
 import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
 import { getSpells, hasSpells, isBusy } from '../../selectors';
+import './SpellCompendium.css';
 
 interface IStateProps {
   appliedFilters?: IFilters | undefined;
@@ -109,7 +111,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
         return { key: filterValue, text: fullValue, value: filterValue };
       });
 
-      rangesFilters = _.sortBy(rangesFilters, (o) => {
+      rangesFilters = _.sortBy(rangesFilters, o => {
         const v = parseInt(o.key, 10);
         return isNaN(v) ? o : v;
       });
@@ -126,35 +128,29 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     }
 
     return (
-      <div>
-        <CompendiumMenu>
-          <Menu.Item name="Spell Compendium" position="left" icon="book" style={{color: '#2ab5ab'}}/>
-          <Menu.Item name="Sort by" position="right" icon="sort" style={{color: '#6342c3'}}/>
-          <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
-          <Menu.Item name="school" active={this.state.sortByValue === 'school'} onClick={this.setSortByValue} />
-          <Menu.Item name="level" active={this.state.sortByValue === 'level'} onClick={this.setSortByValue} />
-        </CompendiumMenu>
-
-        <SpellFilterMenuComponent
-          addFilterFromEvent={this.addFilterFromEvent}
-          namesFilters={namesFilters}
-          classTypesFilters={classTypesFilters}
-          schoolsFilters={schoolsFilters}
-          componentsFilters={componentsFilters}
-          rangesFilters={rangesFilters}
-          filters={appliedFilters}
-        />
-
-        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-          {spellCards}
-        </Card.Group>
+      <div className="container">
+        <div className="wrapper">
+          <div className="sidebar">
+            <SpellSidebar
+              addFilterFromEvent={this.addFilterFromEvent}
+              namesFilters={namesFilters}
+              classTypesFilters={classTypesFilters}
+              schoolsFilters={schoolsFilters}
+              componentsFilters={componentsFilters}
+              rangesFilters={rangesFilters}
+              filters={appliedFilters}
+              handleSortBy={this.handleSortBy} 
+            />
+          </div>
+          <div className="card-group">{spellCards}</div>
+        </div>
       </div>
     );
   }
 
-  private setSortByValue = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
+  private handleSortBy = (newTabId: TabId, prevTabId: TabId, event: any): void => {
     this.setState({
-      sortByValue: data.name
+      sortByValue: newTabId.toString()
     });
   };
 
@@ -196,7 +192,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
       tempFilters[name] = value;
     }
 
-    this.props.setAppliedFilters(tempFilters)
+    this.props.setAppliedFilters(tempFilters);
   };
 
   private addFilterFromEvent = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {

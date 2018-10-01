@@ -3,11 +3,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router';
 import { push } from 'react-router-redux';
-import { Segment } from 'semantic-ui-react';
 import { signOut } from '../actions/authentication/actions';
 import { IStoreState } from '../models';
 import Routes from '../routes/Routes';
 import { isBusy } from '../selectors';
+import './App.css';
 
 interface IStateProps {
   readonly isBusy: boolean;
@@ -47,11 +47,11 @@ class AppComponent extends React.Component<IStateProps & IDispatchProps, IState>
         {isAuthenticated && (
           <NavbarComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
         )}
-        <Segment basic={true}>
+        <div className="content">
           <Switch>
             <Routes isAuthenticated={isAuthenticated} />
           </Switch>
-        </Segment>
+        </div>
       </div>
     );
   }
