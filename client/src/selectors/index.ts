@@ -42,11 +42,11 @@ const getSpellsSelector = (state: IStoreState): ISpell[] | null => {
       });
     }
     // Filter: levels
-    if (!_.isEmpty(appliedFilters.levels)) {
-      spells = spells.filter(spell => {
-        return _.includes(appliedFilters.levels, spell.level);
-      });
-    }
+    // if (!_.isEmpty(appliedFilters.levels)) {
+    //   spells = spells.filter(spell => {
+    //     return _.includes(appliedFilters.levels, spell.level);
+    //   });
+    // }
     // Filter: ranges
     if (!_.isEmpty(appliedFilters.ranges)) {
       spells = spells.filter(spell => {

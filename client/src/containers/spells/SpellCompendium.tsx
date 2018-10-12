@@ -1,9 +1,9 @@
 import { TabId } from '@blueprintjs/core';
 import _ from 'lodash';
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { InputOnChangeData, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
 // import CompendiumMenu from '../../components/CompendiumMenu';
@@ -56,7 +56,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
       : {
           classTypes: [],
           components: [],
-          levels: [],
+          // levels: [],
           names: [],
           ranges: [],
           schools: []
@@ -130,7 +130,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     return (
       <div className="container">
         <div className="wrapper">
-          <div className="sidebar">
+          <div className="spell-sidebar">
             <SpellSidebar
               addFilterFromEvent={this.addFilterFromEvent}
               namesFilters={namesFilters}
@@ -148,7 +148,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     );
   }
 
-  private handleSortBy = (newTabId: TabId, prevTabId: TabId, event: any): void => {
+  private handleSortBy = (newTabId: TabId): void => {
     this.setState({
       sortByValue: newTabId.toString()
     });
@@ -174,29 +174,29 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     return sortedSpells;
   };
 
-  private addFilter = (name: string, value: string): void => {
+  private addFilter = (type: string, value: string): void => {
     const tempFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
       : {
           classTypes: [],
           components: [],
-          levels: [],
+          // levels: [],
           names: [],
           ranges: [],
           schools: []
         };
 
-    if (_.isEmpty(value) && tempFilters[name]) {
-      tempFilters[name] = [];
+    if (_.isEmpty(value) && tempFilters[type]) {
+      tempFilters[type] = [];
     } else {
-      tempFilters[name] = value;
+      tempFilters[type] = value;
     }
 
     this.props.setAppliedFilters(tempFilters);
   };
 
-  private addFilterFromEvent = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
-    this.addFilter(data.name, data.value);
+  private addFilterFromEvent = (type: string, value: string): void => {
+    this.addFilter(type, value);
   };
 }
 

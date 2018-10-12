@@ -1,10 +1,11 @@
-import { Tab, TabId, Tabs } from '@blueprintjs/core';
+import { FormGroup, Icon, Tab, TabId, Tabs } from '@blueprintjs/core';
 import * as React from 'react';
-import { Dropdown, DropdownProps, Menu, Responsive } from 'semantic-ui-react';
 import { IDropdownCollection, IFilters } from '../../models';
+import DropdownMultiSelect from './DropdownMultiSelect';
+import './SpellSidebar.css';
 
 interface IProps {
-  addFilterFromEvent: ((event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void);
+  addFilterFromEvent: (type: string, value: string) => void;
   namesFilters: IDropdownCollection[];
   classTypesFilters: IDropdownCollection[];
   schoolsFilters: IDropdownCollection[];
@@ -14,95 +15,89 @@ interface IProps {
   handleSortBy: (newTabId: TabId, prevTabId: TabId, event: any) => void;
 }
 
-class SpellSidebarComponent extends React.Component<IProps, {}> {
+interface IState {
+  selectedItems: IDropdownCollection[];
+}
+
+class SpellSidebarComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
+    this.state = {
+      selectedItems: []
+    };
   }
 
   public render() {
-    const { addFilterFromEvent, namesFilters, classTypesFilters, schoolsFilters, componentsFilters, rangesFilters, filters } = this.props;
+    const { namesFilters, classTypesFilters, componentsFilters, rangesFilters, schoolsFilters } = this.props;
 
     return (
-      <Responsive as={Menu} vertical={true} floated={true} borderless={true} minWidth={Responsive.onlyTablet.minWidth}>
-        <Menu.Item name="Sort By" icon="arrow" style={{ color: '#6342c3' }} />
+      <div className="sidebar">
+        <h4>
+          <Icon icon="sort-asc" /> Sort by
+        </h4>
         <Tabs id="TabsExample" onChange={this.props.handleSortBy} defaultSelectedTabId="name">
           <Tab id="name" title="Name" />
           <Tab id="school" title="School" />
           <Tab id="level" title="Level" />
         </Tabs>
-        <Menu.Item name="Filters" icon="filter" style={{ color: '#6342c3' }} />
-        <Menu.Item>
-          <Dropdown
-            fluid={true}
-            multiple={true}
-            selection={true}
-            search={true}
-            closeOnChange={true}
-            minCharacters={1}
-            placeholder="By Name..."
-            onChange={addFilterFromEvent}
-            options={namesFilters}
-            name="names"
-            value={filters.names}
-          />
-        </Menu.Item>
-        <Menu.Item>
-          <Dropdown
-            fluid={true}
-            multiple={true}
-            selection={true}
-            search={true}
-            closeOnChange={true}
-            name="classTypes"
-            placeholder="Classes"
-            options={classTypesFilters}
-            onChange={addFilterFromEvent}
-            value={filters.classTypes}
-          />
-        </Menu.Item>
-        <Menu.Item>
-          <Dropdown
-            fluid={true}
-            multiple={true}
-            selection={true}
-            search={true}
-            closeOnChange={true}
-            name="schools"
-            placeholder="Schools"
-            options={schoolsFilters}
-            onChange={addFilterFromEvent}
-            value={filters.schools}
-          />
-        </Menu.Item>
-        <Menu.Item>
-          <Dropdown
-            fluid={true}
-            multiple={true}
-            selection={true}
-            search={true}
-            closeOnChange={true}
-            name="components"
-            placeholder="Components"
-            options={componentsFilters}
-            onChange={addFilterFromEvent}
-            value={filters.components}
-          />
-        </Menu.Item>
-        <Menu.Item>
-          <Dropdown
-            fluid={true}
-            multiple={true}
-            selection={true}
-            search={true}
-            closeOnChange={true}
-            name="ranges"
-            placeholder="Range"
-            options={rangesFilters}
-            onChange={addFilterFromEvent}
-            value={filters.ranges}
-          />
-        </Menu.Item>
-      </Responsive>
+
+        <h4>
+          <Icon icon="sort-asc" /> Filter by
+        </h4>
+        <div>
+          <FormGroup label="Names" labelFor="names-dropdown">
+            {/* FIXME: The types should be changed to an enum. They must match the IFilter property names exactly */}
+            <DropdownMultiSelect
+              id="names-dropdown"
+              className="dropdown"
+              type="names"
+              items={namesFilters}
+              addFilter={this.props.addFilterFromEvent}
+              placeholder="Names..."
+            />
+          </FormGroup>
+          <FormGroup label="Classes" labelFor="classtypes-dropdown">
+            <DropdownMultiSelect
+              id="classtypes-dropdown"
+              className="dropdown"
+              type="classTypes"
+              items={classTypesFilters}
+              addFilter={this.props.addFilterFromEvent}
+              placeholder="Classes..."
+            />
+          </FormGroup>
+          <FormGroup label="Schools" labelFor="schools-dropdown">
+            <DropdownMultiSelect
+              id="schools-dropdown"
+              className="dropdown"
+              type="schools"
+              items={schoolsFilters}
+              addFilter={this.props.addFilterFromEvent}
+              placeholder="Schools..."
+            />
+          </FormGroup>
+          <FormGroup label="Components" labelFor="components-dropdown">
+            <DropdownMultiSelect
+              id="components-dropdown"
+              className="dropdown"
+              type="components"
+              items={componentsFilters}
+              addFilter={this.props.addFilterFromEvent}
+              placeholder="Components..."
+            />
+          </FormGroup>
+          <FormGroup label="Range" labelFor="ranges-dropdown">
+            <DropdownMultiSelect
+              id="ranges-dropdown"
+              className="dropdown"
+              type="ranges"
+              items={rangesFilters}
+              addFilter={this.props.addFilterFromEvent}
+              placeholder="Range..."
+            />
+          </FormGroup>
+        </div>
+      </div>
     );
   }
 }
