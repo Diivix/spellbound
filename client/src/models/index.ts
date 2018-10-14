@@ -53,12 +53,11 @@ export interface ICharacter extends ICharacterBase {
 }
 
 export interface IFilters {
-  classTypes: string[];
-  components: string[];
-  // levels: number[];
-  names: string[];
-  ranges: string[];
-  schools: string[];
+  classTypes: IDropdownCollection[];
+  components: IDropdownCollection[];
+  names: IDropdownCollection[];
+  ranges: IDropdownCollection[];
+  schools: IDropdownCollection[];
 }
 
 export interface ICredentials {
@@ -68,6 +67,5 @@ export interface ICredentials {
 
 export interface IDropdownCollection {
   key: string;
-  text: string;
   value: string;
 }

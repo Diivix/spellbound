@@ -1,34 +1,37 @@
 import { Button, Intent, ITagProps, MenuItem } from '@blueprintjs/core';
-import { ItemRenderer, MultiSelect } from '@blueprintjs/select';
+import { ItemPredicate, ItemRenderer, MultiSelect } from '@blueprintjs/select';
 import * as React from 'react';
 import { IDropdownCollection } from '../../models';
-import './SpellSidebar.css';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
 
 interface IProps {
   id?: string;
-  className?: string;
   type: string;
-  addFilter: ((name: string, value: string) => void);
+  addFilter: ((type: string, filter: IDropdownCollection) => void);
   items: IDropdownCollection[];
   placeholder: string;
+  selectedItems: IDropdownCollection[]
 }
 
 interface IState {
   selectedItems: IDropdownCollection[];
 }
 
+/**
+ * This code is heavily based o the MultiSelect example:
+ * https://github.com/palantir/blueprint/blob/develop/packages/docs-app/src/examples/select-examples/multiSelectExample.tsx
+ */
 class DropdownMultiSelectComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      selectedItems: []
+      selectedItems: [...this.props.selectedItems]
     };
   }
 
   public render() {
-    const { items, className } = this.props;
+    const { items } = this.props;
     const { selectedItems } = this.state;
 
     const getTagProps = (value: string, index: number): ITagProps => ({
@@ -36,29 +39,35 @@ class DropdownMultiSelectComponent extends React.Component<IProps, IState> {
       minimal: true
     });
 
+    const itemSelectProps = {
+      itemPredicate: this.filterItem,
+      itemRenderer: this.renderListItem,
+      items,
+    };
+
     const ItemSelect = MultiSelect.ofType<IDropdownCollection>();
     const clearButton = selectedItems.length > 0 ? <Button icon="cross" minimal={true} onClick={this.handleClear} /> : undefined;
 
     return (
       <ItemSelect
-        className={className}
+        {...itemSelectProps}
         items={items}
-        // initialContent={null}
-        itemRenderer={this.renderItem}
+        itemRenderer={this.renderListItem}
         noResults={<MenuItem disabled={true} text="No results." />}
         onItemSelect={this.handleItemSelect}
-        popoverProps={{ minimal: true }}
+        popoverProps={{ minimal: false }}
         tagRenderer={this.renderTag}
         tagInputProps={{ tagProps: getTagProps, onRemove: this.handleTagRemove, rightElement: clearButton }}
         selectedItems={this.state.selectedItems}
+        resetOnSelect={false}
         placeholder={this.props.placeholder}
       />
     );
   }
 
-  private renderTag = (item: IDropdownCollection) => item.text;
+  private renderTag = (item: IDropdownCollection) => item.value;
 
-  private renderItem: ItemRenderer<IDropdownCollection> = (item, { modifiers, handleClick }) => {
+  private renderListItem: ItemRenderer<IDropdownCollection> = (item, { modifiers, handleClick }) => {
     if (!modifiers.matchesPredicate) {
       return null;
     }
@@ -68,10 +77,14 @@ class DropdownMultiSelectComponent extends React.Component<IProps, IState> {
         icon={this.isItemSelected(item) ? 'tick' : 'blank'}
         key={item.key}
         onClick={handleClick}
-        text={item.text}
+        text={item.value}
         shouldDismissPopover={true}
       />
     );
+  };
+
+  private filterItem: ItemPredicate<IDropdownCollection> = (query, item) => {
+    return `${item.value}`.indexOf(query.toLowerCase()) >= 0;
   };
 
   private handleTagRemove = (tag: string, index: number) => {
@@ -79,7 +92,7 @@ class DropdownMultiSelectComponent extends React.Component<IProps, IState> {
   };
 
   private getSelectedItemIndex(item: IDropdownCollection) {
-    return this.state.selectedItems.indexOf(item);
+    return this.state.selectedItems.findIndex(x => x.key === item.key)
   }
 
   private isItemSelected(item: IDropdownCollection) {
@@ -88,12 +101,12 @@ class DropdownMultiSelectComponent extends React.Component<IProps, IState> {
 
   private selectItem(item: IDropdownCollection) {
     this.setState({ selectedItems: [...this.state.selectedItems, item] });
-    this.props.addFilter(this.props.type, item.value);
+    this.props.addFilter(this.props.type, item);
   }
 
   private deselectItem(index: number) {
     this.setState({ selectedItems: this.state.selectedItems.filter((item, i) => i !== index) });
-    this.props.addFilter(this.props.type, '');
+    this.props.addFilter(this.props.type, { key: '', value: '' });
   }
 
   private handleItemSelect = (item: IDropdownCollection) => {
@@ -106,8 +119,8 @@ class DropdownMultiSelectComponent extends React.Component<IProps, IState> {
 
   private handleClear = () => {
     this.setState({ selectedItems: [] });
-    this.props.addFilter(this.props.type, '');
-  }
+    this.props.addFilter(this.props.type, { key: '', value: '' });
+  };
 }
 
 export default DropdownMultiSelectComponent;

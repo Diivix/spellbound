@@ -6,7 +6,6 @@ import { push } from 'react-router-redux';
 import { Loader } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
-// import CompendiumMenu from '../../components/CompendiumMenu';
 import PopoverComponent from '../../components/spells/Popover';
 import SpellSidebar from '../../components/spells/SpellSidebar';
 import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
@@ -27,11 +26,11 @@ interface IDispatchProps {
   setAppliedFilters: (filters: IFilters) => {};
 }
 
-interface IOwnState {
+interface IState {
   sortByValue: string;
 }
 
-class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchProps, IOwnState> {
+class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchProps, IState> {
   constructor(props: IStateProps & IDispatchProps) {
     super(props);
     this.state = {
@@ -56,7 +55,6 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
       : {
           classTypes: [],
           components: [],
-          // levels: [],
           names: [],
           ranges: [],
           schools: []
@@ -71,44 +69,40 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     // Format filter values for dropdowns
     let namesFilters: IDropdownCollection[] = [];
     if (!isUndefined(possibleFilterValues.names)) {
-      namesFilters = possibleFilterValues.names.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      namesFilters = possibleFilterValues.names.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value),
       }));
       namesFilters = _.sortBy(namesFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     let schoolsFilters: IDropdownCollection[] = [];
     if (!isUndefined(possibleFilterValues.schools)) {
-      schoolsFilters = possibleFilterValues.schools.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      schoolsFilters = possibleFilterValues.schools.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value),
       }));
       schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     let classTypesFilters: IDropdownCollection[] = [];
     if (!isUndefined(possibleFilterValues.classTypes)) {
-      classTypesFilters = possibleFilterValues.classTypes.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      classTypesFilters = possibleFilterValues.classTypes.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value),
       }));
       classTypesFilters = _.sortBy(classTypesFilters, [(o: IDropdownCollection) => o.key]);
     }
 
     let rangesFilters: IDropdownCollection[] = [];
     if (!isUndefined(possibleFilterValues.ranges)) {
-      // tslint:disable-next-line:only-arrow-functions
-      rangesFilters = possibleFilterValues.ranges.map(function(filterValue) {
-        let fullValue = filterValue;
+      rangesFilters = possibleFilterValues.ranges.map(filter => {
+        let fullValue = filter.value;
         if (!isNaN(Number(fullValue))) {
           fullValue += ' feet';
         }
 
-        return { key: filterValue, text: fullValue, value: filterValue };
+        return { key: filter.key, value: filter.value };
       });
 
       rangesFilters = _.sortBy(rangesFilters, o => {
@@ -119,10 +113,9 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
 
     let componentsFilters: IDropdownCollection[] = [];
     if (!isUndefined(possibleFilterValues.components)) {
-      componentsFilters = possibleFilterValues.components.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      componentsFilters = possibleFilterValues.components.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value),
       }));
       componentsFilters = _.sortBy(componentsFilters, [(o: IDropdownCollection) => o.key]);
     }
@@ -132,13 +125,13 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
         <div className="wrapper">
           <div className="spell-sidebar">
             <SpellSidebar
-              addFilterFromEvent={this.addFilterFromEvent}
+              addFilterFromEvent={this.addFilter}
               namesFilters={namesFilters}
               classTypesFilters={classTypesFilters}
               schoolsFilters={schoolsFilters}
               componentsFilters={componentsFilters}
               rangesFilters={rangesFilters}
-              filters={appliedFilters}
+              appliedFilters={appliedFilters}
               handleSortBy={this.handleSortBy} 
             />
           </div>
@@ -174,29 +167,25 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     return sortedSpells;
   };
 
-  private addFilter = (type: string, value: string): void => {
-    const tempFilters = !isUndefined(this.props.appliedFilters)
+  // FIXME: Change params to an IDropdownCollection type
+  private addFilter = (type: string, filter: IDropdownCollection): void => {
+    const tempFilters: IFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
       : {
           classTypes: [],
           components: [],
-          // levels: [],
           names: [],
           ranges: [],
           schools: []
         };
 
-    if (_.isEmpty(value) && tempFilters[type]) {
+    if (_.isEmpty(filter.value) && tempFilters[type]) {
       tempFilters[type] = [];
     } else {
-      tempFilters[type] = value;
+      tempFilters[type] = [filter];
     }
 
     this.props.setAppliedFilters(tempFilters);
-  };
-
-  private addFilterFromEvent = (type: string, value: string): void => {
-    this.addFilter(type, value);
   };
 }
 
