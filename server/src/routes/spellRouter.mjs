@@ -21,7 +21,7 @@ function getAllPossibleFilters(spells) {
   const components = spells.map(spell => spell.components);
 
   return {
-    // The key value object is a IDropdownCollection model on the client side.
+    // The key value object is a ISelectItem model on the client side.
     names: names.map(value => { return { key: value, value: _.upperFirst(value) } }),
     schools: _.uniq(schools).map(value => { return { key: value, value: _.upperFirst(value) } }),
     levels: _.uniq(levels).map(value => { return { key: value, value: _.upperFirst(value) } }),

@@ -53,11 +53,11 @@ export interface ICharacter extends ICharacterBase {
 }
 
 export interface IFilters {
-  classTypes: IDropdownCollection[];
-  components: IDropdownCollection[];
-  names: IDropdownCollection[];
-  ranges: IDropdownCollection[];
-  schools: IDropdownCollection[];
+  classTypes: ISelectItem[];
+  components: ISelectItem[];
+  names: ISelectItem[];
+  ranges: ISelectItem[];
+  schools: ISelectItem[];
 }
 
 export interface ICredentials {
@@ -65,7 +65,7 @@ export interface ICredentials {
   password: string;
 }
 
-export interface IDropdownCollection {
+export interface ISelectItem {
   key: string;
   value: string;
 }

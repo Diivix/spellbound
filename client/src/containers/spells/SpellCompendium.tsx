@@ -1,4 +1,4 @@
-import { TabId } from '@blueprintjs/core';
+import { FormGroup, TabId } from '@blueprintjs/core';
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -6,9 +6,10 @@ import { push } from 'react-router-redux';
 import { Loader } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
+import DropdownMultiSelect from '../../components/MultiSelectWrapper';
 import PopoverComponent from '../../components/spells/Popover';
 import SpellSidebar from '../../components/spells/SpellSidebar';
-import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
+import { IFilters, ISelectItem, ISpell, IStoreState } from '../../models';
 import { getSpells, hasSpells, isBusy } from '../../selectors';
 import './SpellCompendium.css';
 
@@ -67,34 +68,34 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     ));
 
     // Format filter values for dropdowns
-    let namesFilters: IDropdownCollection[] = [];
+    let namesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.names)) {
       namesFilters = possibleFilterValues.names.map(filter => ({
         key: filter.key,
-        value: _.upperFirst(filter.value),
+        value: _.upperFirst(filter.value)
       }));
-      namesFilters = _.sortBy(namesFilters, [(o: IDropdownCollection) => o.key]);
+      namesFilters = _.sortBy(namesFilters, [(o: ISelectItem) => o.key]);
     }
 
-    let schoolsFilters: IDropdownCollection[] = [];
+    let schoolsFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.schools)) {
       schoolsFilters = possibleFilterValues.schools.map(filter => ({
         key: filter.key,
-        value: _.upperFirst(filter.value),
+        value: _.upperFirst(filter.value)
       }));
-      schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) => o.key]);
+      schoolsFilters = _.sortBy(schoolsFilters, [(o: ISelectItem) => o.key]);
     }
 
-    let classTypesFilters: IDropdownCollection[] = [];
+    let classTypesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.classTypes)) {
       classTypesFilters = possibleFilterValues.classTypes.map(filter => ({
         key: filter.key,
-        value: _.upperFirst(filter.value),
+        value: _.upperFirst(filter.value)
       }));
-      classTypesFilters = _.sortBy(classTypesFilters, [(o: IDropdownCollection) => o.key]);
+      classTypesFilters = _.sortBy(classTypesFilters, [(o: ISelectItem) => o.key]);
     }
 
-    let rangesFilters: IDropdownCollection[] = [];
+    let rangesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.ranges)) {
       rangesFilters = possibleFilterValues.ranges.map(filter => {
         let fullValue = filter.value;
@@ -111,29 +112,71 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
       });
     }
 
-    let componentsFilters: IDropdownCollection[] = [];
+    let componentsFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.components)) {
       componentsFilters = possibleFilterValues.components.map(filter => ({
         key: filter.key,
-        value: _.upperFirst(filter.value),
+        value: _.upperFirst(filter.value)
       }));
-      componentsFilters = _.sortBy(componentsFilters, [(o: IDropdownCollection) => o.key]);
+      componentsFilters = _.sortBy(componentsFilters, [(o: ISelectItem) => o.key]);
     }
 
     return (
       <div className="container">
         <div className="wrapper">
           <div className="spell-sidebar">
-            <SpellSidebar
-              addFilterFromEvent={this.addFilter}
-              namesFilters={namesFilters}
-              classTypesFilters={classTypesFilters}
-              schoolsFilters={schoolsFilters}
-              componentsFilters={componentsFilters}
-              rangesFilters={rangesFilters}
-              appliedFilters={appliedFilters}
-              handleSortBy={this.handleSortBy} 
-            />
+            <SpellSidebar handleSortBy={this.handleSortBy}>
+              <FormGroup label="Names" labelFor="names-dropdown">
+                <DropdownMultiSelect
+                  id="names-dropdown"
+                  type="names"
+                  items={namesFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Names..."
+                  selectedItems={appliedFilters.names}
+                />
+              </FormGroup>
+              <FormGroup label="Classes" labelFor="classtypes-dropdown">
+                <DropdownMultiSelect
+                  id="classtypes-dropdown"
+                  type="classTypes"
+                  items={classTypesFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Classes..."
+                  selectedItems={appliedFilters.classTypes}
+                />
+              </FormGroup>
+              <FormGroup label="Schools" labelFor="schools-dropdown">
+                <DropdownMultiSelect
+                  id="schools-dropdown"
+                  type="schools"
+                  items={schoolsFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Schools..."
+                  selectedItems={appliedFilters.schools}
+                />
+              </FormGroup>
+              <FormGroup label="Components" labelFor="components-dropdown">
+                <DropdownMultiSelect
+                  id="components-dropdown"
+                  type="components"
+                  items={componentsFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Components..."
+                  selectedItems={appliedFilters.components}
+                />
+              </FormGroup>
+              <FormGroup label="Range" labelFor="ranges-dropdown">
+                <DropdownMultiSelect
+                  id="ranges-dropdown"
+                  type="ranges"
+                  items={rangesFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Range..."
+                  selectedItems={appliedFilters.ranges}
+                />
+              </FormGroup>
+            </SpellSidebar>
           </div>
           <div className="card-group">{spellCards}</div>
         </div>
@@ -167,8 +210,8 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     return sortedSpells;
   };
 
-  // FIXME: Change params to an IDropdownCollection type
-  private addFilter = (type: string, filter: IDropdownCollection): void => {
+  // FIXME: Change params to an ISelectItem type
+  private addFilter = (type: string, filter: ISelectItem): void => {
     const tempFilters: IFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
       : {
