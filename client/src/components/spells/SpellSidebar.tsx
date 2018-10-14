@@ -23,7 +23,7 @@ class SpellSidebarComponent extends React.Component<IProps, IState> {
     return (
       <div className="sidebar">
         <h4>
-          <Icon icon="sort-asc" /> Sort by
+          <Icon icon="sort-desc" /> Sort by
         </h4>
         <Tabs id="TabsExample" onChange={this.props.handleSortBy} defaultSelectedTabId="name">
           <Tab id="name" title="Name" />

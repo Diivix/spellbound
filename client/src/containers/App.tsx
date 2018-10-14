@@ -26,7 +26,7 @@ interface IState {
 class AppComponent extends React.Component<IStateProps & IDispatchProps, IState> {
   constructor(props: IStateProps & IDispatchProps) {
     super(props);
-    this.state = { activeItem: 'home' };
+    this.state = { activeItem: 'spells' };
   }
 
   public handleItemClick = (event: any) => {

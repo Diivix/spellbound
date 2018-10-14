@@ -31,20 +31,12 @@ class NavbarComponent extends React.Component<IProps, {}> {
             <Navbar.Heading>Spellbound</Navbar.Heading>
             <Navbar.Divider />
             <Button
-              name="home"
-              className="bp3-minimal"
-              style={colourStyle}
-              text="Home"
-              icon={<Icon icon="home" color={Colors.WHITE} />}
-              onClick={handleItemClick}
-              active={activeItem === 'home'}
-            />
-            <Button
               name="characters"
               className="bp3-minimal"
               style={colourStyle}
               text="Characters"
-              icon={<Icon icon="people" color={Colors.WHITE} onClick={handleItemClick} />}
+              icon={<Icon icon="people" color={Colors.WHITE} />}
+              onClick={handleItemClick}
               active={activeItem === 'characters'}
             />
             <Button
