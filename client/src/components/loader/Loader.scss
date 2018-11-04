@@ -1,0 +1,100 @@
+$c: #222 #401a2a #741a38 #9b123c #c10a40;
+$l: 2em;
+$t: 0.5s;
+$n: length($c);
+$m: 0.5 * ($n - 1);
+$d: 5.6 * $l;
+$k: 0.75;
+
+// html { overflow: hidden; }
+
+// body { background: #444; }
+
+.assembly {
+  transform: rotateX(-35deg) rotateY(-45deg);
+  // overflow: hidden;
+
+  & div
+  :before,
+  :after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    background: currentColor;
+  }
+}
+
+@for $i from 0 to $n {
+  $j: $i + 1;
+
+  .assembly > :nth-child(#{$n}n + #{$j}) {
+    top: calc(50% + #{($m - $i) * 2.5 * $l});
+    color: nth($c, $j);
+  }
+
+  .switch--out:nth-child(#{$n}n + #{$j}) {
+    &,
+    * {
+      animation-delay: -$i * $t/$n;
+    }
+  }
+}
+
+[class*='switch'] {
+  animation: switch 4 * $t steps(4) infinite;
+}
+
+.switch--out {
+  animation-direction: reverse;
+  animation-timing-function: steps(4, start);
+}
+
+@keyframes switch {
+  to {
+    transform: rotateY(1turn);
+  }
+}
+
+.mover {
+  animation: move $t ease-in-out infinite;
+}
+
+@keyframes move {
+  #{$k*100%} {
+    transform: translate($k * $d) scale3d(1, 1, 1);
+  }
+  100% {
+    transform: translate($d) scale3d(0, 0, 0);
+  }
+}
+
+.cube {
+  margin: -0.5 * $l;
+  width: $l;
+  height: $l;
+  transform: translateZ(0.5 * $l);
+
+  &:before,
+  &:after {
+    width: inherit;
+    height: inherit;
+    content: '';
+  }
+
+  &:before {
+    top: 0;
+    left: 100%;
+    transform-origin: 0 50%;
+    transform: rotateY(90deg);
+    filter: brightness(1.15);
+  }
+
+  &:after {
+    top: -100%;
+    left: 0;
+    transform-origin: 50% bottom;
+    transform: rotateX(90deg);
+    filter: brightness(1.3);
+  }
+}

@@ -3,9 +3,9 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Loader } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
+import {Loader} from '../../components/loader/Loader';
 import DropdownMultiSelect from '../../components/MultiSelectWrapper';
 import PopoverComponent from '../../components/spells/Popover';
 import SpellSidebar from '../../components/spells/SpellSidebar';
@@ -48,7 +48,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
     if (this.props.isBusy || isUndefined(this.props.getSpells) || isUndefined(this.props.filters)) {
-      return <Loader active={true} inline="centered" size="big" />;
+      return <Loader />;
     }
 
     const appliedFilters = !isUndefined(this.props.appliedFilters)
@@ -122,7 +122,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     }
 
     return (
-      <div className="container">
+      <div className="spellcompendium-container">
         <div className="wrapper">
           <div className="spell-sidebar">
             <SpellSidebar handleSortBy={this.handleSortBy}>
@@ -210,7 +210,6 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     return sortedSpells;
   };
 
-  // FIXME: Change params to an ISelectItem type
   private addFilter = (type: string, filter: ISelectItem): void => {
     const tempFilters: IFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters

@@ -6,6 +6,7 @@ import CssTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { backgroundColour, primaryColour } from 'utils/ui';
 import { signIn } from '../../actions/authentication/actions';
+// import {Loader} from '../../components/loader/Loader';
 import { ICredentials, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
 import './Signin.css';
@@ -57,7 +58,7 @@ class SigninComponent extends React.Component<IProps, IState> {
     const margin = { marginBottom: '5px' };
 
     return (
-      <div className="container">
+      <div className="signin-container">
         <div className="logo-container">
           <CssTransitionGroup
             transitionName="logo"
@@ -67,6 +68,7 @@ class SigninComponent extends React.Component<IProps, IState> {
             transitionLeaveTimeout={2000}
           >
             <Logo scale={1} primaryColour={primaryColour} secondaryColour={backgroundColour} />
+            {/* <Loader /> */}
           </CssTransitionGroup>
         </div>
         <div className="signin-container">
