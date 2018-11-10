@@ -7,9 +7,7 @@ export const initialState: IStoreState = {
   spellData: {},
   userData: {
     characters: [],
-    email: '',
-    favouriteSpells: [],
-    lastSignedIn: 0,
-    username: ''
+    token: '',
+    userName: ''
   }
 };

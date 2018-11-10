@@ -10,8 +10,8 @@ export function signIn(credentials: ICredentials): (dispatch: Dispatch<IStoreSta
     dispatch(InProgress.create());
 
     try {
-      await signInToApi(credentials);
-      dispatch(SignIn.create());
+      const user = await signInToApi(credentials);
+      dispatch(SignIn.create({ user }));
     } catch (error) {
       dispatchError(dispatch, error);
     }

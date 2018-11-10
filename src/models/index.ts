@@ -1,18 +1,16 @@
 import { RouterState } from 'react-router-redux';
 
 export interface IStoreState {
-  pendingActions: number;
   isAuthenticated: boolean;
-  userData: IUserData;
-  spellData: ISpellData;
+  pendingActions: number;
   router?: RouterState;
+  spellData: ISpellData;
+  userData: IUserData;
 }
 
 export interface IUserData {
-  username: string;
-  email: string;
-  lastSignedIn: number;
-  favouriteSpells: ISpell[];
+  token: string;
+  userName: string;
   characters: ICharacter[];
 }
 

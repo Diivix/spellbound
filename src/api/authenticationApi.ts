@@ -1,8 +1,9 @@
 import { ICredentials } from 'models';
+import { IUserData } from 'models';
 import ApiError from './ApiError';
 
-export function signIn(credentials: ICredentials): Promise<{}> {
-  const url = '/api/auth/signin';
+export function signIn(credentials: ICredentials): Promise<IUserData> {
+  const url = '/Account/SignIn';
 
   return fetch(url, {
     body: JSON.stringify(credentials),
@@ -11,17 +12,22 @@ export function signIn(credentials: ICredentials): Promise<{}> {
       'Content-Type': 'application/json'
     },
     method: 'POST'
-  }).then(response => {
-    if (response.status === 200) {
-      return response;
-    } else {
-      throw new ApiError(response.status, response.statusText);
-    }
-  });
+  })
+    .then(response => {
+      if (response.status === 200) {
+        return response;
+      } else {
+        throw new ApiError(response.status, response.statusText);
+      }
+    })
+    .then(response => response.json())
+    .then((user: IUserData) => {
+      return user;
+    });
 }
 
 export function signOut(): Promise<{}> {
-  const url = '/api/auth/signout';
+  const url = '/Account/SignOut';
 
   return fetch(url, {
     credentials: 'include',
