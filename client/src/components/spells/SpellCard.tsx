@@ -1,8 +1,8 @@
+import { Card } from "@blueprintjs/core";
 import _ from 'lodash';
 import React from 'react';
-import { Card } from 'semantic-ui-react';
-import '../../../node_modules/rpg-awesome/css/rpg-awesome.min.css';
 import { BuildLevelWithSchool, SetSpellIcon } from '../../utils/ui';
+import './SpellCard.css'
 
 interface IProps {
   name: string;
@@ -21,14 +21,10 @@ class SpellCardComponent extends React.Component<IProps, {}> {
     const icon = SetSpellIcon(this.props.school, '#2ab5ab')
 
     return (
-      <Card style={{ margin: '5px' }} link={true}>
-        <Card.Content>
-          {icon}
-          <Card.Header style={{ display: 'inline' }}>{name}</Card.Header>
-          <Card.Meta style={{ paddingLeft: '22px' }} textAlign="left">
-            {meta}
-          </Card.Meta>
-        </Card.Content>
+      <Card className="card" interactive={true}>
+        {icon}
+        <h5 className="heading">{name}</h5>
+        <p className="meta">{meta}</p>
       </Card>
     );
   }

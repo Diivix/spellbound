@@ -1,15 +1,17 @@
+import { FormGroup, TabId } from '@blueprintjs/core';
 import _ from 'lodash';
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Card, InputOnChangeData, Loader, Menu } from 'semantic-ui-react';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
-import CompendiumMenu from '../../components/CompendiumMenu';
-import SpellCardWithPopup from '../../components/spells/SpellCardWithPopup';
-import SpellFilterMenuComponent from '../../components/spells/SpellFilterMenu';
-import { IDropdownCollection, IFilters, ISpell, IStoreState } from '../../models';
+import {Loader} from '../../components/loader/Loader';
+import DropdownMultiSelect from '../../components/MultiSelectWrapper';
+import PopoverComponent from '../../components/spells/Popover';
+import SpellSidebar from '../../components/spells/SpellSidebar';
+import { IFilters, ISelectItem, ISpell, IStoreState } from '../../models';
 import { getSpells, hasSpells, isBusy } from '../../selectors';
+import './SpellCompendium.css';
 
 interface IStateProps {
   appliedFilters?: IFilters | undefined;
@@ -25,11 +27,11 @@ interface IDispatchProps {
   setAppliedFilters: (filters: IFilters) => {};
 }
 
-interface IOwnState {
+interface IState {
   sortByValue: string;
 }
 
-class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchProps, IOwnState> {
+class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchProps, IState> {
   constructor(props: IStateProps & IDispatchProps) {
     super(props);
     this.state = {
@@ -46,7 +48,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
   public render() {
     // Return imediately if we're busy or the filters or spell are undefined.
     if (this.props.isBusy || isUndefined(this.props.getSpells) || isUndefined(this.props.filters)) {
-      return <Loader active={true} inline="centered" size="big" />;
+      return <Loader />;
     }
 
     const appliedFilters = !isUndefined(this.props.appliedFilters)
@@ -54,7 +56,6 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
       : {
           classTypes: [],
           components: [],
-          levels: [],
           names: [],
           ranges: [],
           schools: []
@@ -63,98 +64,129 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     const possibleFilterValues: IFilters = this.props.filters;
     const sortedSpells: ISpell[] = this.sortSpells(this.state.sortByValue, this.props.getSpells);
     const spellCards: JSX.Element[] = sortedSpells.map(spell => (
-      <SpellCardWithPopup key={spell._id} spell={spell} changeRoute={this.props.changeRoute} />
+      <PopoverComponent key={spell._id} spell={spell} changeRoute={this.props.changeRoute} />
     ));
 
     // Format filter values for dropdowns
-    let namesFilters: IDropdownCollection[] = [];
+    let namesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.names)) {
-      namesFilters = possibleFilterValues.names.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      namesFilters = possibleFilterValues.names.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value)
       }));
-      namesFilters = _.sortBy(namesFilters, [(o: IDropdownCollection) => o.key]);
+      namesFilters = _.sortBy(namesFilters, [(o: ISelectItem) => o.key]);
     }
 
-    let schoolsFilters: IDropdownCollection[] = [];
+    let schoolsFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.schools)) {
-      schoolsFilters = possibleFilterValues.schools.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      schoolsFilters = possibleFilterValues.schools.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value)
       }));
-      schoolsFilters = _.sortBy(schoolsFilters, [(o: IDropdownCollection) => o.key]);
+      schoolsFilters = _.sortBy(schoolsFilters, [(o: ISelectItem) => o.key]);
     }
 
-    let classTypesFilters: IDropdownCollection[] = [];
+    let classTypesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.classTypes)) {
-      classTypesFilters = possibleFilterValues.classTypes.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      classTypesFilters = possibleFilterValues.classTypes.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value)
       }));
-      classTypesFilters = _.sortBy(classTypesFilters, [(o: IDropdownCollection) => o.key]);
+      classTypesFilters = _.sortBy(classTypesFilters, [(o: ISelectItem) => o.key]);
     }
 
-    let rangesFilters: IDropdownCollection[] = [];
+    let rangesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.ranges)) {
-      // tslint:disable-next-line:only-arrow-functions
-      rangesFilters = possibleFilterValues.ranges.map(function(filterValue) {
-        let fullValue = filterValue;
+      rangesFilters = possibleFilterValues.ranges.map(filter => {
+        let fullValue = filter.value;
         if (!isNaN(Number(fullValue))) {
           fullValue += ' feet';
         }
 
-        return { key: filterValue, text: fullValue, value: filterValue };
+        return { key: filter.key, value: filter.value };
       });
 
-      rangesFilters = _.sortBy(rangesFilters, (o) => {
+      rangesFilters = _.sortBy(rangesFilters, o => {
         const v = parseInt(o.key, 10);
         return isNaN(v) ? o : v;
       });
     }
 
-    let componentsFilters: IDropdownCollection[] = [];
+    let componentsFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.components)) {
-      componentsFilters = possibleFilterValues.components.map(filterValue => ({
-        key: filterValue,
-        text: _.upperFirst(filterValue),
-        value: filterValue
+      componentsFilters = possibleFilterValues.components.map(filter => ({
+        key: filter.key,
+        value: _.upperFirst(filter.value)
       }));
-      componentsFilters = _.sortBy(componentsFilters, [(o: IDropdownCollection) => o.key]);
+      componentsFilters = _.sortBy(componentsFilters, [(o: ISelectItem) => o.key]);
     }
 
     return (
-      <div>
-        <CompendiumMenu>
-          <Menu.Item name="Spell Compendium" position="left" icon="book" style={{color: '#2ab5ab'}}/>
-          <Menu.Item name="Sort by" position="right" icon="sort" style={{color: '#6342c3'}}/>
-          <Menu.Item name="name" active={this.state.sortByValue === 'name'} onClick={this.setSortByValue} />
-          <Menu.Item name="school" active={this.state.sortByValue === 'school'} onClick={this.setSortByValue} />
-          <Menu.Item name="level" active={this.state.sortByValue === 'level'} onClick={this.setSortByValue} />
-        </CompendiumMenu>
-
-        <SpellFilterMenuComponent
-          addFilterFromEvent={this.addFilterFromEvent}
-          namesFilters={namesFilters}
-          classTypesFilters={classTypesFilters}
-          schoolsFilters={schoolsFilters}
-          componentsFilters={componentsFilters}
-          rangesFilters={rangesFilters}
-          filters={appliedFilters}
-        />
-
-        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-          {spellCards}
-        </Card.Group>
+      <div className="spellcompendium-container">
+        <div className="wrapper">
+          <div className="spell-sidebar">
+            <SpellSidebar handleSortBy={this.handleSortBy}>
+              <FormGroup label="Names" labelFor="names-dropdown">
+                <DropdownMultiSelect
+                  id="names-dropdown"
+                  type="names"
+                  items={namesFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Names..."
+                  selectedItems={appliedFilters.names}
+                />
+              </FormGroup>
+              <FormGroup label="Classes" labelFor="classtypes-dropdown">
+                <DropdownMultiSelect
+                  id="classtypes-dropdown"
+                  type="classTypes"
+                  items={classTypesFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Classes..."
+                  selectedItems={appliedFilters.classTypes}
+                />
+              </FormGroup>
+              <FormGroup label="Schools" labelFor="schools-dropdown">
+                <DropdownMultiSelect
+                  id="schools-dropdown"
+                  type="schools"
+                  items={schoolsFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Schools..."
+                  selectedItems={appliedFilters.schools}
+                />
+              </FormGroup>
+              <FormGroup label="Components" labelFor="components-dropdown">
+                <DropdownMultiSelect
+                  id="components-dropdown"
+                  type="components"
+                  items={componentsFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Components..."
+                  selectedItems={appliedFilters.components}
+                />
+              </FormGroup>
+              <FormGroup label="Range" labelFor="ranges-dropdown">
+                <DropdownMultiSelect
+                  id="ranges-dropdown"
+                  type="ranges"
+                  items={rangesFilters}
+                  addFilter={this.addFilter}
+                  placeholder="Range..."
+                  selectedItems={appliedFilters.ranges}
+                />
+              </FormGroup>
+            </SpellSidebar>
+          </div>
+          <div className="card-group">{spellCards}</div>
+        </div>
       </div>
     );
   }
 
-  private setSortByValue = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
+  private handleSortBy = (newTabId: TabId): void => {
     this.setState({
-      sortByValue: data.name
+      sortByValue: newTabId.toString()
     });
   };
 
@@ -178,29 +210,24 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     return sortedSpells;
   };
 
-  private addFilter = (name: string, value: string): void => {
-    const tempFilters = !isUndefined(this.props.appliedFilters)
+  private addFilter = (type: string, filter: ISelectItem): void => {
+    const tempFilters: IFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
       : {
           classTypes: [],
           components: [],
-          levels: [],
           names: [],
           ranges: [],
           schools: []
         };
 
-    if (_.isEmpty(value) && tempFilters[name]) {
-      tempFilters[name] = [];
+    if (_.isEmpty(filter.value) && tempFilters[type]) {
+      tempFilters[type] = [];
     } else {
-      tempFilters[name] = value;
+      tempFilters[type] = [filter];
     }
 
-    this.props.setAppliedFilters(tempFilters)
-  };
-
-  private addFilterFromEvent = (e: SyntheticEvent<any>, data: InputOnChangeData): void => {
-    this.addFilter(data.name, data.value);
+    this.props.setAppliedFilters(tempFilters);
   };
 }
 

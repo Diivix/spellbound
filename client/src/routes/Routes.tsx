@@ -1,6 +1,5 @@
 import Character from "containers/characters/Character";
 import CharacterCompendium from "containers/characters/CharacterCompendium";
-import HomeDashboard from "containers/HomeDashboard";
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import Error404Page from "../components/Error404Page";
@@ -11,7 +10,7 @@ import AuthenticateRoute from "./AuthenticateRoute";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 
 // Paths
-const INITIAL_PATH = "/";
+const ROOT_PATH = "/";
 const SIGNIN_PATH = "/signin";
 const HOME_PATH = "/home";
 const CHARACTERS_PATH = "/characters";
@@ -29,7 +28,7 @@ export default function Routes(props: IRoutesProps) {
       {/* path: / */}
       <RedirectIfAuthenticated
         exact={true}
-        path={INITIAL_PATH}
+        path={ROOT_PATH}
         component={Signin}
         redirectPath={HOME_PATH}
         isAuthenticated={props.isAuthenticated}
@@ -48,7 +47,7 @@ export default function Routes(props: IRoutesProps) {
         exact={true}
         authenticatePath={SIGNIN_PATH}
         path={HOME_PATH}
-        component={HomeDashboard}
+        component={SpellCompendium}
         isAuthenticated={props.isAuthenticated}
       />
 

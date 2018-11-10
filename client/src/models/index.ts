@@ -1,4 +1,4 @@
-import { RouterState } from "react-router-redux";
+import { RouterState } from 'react-router-redux';
 
 export interface IStoreState {
   pendingActions: number;
@@ -6,7 +6,7 @@ export interface IStoreState {
   userData: IUserData;
   spellData: ISpellData;
   router?: RouterState;
-};
+}
 
 export interface IUserData {
   username: string;
@@ -46,19 +46,18 @@ export interface ICharacterBase {
   description?: string;
 }
 export interface ICharacter extends ICharacterBase {
-  _id: string,
+  _id: string;
   dateCreated: number;
   dateLastModified: number;
   spells?: ISpell[];
 }
 
 export interface IFilters {
-  classTypes: string[];
-  components: string[];
-  levels: number[];
-  names: string[];
-  ranges: string[];
-  schools: string[];
+  classTypes: ISelectItem[];
+  components: ISelectItem[];
+  names: ISelectItem[];
+  ranges: ISelectItem[];
+  schools: ISelectItem[];
 }
 
 export interface ICredentials {
@@ -66,8 +65,7 @@ export interface ICredentials {
   password: string;
 }
 
-export interface IDropdownCollection {
+export interface ISelectItem {
   key: string;
-  text: string;
   value: string;
 }

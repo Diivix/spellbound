@@ -1,76 +1,56 @@
+import NavbarComponent from 'components/Navbar';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router';
 import { push } from 'react-router-redux';
-import { Icon, InputOnChangeData, Menu, Segment } from 'semantic-ui-react';
 import { signOut } from '../actions/authentication/actions';
 import { IStoreState } from '../models';
 import Routes from '../routes/Routes';
 import { isBusy } from '../selectors';
+import './App.css';
 
-interface IAppStateProps {
+interface IStateProps {
   readonly isBusy: boolean;
   readonly isAuthenticated: boolean;
 }
 
-interface IAppDispatchProps {
+interface IDispatchProps {
   readonly changeRoute: (routeName: string) => void;
   readonly signOut: () => void;
 }
 
-interface IAppState {
+interface IState {
   activeItem: string;
 }
 
-class App extends React.Component<IAppStateProps & IAppDispatchProps, IAppState> {
-  constructor(props: IAppStateProps & IAppDispatchProps) {
+class AppComponent extends React.Component<IStateProps & IDispatchProps, IState> {
+  constructor(props: IStateProps & IDispatchProps) {
     super(props);
-    this.state = { activeItem: 'home' };
+    this.state = { activeItem: 'spells' };
   }
 
-  public handleItemClick = (e: any, data: InputOnChangeData) => {
-    this.props.changeRoute('/' + data.name);
-    this.setState({ activeItem: data.name });
+  public handleItemClick = (event: any) => {
+    this.props.changeRoute('/' + event.currentTarget.name);
+    this.setState({ activeItem: event.currentTarget.name });
   };
 
-  public handleSiginOut = () => {
+  public handleSignOut = () => {
     this.props.signOut();
   };
 
   public render() {
-    const { activeItem } = this.state;
-    const menuStyle = { borderRadius: 0 };
-
     // TODO: get route info to set the active menu item.
-
     // Note, the name of the menue items must match the route paths!
+    const { isAuthenticated } = this.props;
     return (
       <div>
-        <Menu inverted={true} icon={true} color="violet" style={menuStyle}>
-          <Menu.Item name="home" onClick={this.handleItemClick}>
-            <Icon name="book" size="large" link={true} />
-            SpellBound
-          </Menu.Item>
-          <Menu.Item name="characters" active={activeItem === 'characters'} onClick={this.handleItemClick}>
-            <Icon name="users" />
-          </Menu.Item>
-          <Menu.Item name="spells" active={activeItem === 'spells'} onClick={this.handleItemClick}>
-            <Icon name="book" size="large" />
-          </Menu.Item>
-
-          <Menu.Menu position="right">
-            <Menu.Item name="auth" onClick={this.handleSiginOut}>
-              <Icon inverted={true} name="log out" size="large" />
-              {'Sign Out'}
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
-        <div>
-          <Segment basic={true}>
-            <Switch>
-              <Routes isAuthenticated={this.props.isAuthenticated} />
-            </Switch>
-          </Segment>
+        {isAuthenticated && (
+          <NavbarComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
+        )}
+        <div className="content">
+          <Switch>
+            <Routes isAuthenticated={isAuthenticated} />
+          </Switch>
         </div>
       </div>
     );
@@ -92,4 +72,7 @@ function mapDispatchToProps(dispatch: any) {
 }
 
 // export default withRouter(App);
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppComponent);

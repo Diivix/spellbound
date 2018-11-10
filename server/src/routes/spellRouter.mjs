@@ -19,20 +19,15 @@ function getAllPossibleFilters(spells) {
   const classTypes = spells.map(spell => spell.classTypes);
   const ranges = spells.map(spell => spell.range);
   const components = spells.map(spell => spell.components);
-  // const materials = spells.map(spell => (spell.materials));
 
   return {
-    names: names,
-    schools: _.uniq(schools),
-    levels: _.uniq(levels),
-    classTypes: _.uniq(_.flattenDeep(classTypes)),
-    // castingTime: 1,
-    // castingTimeDescription: 'action',
-    ranges: _.uniq(ranges),
-    components: _.uniq(_.flattenDeep(components))
-    // materials: _.uniq(_.flattenDeep(materials)),
-    // duration: 1,
-    // durationDescription: 'minute',
+    // The key value object is a ISelectItem model on the client side.
+    names: names.map(value => { return { key: value, value: _.upperFirst(value) } }),
+    schools: _.uniq(schools).map(value => { return { key: value, value: _.upperFirst(value) } }),
+    levels: _.uniq(levels).map(value => { return { key: value, value: _.upperFirst(value) } }),
+    classTypes: _.uniq(_.flattenDeep(classTypes)).map(value => { return { key: value, value: _.upperFirst(value) } }),
+    ranges: _.uniq(ranges).map(value => { return { key: value, value: _.upperFirst(value) } }),
+    components: _.uniq(_.flattenDeep(components)).map(value => { return { key: value, value: _.upperFirst(value) } })
   };
 }
 

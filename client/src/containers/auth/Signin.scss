@@ -1,0 +1,29 @@
+
+/* Flexbox */
+.signin-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 200px;
+
+
+  .logo-container {
+    margin-right: 40px;
+  }
+
+  .signin-container {
+    padding-left: 20px;
+    border-left: 1px #bcbec0 solid;
+  }
+
+  /* Logo animation */
+  .logo-appear {
+    opacity: 0;
+  }
+
+  .logo-appear.logo-appear-active {
+    opacity: 1;
+    transition: opacity 2s ease-in;
+  }
+}

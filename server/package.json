@@ -9,8 +9,8 @@
   "scripts": {
     "test": "jest",
     "build": "yarn install --production",
-    "dev": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
-    "start": "node --experimental-modules -r dotenv/config src/server.mjs"
+    "start": "nodemon --experimental-modules -r dotenv/config src/server.mjs",
+    "run": "node --experimental-modules -r dotenv/config src/server.mjs"
   },
   "dependencies": {
     "@types/redux-promise": "^0.5.28",

@@ -29,46 +29,40 @@ const getSpellsSelector = (state: IStoreState): ISpell[] | null => {
     // Filter: names
     if (!_.isEmpty(appliedFilters.names)) {
       spells = spells.filter(spell => {
-        return _.includes(appliedFilters.names, spell.name);
+        return appliedFilters.names.findIndex(x => x.key === spell.name) !== -1;
       });
     }
     // Filter: classTypes
     if (!_.isEmpty(appliedFilters.classTypes)) {
       spells = spells.filter(spell => {
-        for (const value of spell.classTypes) {
-          return _.includes(appliedFilters.classTypes, value);
+        for (const value of appliedFilters.classTypes) {
+          return spell.classTypes.indexOf(value.key) !== -1;
         }
         return false;
-      });
-    }
-    // Filter: levels
-    if (!_.isEmpty(appliedFilters.levels)) {
-      spells = spells.filter(spell => {
-        return _.includes(appliedFilters.levels, spell.level);
       });
     }
     // Filter: ranges
     if (!_.isEmpty(appliedFilters.ranges)) {
       spells = spells.filter(spell => {
-        return _.includes(appliedFilters.ranges, spell.range);
+        return appliedFilters.ranges.findIndex(x => x.key === spell.range) !== -1;
       });
     }
     // Filter: schools
     if (!_.isEmpty(appliedFilters.schools)) {
       spells = spells.filter(spell => {
-        return _.includes(appliedFilters.schools, spell.school);
+        return appliedFilters.schools.findIndex(x => x.key === spell.school) !== -1;
       });
     }
     // Filter: components
     if (!_.isEmpty(appliedFilters.components)) {
       spells = spells.filter(spell => {
-        for (const value of spell.components) {
-          return _.includes(appliedFilters.components, value);
+        for (const value of appliedFilters.components) {
+          return spell.components.indexOf(value.key) !== -1;
         }
         return false;
       });
     }
-    
+
     return spells;
   }
 };

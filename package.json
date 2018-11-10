@@ -2,7 +2,7 @@
   "name": "spellbound",
   "version": "0.1.0",
   "description": "The Spellbound project, containing the spellbound-react and spellbound-api projects.",
-  "main": "server.js",
+  "main": "server/server.js",
   "repository": "https://github.com/Diivix2590/spellbound.git",
   "author": "Chris <chrisiivix@gmail.com>",
   "license": "MIT",
@@ -11,12 +11,12 @@
     "dotenv": true
   },
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail \"yarn server-dev\" \"yarn client-start\"",
+    "dev": "./kill.sh && concurrently --kill-others-on-fail \"yarn server-start\" \"yarn client-start\"",
     "build-all": "yarn client-build && yarn server-build",
     "client-start": "cd client && yarn start",
     "client-build": "cd client && yarn build",
-    "server-dev": "cd server && yarn dev",
     "server-start": "cd server && yarn start",
+    "server-run": "cd server && yarn run",
     "server-build": "cd server && yarn build",
     "now-build": "yarn build-all",
     "now-start": "yarn server-start",

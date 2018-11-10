@@ -12,18 +12,18 @@ import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { getCharacter, isBusy } from '../../selectors';
 
-interface ICharacterComponentStateProps {
+interface IStateProps {
   character: ICharacter | undefined;
   isBusy: boolean;
 }
 
-interface ICharacterComponentDispatchProps {
+interface IDispactProps {
   changeRoute: (path: string) => {};
   deleteCharacter: (characterId: string) => void;
   updateCharacter: (character: { id: string } & ICharacterBase) => {};
 }
 
-interface IProps extends ICharacterComponentStateProps, ICharacterComponentDispatchProps {
+interface IProps extends IStateProps, IDispactProps {
   match: any;
 }
 
@@ -86,14 +86,14 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 }
 
-function mapStateToProps(state: IStoreState, props: IProps): ICharacterComponentStateProps {
+function mapStateToProps(state: IStoreState, props: IProps): IStateProps {
   return {
     character: getCharacter(state, props.match.params.id),
     isBusy: isBusy(state)
   };
 }
 
-const mapDispatchToProps = (dispatch: any): ICharacterComponentDispatchProps => {
+const mapDispatchToProps = (dispatch: any): IDispactProps => {
   return {
     changeRoute: (path: string) => dispatch(push(path)),
     deleteCharacter: (id: string) => {

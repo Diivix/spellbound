@@ -9,17 +9,17 @@ import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
 import CharacterCard from './CharacterCard';
 
-interface ICharacterCompendiumStateProps {
+interface IStateProps {
   isBusy: boolean;
   characters: ICharacter[] | undefined;
 }
 
-interface ICharacterCompendiumDispatchProps {
+interface IDispatchProps {
   createCharacter: (character: ICharacterBase) => {};
 }
 
-class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumStateProps & ICharacterCompendiumDispatchProps, {}> {
-  constructor(props: ICharacterCompendiumStateProps & ICharacterCompendiumDispatchProps) {
+class CharacterCompendiumComponent extends React.Component<IStateProps & IDispatchProps, {}> {
+  constructor(props: IStateProps & IDispatchProps) {
     super(props);
   }
 
@@ -55,14 +55,14 @@ class CharacterCompendiumComponent extends React.Component<ICharacterCompendiumS
   }
 }
 
-function mapStateToProps(state: IStoreState): ICharacterCompendiumStateProps {
+function mapStateToProps(state: IStoreState): IStateProps {
   return {
     characters: isUndefined(state.userData) ? undefined : state.userData.characters,
     isBusy: isBusy(state)
   };
 }
 
-function mapDispatchToProps(dispatch: any): ICharacterCompendiumDispatchProps {
+function mapDispatchToProps(dispatch: any): IDispatchProps {
   return {
     createCharacter: (character: ICharacterBase) => dispatch(createCharacter(character))
   };
