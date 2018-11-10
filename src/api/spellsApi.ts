@@ -4,7 +4,7 @@ import ApiError from './ApiError';
 // GET
 // Gets a spell (full spell), from an id
 export function getSpell(id: string): Promise<ISpell> {
-  const url: string = '/api/spells/id/' + id;
+  const url: string = 'api/spells/' + id;
 
   return fetch(url, {
     credentials: 'include',
@@ -24,8 +24,8 @@ export function getSpell(id: string): Promise<ISpell> {
 
 // GET
 // Gets all spells
-export function getSpells(token: string): Promise<ISpell[]> {
-  const url: string = 'api/Spells';
+export function getSpells(partial: boolean = false, token: string): Promise<ISpell[]> {
+  const url: string = 'api/Spells?partial=' + partial;
 
   return fetch(url, {
     headers: {

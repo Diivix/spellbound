@@ -23,7 +23,7 @@ export function getLightSpellsWithFilters(): (dispatch: Dispatch<IStoreState>, g
     dispatch(InProgress.create());
     try {
       const token = getState().token;
-      const spells: ISpell[] = await getSpellsFromApi(token);
+      const spells: ISpell[] = await getSpellsFromApi(true, token);
       const spellsWithFilters: {spells: ISpell[]; filters: IFilters} = {
         filters: getFilters(spells),
         spells
