@@ -1,4 +1,3 @@
-
 /* Flexbox */
 .signin-container {
   display: flex;
@@ -7,14 +6,17 @@
   align-items: center;
   margin-top: 200px;
 
-
-  .logo-container {
+  .logo {
     margin-right: 40px;
   }
 
-  .signin-container {
+  .signin-form {
     padding-left: 20px;
     border-left: 1px #bcbec0 solid;
+
+    h2 {
+      color: #797b7c;
+    }
   }
 
   /* Logo animation */

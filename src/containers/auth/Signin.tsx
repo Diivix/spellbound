@@ -59,7 +59,7 @@ class SigninComponent extends React.Component<IProps, IState> {
 
     return (
       <div className="signin-container">
-        <div className="logo-container">
+        <div className="logo">
           <CssTransitionGroup
             transitionName="logo"
             transitionAppear={true}
@@ -71,7 +71,7 @@ class SigninComponent extends React.Component<IProps, IState> {
             {/* <Loader /> */}
           </CssTransitionGroup>
         </div>
-        <div className="signin-container">
+        <div className="signin-form">
           <H2>Welcome to Spellbound</H2>
           <form onClick={this.handleSubmit}>
             <FormGroup>
