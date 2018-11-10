@@ -47,7 +47,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
 
     const spellCards = isUndefined(this.props.character.spells)
       ? null
-      : this.props.character.spells.map(spell => <SpellCard key={spell._id} name={spell.name} level={spell.level} school={spell.school} />);
+      : this.props.character.spells.map(spell => <SpellCard key={spell.id} name={spell.name} level={spell.level} school={spell.school} />);
 
     return (
       <div>
@@ -58,7 +58,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
               <CharacterHeaderComponent characterName={this.props.character.name} />
             </div>
           }
-          characterId={this.props.character._id}
+          characterId={this.props.character.id}
           name={this.props.character.name}
           classType={this.props.character.classType}
           level={this.props.character.level}

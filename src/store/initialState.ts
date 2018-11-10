@@ -5,9 +5,9 @@ export const initialState: IStoreState = {
   pendingActions: 0,
   router: { location: null },
   spellData: {},
+  token: '',
   userData: {
     characters: [],
-    token: '',
     userName: ''
   }
 };

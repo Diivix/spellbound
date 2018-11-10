@@ -19,7 +19,7 @@ class PopoverComponent extends React.Component<IProps, IState> {
   }
 
   public changeRoute = () => {
-    this.props.changeRoute('/spells/' + this.props.spell._id);
+    this.props.changeRoute('/spells/' + this.props.spell.id);
   };
 
   public render() {

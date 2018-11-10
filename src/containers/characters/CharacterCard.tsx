@@ -26,7 +26,7 @@ class CharacterCardComponet extends React.Component<IProps, {}> {
   public render() {
     const name = _.truncate(_.startCase(_.toLower(this.props.character.name)), { length: 20 });
     const spellCount = isUndefined(this.props.character.spells) ? 0 : this.props.character.spells.length;
-    const url = "/characters/" + this.props.character._id;
+    const url = "/characters/" + this.props.character.id;
 
     const cardStyle = { margin: '5px' };
     const headerStyle = { display: 'inline' };

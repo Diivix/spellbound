@@ -64,7 +64,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     const possibleFilterValues: IFilters = this.props.filters;
     const sortedSpells: ISpell[] = this.sortSpells(this.state.sortByValue, this.props.getSpells);
     const spellCards: JSX.Element[] = sortedSpells.map(spell => (
-      <PopoverComponent key={spell._id} spell={spell} changeRoute={this.props.changeRoute} />
+      <PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} />
     ));
 
     // Format filter values for dropdowns

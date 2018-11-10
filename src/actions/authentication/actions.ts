@@ -5,25 +5,26 @@ import { dispatchError } from '../common/actions';
 import { InProgress } from '../common/types';
 import { SignIn, SignOut } from './types';
 
-export function signIn(credentials: ICredentials): (dispatch: Dispatch<IStoreState>) => Promise<void> {
+export function signIn(credentials: ICredentials): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>) => {
     dispatch(InProgress.create());
 
     try {
-      const user = await signInToApi(credentials);
-      dispatch(SignIn.create({ user }));
+      const userWithToken = await signInToApi(credentials);
+      dispatch(SignIn.create(userWithToken));
     } catch (error) {
       dispatchError(dispatch, error);
     }
   };
 }
 
-export function signOut(): (dispatch: Dispatch<IStoreState>) => Promise<void> {
-  return async (dispatch: Dispatch<IStoreState>) => {
+export function signOut(): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => {
     dispatch(InProgress.create());
 
     try {
-      await signOutFromApi();
+      const token = getState().token;
+      await signOutFromApi(token);
       dispatch(SignOut.create());
     } catch (error) {
       dispatchError(dispatch, error);

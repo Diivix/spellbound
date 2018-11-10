@@ -1,4 +1,4 @@
-import { IFilters, ISpell } from 'models';
+import { ISpell } from '../models';
 import ApiError from './ApiError';
 
 // GET
@@ -23,12 +23,15 @@ export function getSpell(id: string): Promise<ISpell> {
 }
 
 // GET
-// Gets all spells with filters
-export function getLightSpellsWithFilters(): Promise<{ spells: ISpell[]; filters: IFilters }> {
-  const url: string = '/api/spells/light/withfilters';
+// Gets all spells
+export function getSpells(token: string): Promise<ISpell[]> {
+  const url: string = 'api/Spells';
 
   return fetch(url, {
-    credentials: 'include',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
     method: 'GET'
   })
     .then(response => {
@@ -39,7 +42,7 @@ export function getLightSpellsWithFilters(): Promise<{ spells: ISpell[]; filters
       }
     })
     .then(response => response.json())
-    .then((lightSpellsWithFilters: { spells: ISpell[]; filters: IFilters }) => {
-      return lightSpellsWithFilters;
+    .then((spells: ISpell[]) => {
+      return spells;
     });
 }

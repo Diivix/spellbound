@@ -12,7 +12,7 @@ const getCharacterSelector = (state: IStoreState, characterId: string) => {
   if (isUndefined(state.userData)) {
     return undefined;
   } else {
-    return state.userData.characters.find(character => character._id === characterId);
+    return state.userData.characters.find(character => character.id === characterId);
   }
 };
 

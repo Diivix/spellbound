@@ -28,7 +28,7 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
       return <Loader active={true} inline="centered" size="big" />;
     }
 
-    const characterCards = this.props.characters.map(character => <CharacterCard key={character._id} character={character} />);
+    const characterCards = this.props.characters.map(character => <CharacterCard key={character.id} character={character} />);
 
     return (
       <div>

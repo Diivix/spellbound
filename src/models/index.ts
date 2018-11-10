@@ -5,11 +5,12 @@ export interface IStoreState {
   pendingActions: number;
   router?: RouterState;
   spellData: ISpellData;
+  // TODO: This should change or mitigate against XSS attacks. Store the token on the server?
+  token: string;
   userData: IUserData;
 }
 
 export interface IUserData {
-  token: string;
   userName: string;
   characters: ICharacter[];
 }
@@ -22,7 +23,7 @@ export interface ISpellData {
 }
 
 export interface ISpell {
-  _id: string;
+  id: string;
   atHigherLevels?: string;
   castingTime: string;
   classTypes: string[];
@@ -44,7 +45,7 @@ export interface ICharacterBase {
   description?: string;
 }
 export interface ICharacter extends ICharacterBase {
-  _id: string;
+  id: string;
   dateCreated: number;
   dateLastModified: number;
   spells?: ISpell[];

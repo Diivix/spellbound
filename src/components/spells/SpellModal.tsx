@@ -61,27 +61,4 @@ class SpellModalComponent extends React.Component<IProps, {}> {
     }
 }
 
-// SpellModal.propTypes = {
-//     fetchSpell: PropTypes.func.isRequired,
-//     onClose: PropTypes.func.isRequired,
-//     show: PropTypes.bool.isRequired,
-//     spell: PropTypes.shape({
-//         _id: PropTypes.string,
-//         atHigherLevels: PropTypes.string,
-//         castingTime: PropTypes.string,
-//         castingTimeDescription: PropTypes.string,
-//         classes: PropTypes.arrayOf(PropTypes.string),
-//         components: PropTypes.arrayOf(PropTypes.string),
-//         description: PropTypes.string,
-//         duration: PropTypes.string,
-//         durationDescription: PropTypes.string,
-//         level: PropTypes.number,
-//         name: PropTypes.string,
-//         range: PropTypes.string,
-//         rangeDescription: PropTypes.string,
-//         school: PropTypes.string
-//     }),
-//     spellStatus: PropTypes.string.isRequired
-// };
-
 export default SpellModalComponent;
