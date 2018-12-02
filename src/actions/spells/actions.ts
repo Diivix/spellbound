@@ -6,11 +6,11 @@ import { dispatchError } from '../common/actions';
 import { InProgress } from '../common/types';
 import { GetSpell, GetSpells, SetFilters } from './types';
 
-export function getSpell(id: string): (dispatch: Dispatch<IStoreState>) => Promise<void> {
-  return async (dispatch: Dispatch<IStoreState>) => {
+export function getSpell(id: string): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => {
     dispatch(InProgress.create());
     try {
-      const spell: ISpell = await getSpellFromApi(id);
+      const spell: ISpell = await getSpellFromApi(id, getState().token);
       dispatch(GetSpell.create({ spell }));
     } catch (error) {
       dispatchError(dispatch, error);
@@ -22,8 +22,7 @@ export function getLightSpellsWithFilters(): (dispatch: Dispatch<IStoreState>, g
   return async (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => {
     dispatch(InProgress.create());
     try {
-      const token = getState().token;
-      const spells: ISpell[] = await getSpellsFromApi(true, token);
+      const spells: ISpell[] = await getSpellsFromApi(true, getState().token);
       const spellsWithFilters: {spells: ISpell[]; filters: IFilters} = {
         filters: getFilters(spells),
         spells
