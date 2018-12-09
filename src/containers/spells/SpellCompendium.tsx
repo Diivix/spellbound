@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
-import {Loader} from '../../components/loader/Loader';
+import { Loader } from '../../components/loader/Loader';
 import DropdownMultiSelect from '../../components/MultiSelectWrapper';
 import PopoverComponent from '../../components/spells/Popover';
 import SpellSidebar from '../../components/spells/SpellSidebar';

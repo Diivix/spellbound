@@ -45,7 +45,7 @@ export interface ICharacterBase {
   description?: string;
 }
 export interface ICharacter extends ICharacterBase {
-  id: string;
+  id: number;
   dateCreated: number;
   dateLastModified: number;
   spells?: ISpell[];

@@ -1,12 +1,11 @@
 import CharacterHeaderComponent from 'components/characters/CharacterHeader';
 import CharacterMetaTableComponent from 'components/characters/CharacterMetaTable';
-import CompendiumMenu from 'components/CompendiumMenu';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Card, Menu } from 'semantic-ui-react';
-import { isUndefined } from 'util';
-import { deleteCharacter, updateCharacter } from '../../actions/user/actions';
+import { Card } from 'semantic-ui-react';
+import { isNullOrUndefined, isUndefined } from 'util';
+import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
 import CharacterEditablePopupComponent from '../../components/characters/CharacterEditablePopup';
 import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
@@ -19,8 +18,8 @@ interface IStateProps {
 
 interface IDispactProps {
   changeRoute: (path: string) => {};
-  deleteCharacter: (characterId: string) => void;
-  updateCharacter: (character: { id: string } & ICharacterBase) => {};
+  deleteCharacter: (characterId: number) => void;
+  updateCharacter: (character: { id: number } & ICharacterBase) => {};
 }
 
 interface IProps extends IStateProps, IDispactProps {
@@ -45,7 +44,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
       );
     }
 
-    const spellCards = isUndefined(this.props.character.spells)
+    const spellCards = isNullOrUndefined(this.props.character.spells)
       ? null
       : this.props.character.spells.map(spell => <SpellCard key={spell.id} name={spell.name} level={spell.level} school={spell.school} />);
 
@@ -74,10 +73,6 @@ class CharacterCompoent extends React.Component<IProps, {}> {
           characterDescription={this.props.character.description}
         />
 
-        <CompendiumMenu>
-          <Menu.Item disabled={true} name="Equiped Spells" position="left" icon="lightning" />
-        </CompendiumMenu>
-
         <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
           {spellCards}
         </Card.Group>
@@ -96,11 +91,11 @@ function mapStateToProps(state: IStoreState, props: IProps): IStateProps {
 const mapDispatchToProps = (dispatch: any): IDispactProps => {
   return {
     changeRoute: (path: string) => dispatch(push(path)),
-    deleteCharacter: (id: string) => {
+    deleteCharacter: (id: number) => {
       dispatch(deleteCharacter(id));
       dispatch(push('/characters'));
     },
-    updateCharacter: (character: { id: string } & ICharacterBase) => dispatch(updateCharacter(character))
+    updateCharacter: (character: { id: number } & ICharacterBase) => dispatch(updateCharacter(character))
   };
 };
 

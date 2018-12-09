@@ -8,14 +8,14 @@ import { isUndefined } from 'util';
 interface IProps {
   isCreate: boolean;
   trigger: JSX.Element;
-  characterId?: string;
+  characterId?: number;
   name?: string;
   classType?: string;
   level?: number;
   description?: string;
   create?: (character: ICharacterBase) => {};
-  update?: (character: { id: string } & ICharacterBase) => {};
-  delete?: (charcterId: string) => void;
+  update?: (character: { id: number } & ICharacterBase) => {};
+  delete?: (charcterId: number) => void;
   isBusy: boolean;
 }
 
@@ -82,7 +82,7 @@ class CharacterEditablePopupComponent extends React.Component<IProps, IState> {
       !isUndefined(this.props.characterId) &&
       !isUndefined(this.state.name)
     ) {
-      const character: { id: string } & ICharacterBase = {
+      const character: { id: number } & ICharacterBase = {
         classType: this.state.classType,
         description: this.state.description,
         id: this.props.characterId,

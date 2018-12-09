@@ -1,21 +1,24 @@
-import { createCharacter } from 'actions/user/actions';
-import CharacterEditablePopupComponent from 'components/characters/CharacterEditablePopup';
+import { createCharacter, getCharacters } from 'actions/characters/actions';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, Loader, Menu } from 'semantic-ui-react';
-import { isUndefined } from 'util';
-import CompendiumMenu from '../../components/CompendiumMenu';
+import { push } from 'react-router-redux';
+import { isNull, isNullOrUndefined } from 'util';
+import PopoverComponent from '../../components/characters/CharacterAddPopover';
+import CharacterCardComponent from '../../components/characters/CharacterCard';
+import { Loader } from '../../components/loader/Loader';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
-import CharacterCard from './CharacterCard';
+import './CharacterCompendium.css';
 
 interface IStateProps {
   isBusy: boolean;
-  characters: ICharacter[] | undefined;
+  characters: ICharacter[] | null;
 }
 
 interface IDispatchProps {
+  changeRoute: (path: string) => {};
   createCharacter: (character: ICharacterBase) => {};
+  getCharacters: () => {};
 }
 
 class CharacterCompendiumComponent extends React.Component<IStateProps & IDispatchProps, {}> {
@@ -23,48 +26,53 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
     super(props);
   }
 
+  public componentDidMount() {
+    if (isNullOrUndefined(this.props.characters)) {
+      this.props.getCharacters();
+    }
+  }
+
   public render() {
-    if (this.props.isBusy || isUndefined(this.props.characters)) {
-      return <Loader active={true} inline="centered" size="big" />;
+    if (this.props.isBusy || isNullOrUndefined(this.props.characters)) {
+      return <Loader />;
     }
 
-    const characterCards = this.props.characters.map(character => <CharacterCard key={character.id} character={character} />);
+    let characterCards: JSX.Element[] = [];
+    if(!isNull(this.props.characters)) {
+      characterCards = this.props.characters.map(character => <CharacterCardComponent key={character.id} changeRoute={this.changeCharacterRoute} character={character} />);
+    }
+    characterCards.push(<PopoverComponent key='createcharacter' createCharacter={this.createCharacter}/>)
 
     return (
-      <div>
-        <CompendiumMenu>
-          <Menu.Item disabled={true} name="Characters" position="left" icon="users" />
-
-          <CharacterEditablePopupComponent
-            isCreate={true}
-            trigger={
-              <div>
-                <Menu.Item name="addCharacter" icon="plus" />
-              </div>
-            }
-            create={this.props.createCharacter}
-            isBusy={this.props.isBusy}
-          />
-        </CompendiumMenu>
-
-        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-          {characterCards}
-        </Card.Group>
+      <div className="charactercompendium-container">
+        <div className="wrapper">
+          <div className="card-group">{characterCards} </div>
+        </div>
       </div>
     );
+  }
+
+  private createCharacter = (character: ICharacterBase): void => {
+    this.props.createCharacter(character);
+  }
+
+  private changeCharacterRoute = (characterId: number): void => {
+    this.props.changeRoute('/characters/' + characterId.toString());
   }
 }
 
 function mapStateToProps(state: IStoreState): IStateProps {
   return {
-    characters: isUndefined(state.userData) ? undefined : state.userData.characters,
+    characters: state.userData.characters,
     isBusy: isBusy(state)
   };
 }
 
 function mapDispatchToProps(dispatch: any): IDispatchProps {
   return {
-    createCharacter: (character: ICharacterBase) => dispatch(createCharacter(character))
+    changeRoute: (path: string) => dispatch(push(path)),
+    createCharacter: (character: ICharacterBase) => dispatch(createCharacter(character)),
+    getCharacters: () => dispatch(getCharacters())
   };
 }
 
