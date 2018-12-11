@@ -8,8 +8,6 @@ import CharacterCardComponent from '../../components/characters/CharacterCard';
 import { Loader } from '../../components/loader/Loader';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
-import './CharacterCompendium.css';
-
 interface IStateProps {
   isBusy: boolean;
   characters: ICharacter[] | null;
@@ -44,9 +42,9 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
     characterCards.push(<PopoverComponent key='createcharacter' createCharacter={this.createCharacter}/>)
 
     return (
-      <div className="charactercompendium-container">
-        <div className="wrapper">
-          <div className="card-group">{characterCards} </div>
+      <div className="sb-compendium">
+        <div className="sb-compendium_wrapper">
+          <div className="sb-item-card-group">{characterCards} </div>
         </div>
       </div>
     );

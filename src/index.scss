@@ -1,0 +1,58 @@
+body {
+  color: #212121;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 15px;
+}
+
+.sb-compendium {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.sb-compendium_wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sb-character-card {
+  width: 100%;
+}
+
+.sb-item-card-group {
+  flex-flow: row wrap;
+  width: 100%;
+}
+.sb-item-card {
+  margin: 0px 5px 5px 5px;
+  width: 250px;
+  max-width: 250px;
+}
+.sb-item-card_heading {
+  display: inline;
+}
+.sb-item-card_meta {
+  padding-left: 23px;
+}
+.sb-item-card_icon {
+  padding-right: 5px;
+  color: '#2ab5ab'
+}
+
+.sb-character-popover-add { }
+.sb-character-popover-add_form {
+  margin: 5px;
+}
+.sb-character-popover-add_input {
+  margin-bottom: 5px;
+}
+.sb-character-popover-add_button {
+  float: right;
+  margin-bottom: 5px;
+}

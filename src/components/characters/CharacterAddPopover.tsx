@@ -2,7 +2,6 @@ import { Button, Card, FormGroup, Icon, InputGroup, Intent, Popover } from '@blu
 import { IconNames } from '@blueprintjs/icons';
 import { ICharacterBase } from 'models';
 import React from 'react';
-import './CharacterAddPopover.css';
 
 interface IProps {
   createCharacter: (character: ICharacterBase) => void;
@@ -33,15 +32,15 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
     return (
       <Popover>
         {/* Target */}
-        <Card className="characteradd-card" interactive={true} style={{ textAlign: 'center' }}>
+        <Card className="sb-item-card" interactive={true} style={{ textAlign: 'center' }}>
           <Icon icon={IconNames.ADD} iconSize={Icon.SIZE_LARGE} intent={Intent.PRIMARY} />
         </Card>
 
         {/* Content */}
-        <div className="characteradd-container">
-          <div className="add-form">
+        <div className="sb-character-popover-add">
+          <form className="sb-character-popover-add_form">
             <FormGroup label="Name" labelFor="name-input" labelInfo="(required)">
-              <InputGroup id="name-input" name="name" className="input" placeholder="Name" value={name} onChange={this.handleChange} />
+              <InputGroup id="name-input" name="name" className="sb-character-popover-add_input" placeholder="Name" value={name} onChange={this.handleChange} />
             </FormGroup>
             <FormGroup label="Level" labelFor="level-input">
               <InputGroup
@@ -75,8 +74,8 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
               />
             </FormGroup>
 
-            <Button icon="add" intent={Intent.PRIMARY} text="Add" onClick={this.handleSubmit} />
-          </div>
+            <Button className="sb-character-popover-add_button" icon="add" intent={Intent.PRIMARY} text="Add" onClick={this.handleSubmit} />
+          </form>
         </div>
       </Popover>
     );

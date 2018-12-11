@@ -7,7 +7,6 @@ import { signOut } from '../actions/authentication/actions';
 import { IStoreState } from '../models';
 import Routes from '../routes/Routes';
 import { isBusy } from '../selectors';
-import './App.css';
 
 interface IStateProps {
   readonly isBusy: boolean;
@@ -47,11 +46,11 @@ class AppComponent extends React.Component<IStateProps & IDispatchProps, IState>
         {isAuthenticated && (
           <NavbarComponent activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} handleSignOut={this.handleSignOut} />
         )}
-        <div className="content">
+        <main className="main">
           <Switch>
             <Routes isAuthenticated={isAuthenticated} />
           </Switch>
-        </div>
+        </main>
       </div>
     );
   }

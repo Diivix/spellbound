@@ -1,12 +1,10 @@
-import CharacterHeaderComponent from 'components/characters/CharacterHeader';
-import CharacterMetaTableComponent from 'components/characters/CharacterMetaTable';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Card } from 'semantic-ui-react';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
-import CharacterEditablePopupComponent from '../../components/characters/CharacterEditablePopup';
+import CharacterMetaComponent from '../../components/characters/CharacterMeta';
 import SpellCard from '../../components/spells/SpellCard';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { getCharacter, isBusy } from '../../selectors';
@@ -50,14 +48,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
 
     return (
       <div>
-        <CharacterEditablePopupComponent
-          isCreate={false}
-          trigger={
-            <div>
-              <CharacterHeaderComponent characterName={this.props.character.name} />
-            </div>
-          }
-          characterId={this.props.character.id}
+        <CharacterMetaComponent
           name={this.props.character.name}
           classType={this.props.character.classType}
           level={this.props.character.level}
@@ -65,12 +56,6 @@ class CharacterCompoent extends React.Component<IProps, {}> {
           update={this.props.updateCharacter}
           delete={this.props.deleteCharacter}
           isBusy={this.props.isBusy}
-        />
-
-        <CharacterMetaTableComponent
-          characterClass={this.props.character.classType}
-          characterLevel={this.props.character.level}
-          characterDescription={this.props.character.description}
         />
 
         <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
