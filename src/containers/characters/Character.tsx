@@ -1,11 +1,10 @@
+import PopoverComponent from 'components/spells/Popover';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Card } from 'semantic-ui-react';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
-import CharacterMetaComponent from '../../components/characters/CharacterMeta';
-import SpellCard from '../../components/spells/SpellCard';
+import CharacterDetailsComponent from '../../components/characters/CharacterDetails';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { getCharacter, isBusy } from '../../selectors';
 
@@ -44,11 +43,11 @@ class CharacterCompoent extends React.Component<IProps, {}> {
 
     const spellCards = isNullOrUndefined(this.props.character.spells)
       ? null
-      : this.props.character.spells.map(spell => <SpellCard key={spell.id} name={spell.name} level={spell.level} school={spell.school} />);
+      : this.props.character.spells.map(spell => (<PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} />));
 
     return (
-      <div>
-        <CharacterMetaComponent
+      <div className="sb-character">
+        <CharacterDetailsComponent
           name={this.props.character.name}
           classType={this.props.character.classType}
           level={this.props.character.level}
@@ -57,10 +56,8 @@ class CharacterCompoent extends React.Component<IProps, {}> {
           delete={this.props.deleteCharacter}
           isBusy={this.props.isBusy}
         />
-
-        <Card.Group doubling={true} stackable={true} itemsPerRow={4}>
-          {spellCards}
-        </Card.Group>
+        
+        <div className="sb-item-card-group">{spellCards} </div>
       </div>
     );
   }

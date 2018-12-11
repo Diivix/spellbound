@@ -14,7 +14,7 @@ interface IProps {
   isBusy: boolean;
 }
 
-class CharacterMetaComponent extends React.Component<IProps, {}> {
+class CharacterDetailsComponent extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
@@ -29,7 +29,7 @@ class CharacterMetaComponent extends React.Component<IProps, {}> {
       <Card className="sb-character-card" elevation={Elevation.THREE}>
         <h2>{name}</h2>
         <div>
-          <Icon icon="path" /> {level} <Icon icon="person" /> {classType}
+          <Icon icon="arrow-top-right" /> {level} <Icon icon="person" /> {classType}
           <p>{description}</p>
         </div>
       </Card>
@@ -37,4 +37,4 @@ class CharacterMetaComponent extends React.Component<IProps, {}> {
   }
 }
 
-export default CharacterMetaComponent;
+export default CharacterDetailsComponent;

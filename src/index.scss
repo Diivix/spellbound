@@ -4,8 +4,8 @@ body {
 
 .main {
   display: flex;
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
   margin: 15px;
 }
 
@@ -21,9 +21,12 @@ body {
   height: 100%;
 }
 
-.sb-character-card {
-  width: 100%;
+.sb-character { 
+  flex-grow: 1;
+  margin-left: 5%;
+  margin-right: 5%;
 }
+.sb-character-card {}
 
 .sb-item-card-group {
   flex-flow: row wrap;
