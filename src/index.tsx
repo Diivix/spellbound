@@ -15,9 +15,6 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 
-// Seems to be an issue with semantic-ui-css as a downloaded project. Using semantic-ui-css CDN v2.2.12 in index.html until resolved.
-// import 'semantic-ui-css/semantic.min.css';
-
 const history = createHistory();
 const store = configureStore(history);
 const persistor = persistStore(store);

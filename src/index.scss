@@ -1,5 +1,10 @@
+$colourPrimaryText: #4A4A4A;
+$colourViolet: #6435c9;
+$colourVioletHover: #5829bb;
+$colourVioletActive: #5626bf;
+
 body {
-  color: #212121;
+  color: $colourPrimaryText;
 }
 
 .main {
@@ -7,6 +12,46 @@ body {
   // width: 100%;
   // height: 100%;
   margin: 15px;
+}
+
+h2 {
+  &.mt5 {
+    margin-top: 5%;
+  }
+}
+
+p {
+  line-height: 1.5;
+
+  &.center {
+    text-align: center;
+  }
+
+  &.padding {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+.sb-container {
+  display: flex;
+  flex: auto;
+
+  &--row-center {
+    @extend .sb-container;
+    justify-content: center;
+  }
+
+  &--mt5 {
+    @extend .sb-container;
+    margin-top: 5%;
+  }
+
+  &--column-center {
+    @extend .sb-container;
+    flex-direction: column;
+    align-items: center
+  }
 }
 
 .sb-compendium {
@@ -21,12 +66,13 @@ body {
   height: 100%;
 }
 
-.sb-character { 
+.sb-character {
   flex-grow: 1;
   margin-left: 5%;
   margin-right: 5%;
 }
-.sb-character-card {}
+.sb-character-card {
+}
 
 .sb-item-card-group {
   flex-flow: row wrap;
@@ -45,10 +91,11 @@ body {
 }
 .sb-item-card_icon {
   padding-right: 5px;
-  color: '#2ab5ab'
+  color: '#2ab5ab';
 }
 
-.sb-character-popover-add { }
+.sb-character-popover-add {
+}
 .sb-character-popover-add_form {
   margin: 5px;
 }
@@ -58,4 +105,16 @@ body {
 .sb-character-popover-add_button {
   float: right;
   margin-bottom: 5px;
+}
+
+.sb-icon {
+  color: $colourPrimaryText;
+
+  &--circle {
+    background-color: white;
+    border-radius: 50%;
+    border: 6px solid lightgray;
+    padding: 20px;
+    margin: 10px;
+  }
 }

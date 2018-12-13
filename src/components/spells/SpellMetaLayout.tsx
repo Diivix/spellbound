@@ -26,8 +26,8 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
     if (!_.isEmpty(spell.materials)) {
       materialElement = (
         <Grid.Row columns="1">
-          <Grid.Column textAlign="center">
-            <i>{_.upperFirst(spell.materials)}.</i>
+          <Grid.Column>
+            <p className="center"><i>{_.upperFirst(spell.materials)}.</i></p>
           </Grid.Column>
         </Grid.Row>
       );
@@ -73,9 +73,9 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
             {duration}
           </Grid.Column>
         </Grid.Row>
-
+        
         {materialElement}
-
+        
         <Grid.Row columns="1" textAlign="center">
           <Grid.Column>
             <div style={{ color: 'grey' }}>

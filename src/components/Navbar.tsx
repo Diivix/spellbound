@@ -1,4 +1,3 @@
-// import { Icon, InputOnChangeData, Menu } from 'semantic-ui-react';
 import { Alignment, Button, Colors, Icon, Navbar } from '@blueprintjs/core';
 import * as React from 'react';
 import { primaryColour } from 'utils/ui';
