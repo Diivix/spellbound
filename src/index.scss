@@ -1,16 +1,15 @@
-$colourPrimaryText: #4A4A4A;
+$colourText: #4A4A4A;
+$colourGrey: #767676;
 $colourViolet: #6435c9;
 $colourVioletHover: #5829bb;
 $colourVioletActive: #5626bf;
 
 body {
-  color: $colourPrimaryText;
+  color: $colourText;
 }
 
 .main {
   display: flex;
-  // width: 100%;
-  // height: 100%;
   margin: 15px;
 }
 
@@ -18,6 +17,16 @@ h2 {
   &.mt5 {
     margin-top: 5%;
   }
+}
+
+h3 {
+  padding: 0;
+  margin-bottom: 0.14285714rem;
+  font-size: 0.85714286em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $colourGrey;
+  letter-spacing: 0.05em;
 }
 
 p {
@@ -30,6 +39,10 @@ p {
   &.padding {
     padding-top: 5px;
     padding-bottom: 5px;
+  }
+
+  &.grey {
+    color: $colourGrey;
   }
 }
 
@@ -108,7 +121,7 @@ p {
 }
 
 .sb-icon {
-  color: $colourPrimaryText;
+  color: $colourText;
 
   &--circle {
     background-color: white;
@@ -116,5 +129,63 @@ p {
     border: 6px solid lightgray;
     padding: 20px;
     margin: 10px;
+  }
+}
+
+.sb-physical-card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+
+  .sb-row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: inherit;
+    box-sizing: border-box;
+    width: 100% !important;
+    box-sizing: inherit;
+    box-shadow: 0 -1px 0 0 #d4d4d5;
+    align-self: inherit;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    &:first-child {
+      box-shadow: none;
+    }
+
+    .sb-col {
+      position: relative;
+      display: inline-block;
+      box-sizing: inherit;
+      box-shadow: -1px 0 0 0 #d4d4d5;
+      margin: 0;
+      padding: 1em;
+      align-self: inherit;
+      text-align: center;
+
+      &:first-child {
+        box-shadow: none;
+      }
+
+      &:first-child:nth-last-child(1),
+      &:first-child:nth-last-child(1) ~ div {
+        width: 100%;
+      }
+
+      &:first-child:nth-last-child(2),
+      &:first-child:nth-last-child(2) ~ div {
+        width: 50%;
+      }
+    }
   }
 }

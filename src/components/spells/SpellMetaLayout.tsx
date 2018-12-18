@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import { Grid, Header } from 'semantic-ui-react';
 import { BuildLevelWithSchool } from 'utils/ui';
 import { ISpell } from '../../models';
 
@@ -25,65 +24,57 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
     let materialElement = <div />;
     if (!_.isEmpty(spell.materials)) {
       materialElement = (
-        <Grid.Row columns="1">
-          <Grid.Column>
-            <p className="center"><i>{_.upperFirst(spell.materials)}.</i></p>
-          </Grid.Column>
-        </Grid.Row>
+        <div className="sb-row">
+          <div className="sb-col">
+            <p className="center">
+              <i>{_.upperFirst(spell.materials)}.</i>
+            </p>
+          </div>
+        </div>
       );
     }
 
     return (
-      <Grid celled="internally">
-        <Grid.Row columns="1" textAlign="center">
-          <Grid.Column>
-            <Header sub={true} color="grey" size="tiny">
-              {spell.name}
-            </Header>
+      <div className="sb-physical-card">
+        <div className="sb-row">
+          <div className="sb-col">
+            <h3>{spell.name}</h3>
             <i>{levelWithSchool}</i>
-          </Grid.Column>
-        </Grid.Row>
+          </div>
+        </div>
 
-        <Grid.Row columns="2" textAlign="center">
-          <Grid.Column>
-            <Header sub={true} color="grey" size="tiny">
-              Casting Time
-            </Header>
+        <div className="sb-row">
+          <div className="sb-col">
+            <h3>Casting Time</h3>
             {castingTime}
-          </Grid.Column>
-          <Grid.Column>
-            <Header sub={true} color="grey" size="tiny">
-              Range
-            </Header>
+          </div>
+          <div className="sb-col">
+            <h3>Range</h3>
             {range}
-          </Grid.Column>
-        </Grid.Row>
+          </div>
+        </div>
 
-        <Grid.Row columns="2" textAlign="center">
-          <Grid.Column>
-            <Header sub={true} color="grey" size="tiny">
-              Components
-            </Header>
+        <div className="sb-row">
+          <div className="sb-col">
+            <h3>Components</h3>
             {_.isEmpty(components) ? '-' : <span>{components}</span>}
-          </Grid.Column>
-          <Grid.Column>
-            <Header sub={true} color="grey" size="tiny">
-              Duration
-            </Header>
+          </div>
+          <div className="sb-col">
+            <h3>Duration</h3>
             {duration}
-          </Grid.Column>
-        </Grid.Row>
-        
+          </div>
+        </div>
+
         {materialElement}
-        
-        <Grid.Row columns="1" textAlign="center">
-          <Grid.Column>
-            <div style={{ color: 'grey' }}>
+
+        <div className="sb-row">
+          <div className="sb-col">
+            <p className="grey">
               <i>{classTypes}</i>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+            </p>
+          </div>
+        </div>
+      </div>
     );
   }
 }
