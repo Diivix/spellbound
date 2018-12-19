@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Button, Grid, Header, Loader, Responsive } from 'semantic-ui-react';
+import { Button, Loader } from 'semantic-ui-react';
 import { isNullOrUndefined } from 'util';
 import { SetSpellIcon } from 'utils/ui';
 import { getSpell } from '../../actions/spells/actions';
@@ -47,36 +47,36 @@ class SpellComponent extends React.Component<IProps, {}> {
 
     const descriptionElement = (
       <div style={paddingStyle}>
-        <Header sub={true} color="grey" size="medium">
+        <h3>
           Description
-        </Header>
+        </h3>
         <p>{_.upperFirst(spell.description)}.</p>
       </div>
     );
 
     const materialElement = !_.isEmpty(spell.materials) ? (
       <div style={paddingStyle}>
-        <Header sub={true} color="grey" size="medium">
+        <h3>
           Materials
-        </Header>
+        </h3>
         <p>{_.upperFirst(spell.materials)}.</p>
       </div>
     ) : null;
 
     const atHigherLevelsElement = !_.isEmpty(spell.atHigherLevels) ? (
       <div style={paddingStyle}>
-        <Header sub={true} color="grey" size="medium">
+        <h3>
           At Higher Levels
-        </Header>
+        </h3>
         <p>{_.upperFirst(spell.atHigherLevels)}.</p>
       </div>
     ) : null;
 
     const referenceElement = (
       <div style={paddingStyle}>
-        <Header sub={true} color="grey" size="medium">
+        <h3>
           Reference
-        </Header>
+        </h3>
         <p>{_.upperFirst(spell.reference)}.</p>
       </div>
     );
@@ -84,32 +84,40 @@ class SpellComponent extends React.Component<IProps, {}> {
     return (
       <div>
         <div style={{ textAlign: 'center', paddingBottom: '30px' }}>
-          <Header as="h1" color="grey">
+          <h1>
             {icon}
             {spellName}
-          </Header>
+          </h1>
         </div>
-        <Grid celled="internally">
-          <Grid.Row>
-            <Responsive as={Grid.Column} width={5} minWidth={Responsive.onlyTablet.minWidth}>
+        <div className="sb-grid sb-celled-internally">
+          <div className="sb-row">
+            <div className="sb-col">
               <SpellMetaLayout spell={spell} />
-            </Responsive>
-            <Grid.Column width={11}>
+            </div>
+            <div className="sb-col">
               {descriptionElement}
               {materialElement}
               {atHigherLevelsElement}
               {referenceElement}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <Button style={{marginTop: '50px'}} content="Spells" icon="chevron left" primary={false} basic={true} color="violet" onClick={this.changeRoute} />
+            </div>
+          </div>
+        </div>
+        <Button
+          style={{ marginTop: '50px' }}
+          content="Spells"
+          icon="chevron left"
+          primary={false}
+          basic={true}
+          color="violet"
+          onClick={this.changeRoute}
+        />
       </div>
     );
   }
 
-  private changeRoute =() => {
-    this.props.changeRoute("/spells");
-  }
+  private changeRoute = () => {
+    this.props.changeRoute('/spells');
+  };
 }
 
 function mapStateToProps(state: IStoreState): ISpellStateProps {
