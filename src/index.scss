@@ -73,8 +73,12 @@ p {
   margin: 0;
   padding: 0;
 
-  &.sb-center {
+  &.sb-center-h {
     justify-content: center;
+  }
+
+  &.sb-center-v {
+    align-items: center;
   }
 
   &.sb-celled-internally .sb-row {
@@ -145,6 +149,30 @@ p {
   }
 }
 
+//
+// Signin components
+//
+.sb-signin-image {
+  margin-right: 40px;
+}
+
+.sb-signin-form {
+  padding-left: 20px;
+  border-left: 1px #bcbec0 solid;
+}
+
+.sb-signin-image-appear {
+  opacity: 0;
+}
+
+.sb-signin-image-appear.sb-signin-image-appear-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}
+
+//
+// Character components
+//
 .sb-character {
   flex-grow: 1;
   margin-left: 5%;
@@ -153,6 +181,9 @@ p {
 .sb-character-card {
 }
 
+//
+// Cards used for spells, characters, and items
+//
 .sb-card-group {
   flex-flow: row wrap;
   width: 100%;
@@ -177,6 +208,9 @@ p {
   }
 }
 
+//
+// Sidbar for filters and context menu
+//
 .sb-sidebar {
   flex-shrink: 0;
 }
