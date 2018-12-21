@@ -11,7 +11,7 @@ import PopoverComponent from '../../components/spells/Popover';
 import SpellSidebar from '../../components/spells/SpellSidebar';
 import { IFilters, ISelectItem, ISpell, IStoreState } from '../../models';
 import { getSpells, hasSpells, isBusy } from '../../selectors';
-import './SpellCompendium.css';
+// import './SpellCompendium.css';
 
 interface IStateProps {
   appliedFilters?: IFilters | undefined;
@@ -122,9 +122,9 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     }
 
     return (
-      <div className="spellcompendium-container">
-        <div className="wrapper">
-          <div className="spell-sidebar">
+      <div className="sb-container">
+        <div className="sb-wrapper">
+          <div className="sb-sidebar">
             <SpellSidebar handleSortBy={this.handleSortBy}>
               <FormGroup label="Names" labelFor="names-dropdown">
                 <DropdownMultiSelect
@@ -178,7 +178,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
               </FormGroup>
             </SpellSidebar>
           </div>
-          <div className="card-group">{spellCards}</div>
+          <div className="sb-card-group">{spellCards}</div>
         </div>
       </div>
     );

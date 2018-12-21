@@ -32,7 +32,7 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
     return (
       <Popover>
         {/* Target */}
-        <Card className="sb-item-card" interactive={true} style={{ textAlign: 'center' }}>
+        <Card className="sb-card" interactive={true} style={{ textAlign: 'center' }}>
           <Icon icon={IconNames.ADD} iconSize={Icon.SIZE_LARGE} intent={Intent.PRIMARY} />
         </Card>
 

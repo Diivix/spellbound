@@ -57,7 +57,7 @@ class CharacterCompoent extends React.Component<IProps, {}> {
           isBusy={this.props.isBusy}
         />
         
-        <div className="sb-item-card-group">{spellCards} </div>
+        <div className="sb-card-group">{spellCards} </div>
       </div>
     );
   }

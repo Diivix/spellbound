@@ -19,13 +19,13 @@ class CharacterCardComponent extends React.Component<IProps, {}> {
     const name = _.truncate(_.startCase(_.toLower(this.props.character.name)), { length: 20 });
     const level = this.props.character.level;
     const spells = isNullOrUndefined(this.props.character.spells) ? 0 : this.props.character.spells.length;
-    const icon = <i className="sb-item-card_icon ra ra-level-three-advanced ra-lg" />;
+    const icon = <i className="sb-card_icon ra ra-level-three-advanced ra-lg" />;
 
     return (
-      <Card className="sb-item-card" interactive={true} onClick={this.handleClick}>
+      <Card className="sb-card" interactive={true} onClick={this.handleClick}>
         {icon}
-        <h5 className="sb-item-card_heading">{name}</h5>
-        <p className="sb-item-card_meta">Level: {level}, Spells: {spells}</p>
+        <h5 className="sb-card_heading">{name}</h5>
+        <p className="sb-card_meta">Level: {level}, Spells: {spells}</p>
       </Card>
     );
   }

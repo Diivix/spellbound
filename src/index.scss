@@ -1,4 +1,4 @@
-$colourText: #4A4A4A;
+$colourText: #4a4a4a;
 $colourGrey: #aaaaaa;
 $colourAltGrey: #d4d4d5;
 $colourViolet: #6435c9;
@@ -80,7 +80,7 @@ p {
   &.sb-celled-internally .sb-row {
     box-shadow: 0 -1px 0 0 $colourAltGrey;
   }
-  
+
   &.sb-celled-internally .sb-row .sb-col {
     box-shadow: -1px 0 0 0 $colourAltGrey;
   }
@@ -132,16 +132,17 @@ p {
   }
 }
 
-.sb-compendium {
+.sb-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-}
-.sb-compendium_wrapper {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
+
+  .sb-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
 }
 
 .sb-character {
@@ -152,37 +153,45 @@ p {
 .sb-character-card {
 }
 
-.sb-item-card-group {
+.sb-card-group {
   flex-flow: row wrap;
   width: 100%;
+
+  .sb-card {
+    margin: 0px 5px 5px 5px;
+    width: 250px;
+    max-width: 250px;
+
+    &_heading {
+      display: inline;
+    }
+
+    &_meta {
+      padding-left: 23px;
+    }
+
+    &_icon {
+      padding-right: 5px;
+      color: '#2ab5ab';
+    }
+  }
 }
-.sb-item-card {
-  margin: 0px 5px 5px 5px;
-  width: 250px;
-  max-width: 250px;
-}
-.sb-item-card_heading {
-  display: inline;
-}
-.sb-item-card_meta {
-  padding-left: 23px;
-}
-.sb-item-card_icon {
-  padding-right: 5px;
-  color: '#2ab5ab';
+
+.sb-sidebar {
+  flex-shrink: 0;
 }
 
 .sb-character-popover-add {
-}
-.sb-character-popover-add_form {
-  margin: 5px;
-}
-.sb-character-popover-add_input {
-  margin-bottom: 5px;
-}
-.sb-character-popover-add_button {
-  float: right;
-  margin-bottom: 5px;
+  &_form {
+    margin: 5px;
+  }
+  &_input {
+    margin-bottom: 5px;
+  }
+  &_button {
+    float: right;
+    margin-bottom: 5px;
+  }
 }
 
 .sb-icon {
