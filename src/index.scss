@@ -62,6 +62,14 @@ p {
   text-align: center;
 }
 
+&.sb-center-h {
+  justify-content: center;
+}
+
+&.sb-center-v {
+  align-items: center;
+}
+
 .sb-grid {
   display: flex;
   flex-wrap: wrap;
@@ -72,14 +80,6 @@ p {
   box-shadow: inherit;
   margin: 0;
   padding: 0;
-
-  &.sb-center-h {
-    justify-content: center;
-  }
-
-  &.sb-center-v {
-    align-items: center;
-  }
 
   &.sb-celled-internally .sb-row {
     box-shadow: 0 -1px 0 0 $colourAltGrey;
