@@ -58,15 +58,15 @@ p {
   }
 }
 
-.sb-text-center {
+.sb-center-text {
   text-align: center;
 }
 
-&.sb-center-h {
+.sb-center-h {
   justify-content: center;
 }
 
-&.sb-center-v {
+.sb-center-v {
   align-items: center;
 }
 
@@ -77,19 +77,18 @@ p {
   align-items: stretch;
   box-sizing: border-box;
   width: 100%;
-  box-shadow: inherit;
   margin: 0;
   padding: 0;
 
-  &.sb-celled-internally .sb-row {
+  &.sb-celled-internally > .sb-row {
     box-shadow: 0 -1px 0 0 $colourAltGrey;
   }
 
-  &.sb-celled-internally .sb-row .sb-col {
+  &.sb-celled-internally > .sb-row > .sb-col {
     box-shadow: -1px 0 0 0 $colourAltGrey;
   }
 
-  .sb-row {
+  & > .sb-row {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -100,16 +99,14 @@ p {
     box-sizing: inherit;
     box-shadow: inherit;
     align-self: inherit;
-    align-items: stretch;
     margin: 0;
     padding: 0;
-    text-align: inherit;
 
     &:first-child {
       box-shadow: none;
     }
 
-    .sb-col {
+    & > .sb-col {
       position: relative;
       display: inline-block;
       box-sizing: inherit;
@@ -117,7 +114,6 @@ p {
       margin: 0;
       padding: 1em;
       align-self: inherit;
-      text-align: inherit;
 
       &:first-child {
         box-shadow: none;

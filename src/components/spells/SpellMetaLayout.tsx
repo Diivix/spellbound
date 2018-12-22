@@ -35,7 +35,7 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
     }
 
     return (
-      <div className="sb-grid sb-center-h sb-celled-internally sb-text-center">
+      <div className="sb-grid sb-center-h sb-celled-internally sb-center-v sb-center-text">
         <div className="sb-row">
           <div className="sb-col">
             <h3>{spell.name}</h3>
