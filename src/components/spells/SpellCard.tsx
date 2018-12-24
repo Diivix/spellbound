@@ -2,7 +2,6 @@ import { Card } from "@blueprintjs/core";
 import _ from 'lodash';
 import React from 'react';
 import { BuildLevelWithSchool, SetSpellIcon } from '../../utils/ui';
-import './SpellCard.css'
 
 interface IProps {
   name: string;
@@ -21,10 +20,10 @@ class SpellCardComponent extends React.Component<IProps, {}> {
     const icon = SetSpellIcon(this.props.school, '#2ab5ab')
 
     return (
-      <Card className="card" interactive={true}>
+      <Card className="sb-card" interactive={true}>
         {icon}
-        <h5 className="heading">{name}</h5>
-        <p className="meta">{meta}</p>
+        <h5 className="sb-card_heading">{name}</h5>
+        <p className="sb-card_meta">{meta}</p>
       </Card>
     );
   }

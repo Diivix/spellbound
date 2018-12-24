@@ -1,11 +1,13 @@
+import { IBreadcrumbProps } from '@blueprintjs/core';
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Button, Loader } from 'semantic-ui-react';
 import { isNullOrUndefined } from 'util';
 import { SetSpellIcon } from 'utils/ui';
 import { getSpell } from '../../actions/spells/actions';
+import BreadcrumbsComponent from '../../components/Breadcrumbs';
+import { Loader } from '../../components/loader/Loader';
 import SpellMetaLayout from '../../components/spells/SpellMetaLayout';
 import { ISpell, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
@@ -38,63 +40,57 @@ class SpellComponent extends React.Component<IProps, {}> {
 
     // If busy, return immediatley.
     if (this.props.isBusy || isNullOrUndefined(spell)) {
-      return <Loader active={true} inline="centered" size="big" />;
+      return <Loader />;
     }
 
+    const breadcrumbs: IBreadcrumbProps[] = [{ onClick: this.changeRoute, text: 'Spells' }, { text: _.startCase(spell.name) }];
     const spellName = _.upperCase(spell.name);
     const icon = SetSpellIcon(spell.school, '#2ab5ab');
     const paddingStyle = { paddingTop: '10px', paddingBottom: '10px' };
 
     const descriptionElement = (
       <div style={paddingStyle}>
-        <h3>
-          Description
-        </h3>
+        <h3>Description</h3>
         <p>{_.upperFirst(spell.description)}.</p>
       </div>
     );
 
     const materialElement = !_.isEmpty(spell.materials) ? (
       <div style={paddingStyle}>
-        <h3>
-          Materials
-        </h3>
+        <h3>Materials</h3>
         <p>{_.upperFirst(spell.materials)}.</p>
       </div>
     ) : null;
 
     const atHigherLevelsElement = !_.isEmpty(spell.atHigherLevels) ? (
       <div style={paddingStyle}>
-        <h3>
-          At Higher Levels
-        </h3>
+        <h3>At Higher Levels</h3>
         <p>{_.upperFirst(spell.atHigherLevels)}.</p>
       </div>
     ) : null;
 
     const referenceElement = (
       <div style={paddingStyle}>
-        <h3>
-          Reference
-        </h3>
+        <h3>Reference</h3>
         <p>{_.upperFirst(spell.reference)}.</p>
       </div>
     );
 
     return (
-      <div>
-        <div style={{ textAlign: 'center', paddingBottom: '30px' }}>
+      <div className="sb-container">
+        <BreadcrumbsComponent items={breadcrumbs} />
+        <div className="sb-header sb-center-text">
           <h1>
             {icon}
             {spellName}
           </h1>
         </div>
-        <div className="sb-grid sb-celled-internally">
+        <div className="sb-grid sb-celled-internally sb-center-h">
           <div className="sb-row">
-            <div className="sb-col">
+            <div className="sb-col" style={{ maxWidth: '250px' }}>
               <SpellMetaLayout spell={spell} />
             </div>
-            <div className="sb-col">
+            <div className="sb-col" style={{ maxWidth: '600px' }}>
               {descriptionElement}
               {materialElement}
               {atHigherLevelsElement}
@@ -102,15 +98,6 @@ class SpellComponent extends React.Component<IProps, {}> {
             </div>
           </div>
         </div>
-        <Button
-          style={{ marginTop: '50px' }}
-          content="Spells"
-          icon="chevron left"
-          primary={false}
-          basic={true}
-          color="violet"
-          onClick={this.changeRoute}
-        />
       </div>
     );
   }

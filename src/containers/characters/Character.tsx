@@ -1,9 +1,12 @@
+import { IBreadcrumbProps } from '@blueprintjs/core';
 import PopoverComponent from 'components/spells/Popover';
+import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { deleteCharacter, updateCharacter } from '../../actions/characters/actions';
+import BreadcrumbsComponent from '../../components/Breadcrumbs';
 import CharacterDetailsComponent from '../../components/characters/CharacterDetails';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { getCharacter, isBusy } from '../../selectors';
@@ -35,32 +38,38 @@ class CharacterCompoent extends React.Component<IProps, {}> {
   }
 
   public render() {
-    if(isUndefined(this.props.character)) {
-      return (
-        <div>Character not found.</div>
-      );
+    if (isUndefined(this.props.character)) {
+      return <div>Character not found.</div>;
     }
-
+    const { character } = this.props;
+    const breadcrumbs: IBreadcrumbProps[] = [{ onClick: this.changeRoute, text: 'Characters' }, { text: _.startCase(character.name) }];
     const spellCards = isNullOrUndefined(this.props.character.spells)
       ? null
-      : this.props.character.spells.map(spell => (<PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} />));
+      : this.props.character.spells.map(spell => <PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} />);
 
     return (
-      <div className="sb-character">
-        <CharacterDetailsComponent
-          name={this.props.character.name}
-          classType={this.props.character.classType}
-          level={this.props.character.level}
-          description={this.props.character.description}
-          update={this.props.updateCharacter}
-          delete={this.props.deleteCharacter}
-          isBusy={this.props.isBusy}
-        />
-        
-        <div className="sb-card-group">{spellCards} </div>
+      <div className="sb-container">
+        <BreadcrumbsComponent items={breadcrumbs} />
+        <div className="sb-character">
+          <CharacterDetailsComponent
+            name={character.name}
+            classType={character.classType}
+            level={character.level}
+            description={character.description}
+            update={updateCharacter}
+            delete={deleteCharacter}
+            isBusy={this.props.isBusy}
+          />
+
+          <div className="sb-card-group">{spellCards} </div>
+        </div>
       </div>
     );
   }
+
+  private changeRoute = () => {
+    this.props.changeRoute('/characters');
+  };
 }
 
 function mapStateToProps(state: IStoreState, props: IProps): IStateProps {

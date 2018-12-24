@@ -10,6 +10,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import 'rpg-awesome/css/rpg-awesome.min.css';
+import 'semantic-ui-css/semantic.min.css';
 import App from './containers/App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';

@@ -1,8 +1,10 @@
+import { IBreadcrumbProps } from '@blueprintjs/core';
 import { createCharacter, getCharacters } from 'actions/characters/actions';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { isNull, isNullOrUndefined } from 'util';
+import BreadcrumbsComponent from '../../components/Breadcrumbs';
 import PopoverComponent from '../../components/characters/CharacterAddPopover';
 import CharacterCardComponent from '../../components/characters/CharacterCard';
 import { Loader } from '../../components/loader/Loader';
@@ -36,14 +38,16 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
       return <Loader />;
     }
 
+    const breadcrumbs: IBreadcrumbProps[] = [{ text: "Characters" }];
     let characterCards: JSX.Element[] = [];
     if(!isNull(this.props.characters)) {
-      characterCards = this.props.characters.map(character => <CharacterCardComponent key={character.id} changeRoute={this.changeCharacterRoute} character={character} />);
+      characterCards = this.props.characters.map(character => <CharacterCardComponent key={character.id} changeRoute={this.changeRoute} character={character} />);
     }
     characterCards.push(<PopoverComponent key='createcharacter' createCharacter={this.createCharacter}/>)
 
     return (
       <div className="sb-container">
+        <BreadcrumbsComponent items={breadcrumbs} />
         <div className="sb-wrapper">
           <div className="sb-card-group">{characterCards} </div>
         </div>
@@ -55,8 +59,8 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
     this.props.createCharacter(character);
   }
 
-  private changeCharacterRoute = (characterId: number): void => {
-    this.props.changeRoute('/characters/' + characterId.toString());
+  private changeRoute = (characterId: number): void => {
+    this.props.changeRoute('/characters/' + characterId);
   }
 }
 

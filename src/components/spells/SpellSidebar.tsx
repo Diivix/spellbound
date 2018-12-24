@@ -1,7 +1,6 @@
 import { Icon, Tab, TabId, Tabs } from '@blueprintjs/core';
 import * as React from 'react';
 import { ISelectItem } from '../../models';
-import './SpellSidebar.css';
 
 interface IProps {
   handleSortBy: (newTabId: TabId, prevTabId: TabId, event: any) => void;
@@ -21,7 +20,7 @@ class SpellSidebarComponent extends React.Component<IProps, IState> {
 
   public render() {
     return (
-      <div className="sidebar">
+      <div className="sb-sidebar">
         <h4>
           <Icon icon="sort-desc" /> Sort by
         </h4>

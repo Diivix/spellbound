@@ -26,7 +26,6 @@
     "reselect": "^4.0.0",
     "rpg-awesome": "^0.2.0",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.83.0",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {

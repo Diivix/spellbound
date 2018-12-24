@@ -1,8 +1,8 @@
 $colourText: #4a4a4a;
-$colourGrey: #aaaaaa;
-$colourAltGrey: #d4d4d5;
-$colourViolet: #6435c9;
-$colourVioletHover: #5829bb;
+$colourGrey: #aaaaaa;         // Haadings
+$colourAltGrey: #d4d4d5;      // Borders, etc
+$colourViolet: #6435c9;       // Primary app colour
+$colourVioletHover: #5829bb; 
 $colourVioletActive: #5626bf;
 
 body {
@@ -56,6 +56,10 @@ p {
   &.grey {
     color: $colourGrey;
   }
+}
+
+.sb-header { // Page headers such as for the Spell and Character pages
+  width: 100%;
 }
 
 .sb-center-text {
@@ -145,6 +149,19 @@ p {
   }
 }
 
+.sb-breadcrumbs {
+  margin-bottom: 15px;
+
+  & ul::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 100%;
+    margin-right: 10px;
+    background: $colourViolet;
+  }
+}
+
 //
 // Signin components
 //
@@ -189,15 +206,15 @@ p {
     width: 250px;
     max-width: 250px;
 
-    &_heading {
+    & > .sb-card_heading {
       display: inline;
     }
 
-    &_meta {
+    & > .sb-card_meta {
       padding-left: 23px;
     }
 
-    &_icon {
+    & > .sb-card_icon {
       padding-right: 5px;
       color: '#2ab5ab';
     }
@@ -208,7 +225,24 @@ p {
 // Sidbar for filters and context menu
 //
 .sb-sidebar {
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $colourAltGrey;
+  border-radius: 5px;
+  width: 260px;
+  max-width: 260px;
+
+  & > * {
+    margin: 0px 10px 10px 10px;
+  }
+
+  & .bp3-popover-target {
+    width: 100%;
+  }
+
+  & h4:first-child {
+    margin-top: 20px;
+  }
 }
 
 .sb-character-popover-add {

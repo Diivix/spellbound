@@ -1,10 +1,11 @@
-import { FormGroup, TabId } from '@blueprintjs/core';
+import { FormGroup, IBreadcrumbProps, TabId } from '@blueprintjs/core';
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
+import BreadcrumbsComponent from '../../components/Breadcrumbs';
 import { Loader } from '../../components/loader/Loader';
 import DropdownMultiSelect from '../../components/MultiSelectWrapper';
 import PopoverComponent from '../../components/spells/Popover';
@@ -50,6 +51,8 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     if (this.props.isBusy || isUndefined(this.props.getSpells) || isUndefined(this.props.filters)) {
       return <Loader />;
     }
+
+    const breadcrumbs: IBreadcrumbProps[] = [{ text: "Spells" }];
 
     const appliedFilters = !isUndefined(this.props.appliedFilters)
       ? this.props.appliedFilters
@@ -123,8 +126,9 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
 
     return (
       <div className="sb-container">
+        <BreadcrumbsComponent items={breadcrumbs} />
         <div className="sb-wrapper">
-          <div className="sb-sidebar">
+          {/* <div className="sb-sidebar"> */}
             <SpellSidebar handleSortBy={this.handleSortBy}>
               <FormGroup label="Names" labelFor="names-dropdown">
                 <DropdownMultiSelect
@@ -177,7 +181,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                 />
               </FormGroup>
             </SpellSidebar>
-          </div>
+          {/* </div> */}
           <div className="sb-card-group">{spellCards}</div>
         </div>
       </div>
