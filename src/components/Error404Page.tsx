@@ -14,10 +14,10 @@ class Error404Page extends React.Component {
           <div className="sb-col">
             <i style={{ color: '#24ccd8' }} className="ra ra-snowflake ra-5x sb-icon sb-icon--circle" />
           </div>
-          <div className="sb-row">
-            <div className="sb-col">
-              <h2>These are not the spells you're looking for.</h2>
-            </div>
+        </div>
+        <div className="sb-row">
+          <div className="sb-col sb-center-text">
+            <h2>These are not the spells you're looking for.</h2>
           </div>
         </div>
       </div>
