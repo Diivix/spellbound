@@ -27,7 +27,7 @@ export function signIn(credentials: ICredentials): Promise<{token: string; user:
 }
 
 export function signOut(token: string): Promise<{}> {
-  const url = 'api/Account/SignOut';
+  const url = '/api/Account/SignOut';
 
   return fetch(url, {
     headers: {
