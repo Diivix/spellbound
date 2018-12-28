@@ -23,7 +23,7 @@ export interface ISpellData {
 }
 
 export interface ISpell {
-  id: string;
+  id: number;
   atHigherLevels?: string;
   castingTime: string;
   classTypes: string[];
@@ -49,6 +49,12 @@ export interface ICharacter extends ICharacterBase {
   dateCreated: number;
   dateLastModified: number;
   spells?: ISpell[];
+}
+
+export interface ICharacterSimple {
+  id: number;
+  name: string;
+  spellIds: number[];
 }
 
 export interface IFilters {

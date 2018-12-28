@@ -17,13 +17,25 @@ export const userReducer = TypedReducer.builder<IUserData>()
     return Object.assign({}, state, { characters: payload.characters });
   })
   .withHandler(UpdateCharacter.TYPE, (state, payload) => {
-    return Object.assign({}, state, { characters: payload.character });
+    const characters = [...state.characters];
+    const index = characters.findIndex(x => x.id === payload.character.id);
+    if(index != null) {
+      characters.splice(index, 1, payload.character)
+      return Object.assign({}, state, { characters });
+    } else {
+      return state;
+    }
   })
   // TODO: allow character deletions
   // .withHandler(DeleteCharacter.TYPE, (state, payload) => {
   //   return Object.assign({}, state, payload.c);
   // })
   // Remove user data on sign out or fail.
+  // .withHandler(AddSpell.TYPE, (state, payload) => {
+  //   const character: ICharacter = JSON.parse(JSON.stringify(state.characters.find(x => x.id === payload.characterId)));
+  //   character!.spells!.push(payload.spell);
+  //   return Object.assign({}, state, { characters: character })
+  // })
   .withHandler(SignOut.TYPE, state => {
     return Object.assign({}, state, { userName: '', characters: null });
   })

@@ -59,7 +59,7 @@ export function createCharacter(character: ICharacterBase, token: string): Promi
 
 // UPDATE
 // Updates a Character, from the current user
-export function updateCharacter(character: { id: number } & ICharacterBase, token: string): Promise<ICharacter> {
+export function updateCharacterMeta(character: { id: number } & ICharacterBase, token: string): Promise<ICharacter> {
   const url: string = '/api/users/characters/update';
 
   return fetch(url, {
@@ -101,4 +101,56 @@ export function deleteCharacter(characterId: { characterId: number }, token: str
         throw new ApiError(response.status, response.statusText);
       }
     });
+}
+
+// ADD SPELL
+// Adds a spell to a character
+export function addSpell(characterAndSpellId: { characterId: number, spellId: number }, token: string): Promise<ICharacter> {
+  const url: string = '/api/characters/addspell';
+
+  return fetch(url, {
+    body: JSON.stringify(characterAndSpellId),
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT'
+  })
+  .then(response => {
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new ApiError(response.status, response.statusText);
+    }
+  })
+  .then(response => response.json())
+  .then((updatedCharacter: ICharacter) => {
+    return updatedCharacter;
+  });
+}
+
+// REMOVE SPELL
+// Removes a spell to a character
+export function removeSpell(characterAndSpellId: { characterId: number, spellId: number }, token: string): Promise<ICharacter> {
+  const url: string = '/api/characters/removespell';
+
+  return fetch(url, {
+    body: JSON.stringify(characterAndSpellId),
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT'
+  })
+  .then(response => {
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new ApiError(response.status, response.statusText);
+    }
+  })
+  .then(response => response.json())
+  .then((updatedCharacter: ICharacter) => {
+    return updatedCharacter;
+  });
 }

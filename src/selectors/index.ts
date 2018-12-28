@@ -1,18 +1,32 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
-import { isUndefined } from 'util';
-import { ICharacter, ISpell, IStoreState } from '../models';
+import { isNull, isNullOrUndefined, isUndefined } from 'util';
+import { ICharacter, ICharacterSimple, ISpell, IStoreState } from '../models';
 
 // Input Selectors
 const pendingActionsSelector = (state: IStoreState) => state.pendingActions;
 
 const spellsInCacheSelector = (state: IStoreState): ISpell[] | undefined => state.spellData.spells;
 
-const getCharacterSelector = (state: IStoreState, characterId: string) => {
+const getCharacterSelector = (state: IStoreState, characterId: string): ICharacter | undefined => {
   if (isUndefined(state.userData)) {
     return undefined;
   } else {
     return state.userData.characters.find(character => character.id.toString() === characterId);
+  }
+};
+
+const getCharactersSimpleSelector = (state: IStoreState): ICharacterSimple[] | undefined => {
+  if (isUndefined(state.userData) || isNull(state.userData.characters)) {
+    return undefined;
+  } else {
+    return state.userData.characters.map(x => {
+      let spellIds: number[] = [];
+      if(!isNullOrUndefined(x.spells)) {
+        spellIds = x.spells.map(s => s.id);
+      } 
+      return { id: x.id, name: x.name, spellIds };
+    });
   }
 };
 
@@ -68,17 +82,34 @@ const getSpellsSelector = (state: IStoreState): ISpell[] | null => {
 };
 
 // Memoised Selectors
-export const isBusy = createSelector([pendingActionsSelector], pendingActions => pendingActions > 0);
+export const isBusy = createSelector(
+  [pendingActionsSelector],
+  pendingActions => pendingActions > 0
+);
 
-export const hasSpells = createSelector([spellsInCacheSelector], (spells: ISpell[]) => {
-  if (isUndefined(spells) || spells.length === 0) {
-    return false;
-  } else {
-    return true;
+export const hasSpells = createSelector(
+  [spellsInCacheSelector],
+  (spells: ISpell[]) => {
+    if (isUndefined(spells) || spells.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
-});
+);
 
-export const getCharacter = createSelector([getCharacterSelector], (character: ICharacter) => character);
+export const getCharacter = createSelector(
+  [getCharacterSelector],
+  (character: ICharacter) => character
+);
 
 // TODO: Use selector to get spells from filter
-export const getSpells = createSelector([getSpellsSelector], (spells: ISpell[]) => spells);
+export const getSpells = createSelector(
+  [getSpellsSelector],
+  (spells: ISpell[]) => spells
+);
+
+export const getCharactersSimple = createSelector(
+  [getCharactersSimpleSelector],
+  (characters: ICharacterSimple[]) => characters
+);

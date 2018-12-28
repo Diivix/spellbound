@@ -19,7 +19,7 @@ interface IState {
 }
 
 /**
- * This code is heavily based o the MultiSelect example:
+ * This code is heavily based on the MultiSelect example:
  * https://github.com/palantir/blueprint/blob/develop/packages/docs-app/src/examples/select-examples/multiSelectExample.tsx
  */
 class MultiSelectWrapperComponent extends React.Component<IProps, IState> {

@@ -11,7 +11,7 @@ test('Show Spell Metadata', () => {
     components: ['V', 'S'],
     description: '',
     duration: 'action',
-    id: "0",
+    id: 0,
     level: 6,
     name: 'Fire Bolt',
     range: '20 feet',

@@ -28,7 +28,7 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
   }
 
   public componentDidMount() {
-    if (isNullOrUndefined(this.props.characters)) {
+    if (isNull(this.props.characters)) {
       this.props.getCharacters();
     }
   }

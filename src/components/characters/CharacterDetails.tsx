@@ -9,7 +9,7 @@ interface IProps {
   level?: number;
   name: string;
   create?: (character: ICharacterBase) => {};
-  update?: (character: { id: number } & ICharacterBase) => {};
+  updateMeta?: (character: { id: number } & ICharacterBase) => {};
   delete?: (charcterId: number) => void;
   isBusy: boolean;
 }

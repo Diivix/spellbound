@@ -1,30 +1,35 @@
 import { FormGroup, IBreadcrumbProps, TabId } from '@blueprintjs/core';
+import { addSpell, getCharacters, removeSpell } from 'actions/characters/actions';
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { isUndefined } from 'util';
+import { isNull, isUndefined } from 'util';
 import { getLightSpellsWithFilters, setAppliedFilters } from '../../actions/spells/actions';
 import BreadcrumbsComponent from '../../components/Breadcrumbs';
 import { Loader } from '../../components/loader/Loader';
 import DropdownMultiSelect from '../../components/MultiSelectWrapper';
 import PopoverComponent from '../../components/spells/Popover';
 import SpellSidebar from '../../components/spells/SpellSidebar';
-import { IFilters, ISelectItem, ISpell, IStoreState } from '../../models';
-import { getSpells, hasSpells, isBusy } from '../../selectors';
-// import './SpellCompendium.css';
+import { ICharacter, ICharacterSimple, IFilters, ISelectItem, ISpell, IStoreState } from '../../models';
+import { getCharactersSimple, getSpells, hasSpells, isBusy } from '../../selectors';
 
 interface IStateProps {
   appliedFilters?: IFilters | undefined;
+  characters: ICharacter[] | null;
   hasSpells: boolean;
   isBusy: boolean;
   filters: IFilters | undefined;
+  getCharactersSimple: ICharacterSimple[] | undefined;
   getSpells: ISpell[] | undefined;
 }
 
 interface IDispatchProps {
+  addSpellToCharacter: (characterId: number, spellId: number) => {};
   changeRoute: (path: string) => {};
+  getCharacters: () => {};
   getLightSpellsWithFilters: () => {};
+  removeSpellFromCharacter: (characterId: number, spellId: number) => {};
   setAppliedFilters: (filters: IFilters) => {};
 }
 
@@ -43,6 +48,10 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
   public componentDidMount() {
     if (!this.props.hasSpells || isUndefined(this.props.filters)) {
       this.props.getLightSpellsWithFilters();
+    }
+
+    if (isNull(this.props.characters)) {
+      this.props.getCharacters();
     }
   }
 
@@ -67,7 +76,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
     const possibleFilterValues: IFilters = this.props.filters;
     const sortedSpells: ISpell[] = this.sortSpells(this.state.sortByValue, this.props.getSpells);
     const spellCards: JSX.Element[] = sortedSpells.map(spell => (
-      <PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} />
+      <PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} characters={this.props.getCharactersSimple} addSpellToCharacter={this.props.addSpellToCharacter} removeSpellFromCharacter={this.props.removeSpellFromCharacter} />
     ));
 
     // Format filter values for dropdowns
@@ -238,7 +247,9 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
 function mapStateToProps(state: IStoreState): IStateProps {
   return {
     appliedFilters: state.spellData.appliedFilters,
+    characters: state.userData.characters,
     filters: state.spellData.filters,
+    getCharactersSimple: getCharactersSimple(state),
     getSpells: getSpells(state),
     hasSpells: hasSpells(state),
     isBusy: isBusy(state)
@@ -247,8 +258,11 @@ function mapStateToProps(state: IStoreState): IStateProps {
 
 function mapDispatchToProps(dispatch: any): IDispatchProps {
   return {
+    addSpellToCharacter: (characterId: number, spellId: number) => dispatch(addSpell(characterId, spellId)),
     changeRoute: (path: string) => dispatch(push(path)),
+    getCharacters: () => dispatch(getCharacters()),
     getLightSpellsWithFilters: () => dispatch(getLightSpellsWithFilters()),
+    removeSpellFromCharacter: (characterId: number, spellId: number) => dispatch(removeSpell(characterId, spellId)),
     setAppliedFilters: (filters: IFilters) => dispatch(setAppliedFilters(filters))
   };
 }

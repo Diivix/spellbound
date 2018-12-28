@@ -1,6 +1,5 @@
 import { Alignment, Button, Colors, Icon, Navbar } from '@blueprintjs/core';
 import * as React from 'react';
-import { primaryColour } from 'utils/ui';
 
 interface IProps {
   activeItem: string;
@@ -16,14 +15,14 @@ class NavbarComponent extends React.Component<IProps, {}> {
   public render() {
     const { activeItem, handleItemClick, handleSignOut } = this.props;
     // TODO: Move these to css file.
-    const headerStyle = { backgroundColor: primaryColour, color: '#FFFFFF' };
+    // const headerStyle = { backgroundColor: primaryColour, color: '#FFFFFF' };
     const colourStyle = { color: '#FFFFFF' };
 
     // Note, the name of the buttons must match the route paths!
     return (
       <nav>
-        <Navbar fixedToTop={false} style={headerStyle}>
-          <Navbar.Group align={Alignment.LEFT}>
+        <Navbar className="sb-navbar" fixedToTop={false}>
+          <Navbar.Group className="sb-navbar_group" align={Alignment.LEFT}>
             {/* <div>
               <Logo scale={0.1} primaryColour={backgroundColour} secondaryColour={primaryColour} />
             </div> */}
@@ -48,7 +47,7 @@ class NavbarComponent extends React.Component<IProps, {}> {
               active={activeItem === 'spells'}
             />
           </Navbar.Group>
-          <Navbar.Group align={Alignment.RIGHT}>
+          <Navbar.Group className="sb-navbar_group" align={Alignment.RIGHT}>
             <Button
               name="logout"
               className="bp3-minimal"

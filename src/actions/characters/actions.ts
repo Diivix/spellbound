@@ -1,11 +1,12 @@
 import { Dispatch } from 'redux';
 import {
+  addSpell as addSpellFromApi,
   createCharacter as createCharacterFromApi,
   deleteCharacter as deleteCharacterFromApi,
   getCharacters   as getCharactersFromApi,
-  updateCharacter as updateCharacterFromApi
+  removeSpell as removeSpellFromAPi,
+  updateCharacterMeta as updateCharacterMetaFromApi
 } from '../../api/charactersApi';
-// import { getUserData as getUserDataFromApi } from '../../api/userApi';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { dispatchError } from '../common/actions';
 import { InProgress } from '../common/types';
@@ -37,12 +38,12 @@ export function createCharacter(newCharacter: ICharacterBase): (dispatch: Dispat
   };
 }
 
-export function updateCharacter(updatedCharacter: { id: number } & ICharacterBase): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
+export function updateCharacterMeta(updatedCharacter: { id: number } & ICharacterBase): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
   return async (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => {
     dispatch(InProgress.create());
 
     try {
-      const character: ICharacter = await updateCharacterFromApi(updatedCharacter, getState().token);
+      const character: ICharacter = await updateCharacterMetaFromApi(updatedCharacter, getState().token);
       dispatch(UpdateCharacter.create({ character }));
     } catch (error) {
       dispatchError(dispatch, error);
@@ -57,6 +58,33 @@ export function deleteCharacter(characterId: number): (dispatch: Dispatch<IStore
     try {
       await deleteCharacterFromApi({ characterId }, getState().token);
       dispatch(DeleteCharacter.create());
+    } catch (error) {
+      dispatchError(dispatch, error);
+    }
+  };
+}
+
+export function addSpell(characterId: number, spellId: number): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => {
+    dispatch(InProgress.create());
+
+    try {
+      const character: ICharacter = await addSpellFromApi({ characterId, spellId }, getState().token);
+      
+      dispatch(UpdateCharacter.create({character}));
+    } catch (error) {
+      dispatchError(dispatch, error);
+    }
+  };
+}
+
+export function removeSpell(characterId: number, spellId: number): (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => Promise<void> {
+  return async (dispatch: Dispatch<IStoreState>, getState: () => IStoreState) => {
+    dispatch(InProgress.create());
+
+    try {
+      const character: ICharacter = await removeSpellFromAPi({ characterId, spellId }, getState().token);
+      dispatch(UpdateCharacter.create({ character }));
     } catch (error) {
       dispatchError(dispatch, error);
     }
