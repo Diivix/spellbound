@@ -1,5 +1,6 @@
 import { IBreadcrumbProps } from '@blueprintjs/core';
 import { addSpell, removeSpell } from 'actions/characters/actions';
+import CharacterEquippedComponent from 'components/characters/CharacterEquipped';
 import PopoverComponent from 'components/spells/Popover';
 import _ from 'lodash';
 import * as React from 'react';
@@ -49,24 +50,32 @@ class CharacterCompoent extends React.Component<IProps, {}> {
     const breadcrumbs: IBreadcrumbProps[] = [{ onClick: this.changeRoute, text: 'Characters' }, { text: _.startCase(character.name) }];
     const spellCards = isNullOrUndefined(this.props.character.spells)
       ? null
-      : this.props.character.spells.map(spell => <PopoverComponent key={spell.id} spell={spell} changeRoute={this.props.changeRoute} characters={this.props.getCharactersLite} addSpellToCharacter={this.props.addSpellToCharacter} removeSpellFromCharacter={this.props.removeSpellFromCharacter} />);
+      : this.props.character.spells.map(spell => (
+          <PopoverComponent
+            key={spell.id}
+            spell={spell}
+            changeRoute={this.props.changeRoute}
+            characters={this.props.getCharactersLite}
+            addSpellToCharacter={this.props.addSpellToCharacter}
+            removeSpellFromCharacter={this.props.removeSpellFromCharacter}
+          />
+        ));
 
     return (
       <div className="sb-container">
         <BreadcrumbsComponent items={breadcrumbs} />
-        <div className="sb-character">
-          <CharacterDetailsComponent
-            name={character.name}
-            classType={character.classType}
-            level={character.level}
-            description={character.description}
-            updateMeta={updateCharacterMeta}
-            delete={deleteCharacter}
-            isBusy={this.props.isBusy}
-          />
 
-          <div className="sb-card-group">{spellCards} </div>
-        </div>
+        <CharacterDetailsComponent
+          name={character.name}
+          classType={character.classType}
+          level={character.level}
+          description={character.description}
+          updateMeta={updateCharacterMeta}
+          delete={deleteCharacter}
+          isBusy={this.props.isBusy}
+        />
+
+        <CharacterEquippedComponent heading="Equipped Spells" cards={spellCards} />
       </div>
     );
   }

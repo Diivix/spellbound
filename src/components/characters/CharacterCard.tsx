@@ -1,7 +1,8 @@
-import { Card } from '@blueprintjs/core';
+import { Card, Icon } from '@blueprintjs/core';
 import _ from 'lodash';
 import React from 'react';
-import { isNullOrUndefined } from 'util';
+import { isUndefined } from 'util';
+import { BuildLevel } from 'utils/ui';
 import { ICharacter } from '../../models';
 
 interface IProps {
@@ -17,16 +18,16 @@ class CharacterCardComponent extends React.Component<IProps, {}> {
 
   public render() {
     const name = _.truncate(_.startCase(_.toLower(this.props.character.name)), { length: 20 });
-    const level = this.props.character.level;
-    const spells = isNullOrUndefined(this.props.character.spells) ? 0 : this.props.character.spells.length;
-    const icon = <i className="sb-card_icon ra ra-level-three-advanced ra-lg" style={{ color: '#1089ed' }} />;
+    const classType = isUndefined(this.props.character.classType) ? "" : _.capitalize(this.props.character.classType);
+    const level = isUndefined(this.props.character.level) ? 0 : this.props.character.level;
+    const icon = <Icon icon="person" className="sb-colour-blue" style={{ paddingRight: '5px' }} />;
 
     return (
       <Card className="sb-card" interactive={true} onClick={this.handleClick}>
         {icon}
         <h5 className="sb-card_heading">{name}</h5>
         <p className="sb-card_meta">
-          Level: {level}, Spells: {spells}
+          {BuildLevel(level, classType, false)}
         </p>
       </Card>
     );

@@ -42,15 +42,11 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 all spells with more than one class are removed, leaving spells with only a wizard class.
 - Move menu to it own header component. The menu shouldn;t be shown on the signin page.
 - Fix bug with sorting of the ranges filter.
-- Fix the any types for the functions used in the SpellModal.
-- The login authController should return the user object from the DB, instead of the going back to the DB to get the info later.
 - Allow user to upload character avatar
 - Need to handle errors better on login page and when loading failures happen on other pages.
-- Refresh the session expirery date when we ever the user hits the api/database.
-- Fix spell cards and popups.
+- Refresh the session expirery date of the JWT when we ever the user hits the api/database.
+- Fix spell popup buttons.
+- Fix spell filters menu.
 - Need to add checks for characters, {insert others, here}, to periodically update data. I.e. character data.
-- Implement Passport authentication.
-- Favoutites
-- Equip spells to characters.
 - Look at adding the reference property as a filter. May need to spilt out the property into pageReference and bookReference.
-
+- Characters are not displaying as a list down the page instead of accross.

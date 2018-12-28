@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { BuildLevelWithSchool } from 'utils/ui';
+import { BuildLevel } from 'utils/ui';
 import { ISpell } from '../../models';
 
 interface IProps {
@@ -14,7 +14,7 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
 
   public render() {
     const { spell } = this.props;
-    const levelWithSchool = BuildLevelWithSchool(spell.level, spell.school, false);
+    const levelWithSchool = BuildLevel(spell.level, spell.school, false);
     const components = spell.components.map(component => _.upperCase(component)).join(', ');
     const classTypes = spell.classTypes.map(clss => _.capitalize(clss)).join(' · ');
     const castingTime = spell.castingTime;
@@ -69,7 +69,7 @@ class SpellMetaLayoutComponent extends React.Component<IProps, {}> {
 
         <div className="sb-row">
           <div className="sb-col">
-            <p className="grey">
+            <p className="sb-colour-grey">
               <i>{classTypes}</i>
             </p>
           </div>

@@ -44,8 +44,8 @@ class SpellComponent extends React.Component<IProps, {}> {
     }
 
     const breadcrumbs: IBreadcrumbProps[] = [{ onClick: this.changeRoute, text: 'Spells' }, { text: _.startCase(spell.name) }];
-    const spellName = _.upperCase(spell.name);
-    const icon = SetSpellIcon(spell.school, '#2ab5ab');
+    const spellName = _.startCase(spell.name);
+    const icon = SetSpellIcon(spell.school);
     const paddingStyle = { paddingTop: '10px', paddingBottom: '10px' };
 
     const descriptionElement = (
@@ -79,7 +79,7 @@ class SpellComponent extends React.Component<IProps, {}> {
     return (
       <div className="sb-container">
         <BreadcrumbsComponent items={breadcrumbs} />
-        <div className="sb-header sb-center-text">
+        <div className="sb-center-text">
           <h1>
             {icon}
             {spellName}
