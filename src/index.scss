@@ -17,6 +17,10 @@ h1 {
   font-weight: 900;
   color: $colourGrey;
   letter-spacing: 0.05em;
+
+  &.sb-padding-top-0 {
+    padding-top: 0;
+  }
 }
 
 h2 {

@@ -83,7 +83,7 @@ class SigninComponent extends React.Component<IProps, IState> {
             </CssTransitionGroup>
           </div>
           <div className="sb-col">
-            <h1>Welcome to Spellbound</h1>
+            <h1 className="sb-padding-top-0">Welcome to Spellbound</h1>
             <div className="sb-form" style={{ maxWidth: '350px' }}>
               <FormGroup>
                 <InputGroup
