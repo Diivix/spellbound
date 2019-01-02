@@ -100,6 +100,22 @@ p {
   margin-bottom: 15px;
 }
 
+// Used to structure multiple compnents on a view or "page".
+.sb-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  .sb-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: flex-start;
+  }
+}
+
+// Should be used to cluster content together and form a single component. I.e. Spell card metadata.
 .sb-grid {
   display: flex;
   flex-wrap: wrap;
@@ -172,19 +188,6 @@ p {
   }
 }
 
-.sb-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-
-  .sb-wrapper {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
-}
-
 .sb-navbar {
   background-color: $colourViolet;
   color: #FFFFFF;
@@ -215,11 +218,6 @@ p {
   margin-right: 40px;
 }
 
-.sb-signin-form {
-  padding-left: 20px;
-  border-left: 1px #bcbec0 solid;
-}
-
 .sb-signin-image-appear {
   opacity: 0;
 }
@@ -244,9 +242,11 @@ p {
   width: 100%;
 
   .sb-card {
+    display: inline-block;
     margin: 0px 5px 5px 5px;
     width: 250px;
     max-width: 250px;
+    max-height: 80px;
 
     & > .sb-card_heading {
       display: inline;
@@ -261,6 +261,12 @@ p {
       color: '#2ab5ab';
     }
   }
+
+  .sb-card-add {
+    & > span {
+      padding: 10px;
+    }
+  }
 }
 
 //
@@ -269,17 +275,16 @@ p {
 .sb-sidebar {
   display: flex;
   flex-direction: column;
+  flex: 1 0 auto;
   border: 1px solid $colourAltGrey;
   border-radius: 5px;
-  width: 260px;
-  max-width: 260px;
+  width: 250px;
+  max-width: 250px;
+  margin-right: 5px;
 
   & > * {
     margin: 0px 10px 10px 10px;
-  }
-
-  & .bp3-popover-target {
-    width: 100%;
+    flex: 1 1 auto;
   }
 
   & h4:first-child {
@@ -287,17 +292,30 @@ p {
   }
 }
 
-.sb-character-popover-add {
-  &_form {
-    margin: 5px;
+.sb-popover-content {
+  width: 250px;
+  padding: 5px;
+}
+
+// Used for the popover tagets in the spell sidebar. I.e. Input text boxes with multi-select dropdowns.
+.sb-itemselect_popover-target {
+  width: 100%;
+}
+
+// Used to center buttons (in a popover) in a button group
+.sb-button-group_popover {
+  flex: 1 1 auto;
+
+  &-target {
+    display: flex!important;
   }
-  &_input {
-    margin-bottom: 5px;
-  }
-  &_button {
-    float: right;
-    margin-bottom: 5px;
-  }
+}
+
+.sb-form {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  margin: 5px;
 }
 
 .sb-icon {

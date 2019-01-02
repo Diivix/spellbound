@@ -22,7 +22,7 @@ class SpellCardComponent extends React.Component<IProps, {}> {
     return (
       <Card className="sb-card" interactive={true}>
         {icon}
-        <h5 className="sb-card_heading">{name}</h5>
+        <h4 className="sb-card_heading">{name}</h4>
         <p className="sb-card_meta">{meta}</p>
       </Card>
     );

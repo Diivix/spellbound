@@ -34,10 +34,10 @@ class PopoverComponent extends React.Component<IProps, IState> {
         <SpellCardComponent name={this.props.spell.name} level={this.props.spell.level} school={this.props.spell.school} />
 
         {/* Content */}
-        <div style={{ width: '250px' }}>
-          <SpellMetaLayout spell={this.props.spell} />
+        <div className="sb-popover-content">
+          <SpellMetaLayout spell={this.props.spell}/>
           <ButtonGroup large={true} fill={true} minimal={true}>
-            <Popover content={this.renderCharacterMenu()} >
+            <Popover content={this.renderCharacterMenu()} className="sb-button-group_popover" targetClassName="sb-button-group_popover-target">
               <Button intent={Intent.PRIMARY} icon="people" />
             </Popover>
 

@@ -137,7 +137,6 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
       <div className="sb-container">
         <BreadcrumbsComponent items={breadcrumbs} />
         <div className="sb-wrapper">
-          {/* <div className="sb-sidebar"> */}
             <SpellSidebar handleSortBy={this.handleSortBy}>
               <FormGroup label="Names" labelFor="names-dropdown">
                 <DropdownMultiSelect
@@ -190,7 +189,6 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                 />
               </FormGroup>
             </SpellSidebar>
-          {/* </div> */}
           <div className="sb-card-group">{spellCards}</div>
         </div>
       </div>

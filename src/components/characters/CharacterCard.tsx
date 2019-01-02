@@ -25,7 +25,7 @@ class CharacterCardComponent extends React.Component<IProps, {}> {
     return (
       <Card className="sb-card" interactive={true} onClick={this.handleClick}>
         {icon}
-        <h5 className="sb-card_heading">{name}</h5>
+        <h4 className="sb-card_heading">{name}</h4>
         <p className="sb-card_meta">
           {BuildLevel(level, classType, false)}
         </p>

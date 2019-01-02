@@ -32,13 +32,13 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
     return (
       <Popover>
         {/* Target */}
-        <Card className="sb-card" interactive={true} style={{ textAlign: 'center' }}>
-          <Icon icon={IconNames.ADD} iconSize={Icon.SIZE_LARGE} intent={Intent.PRIMARY} />
+        <Card className="sb-card sb-card-add sb-center-text" interactive={true}>
+          <Icon icon={IconNames.ADD} iconSize={Icon.SIZE_LARGE} intent={Intent.PRIMARY}/>
         </Card>
 
         {/* Content */}
-        <div className="sb-character-popover-add">
-          <form className="sb-character-popover-add_form">
+        <div className="sb-popover-content">
+          <div className="sb-form">
             <FormGroup label="Name" labelFor="name-input" labelInfo="(required)">
               <InputGroup id="name-input" name="name" className="sb-character-popover-add_input" placeholder="Name" value={name} onChange={this.handleChange} />
             </FormGroup>
@@ -46,7 +46,6 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
               <InputGroup
                 id="level-input"
                 name="level"
-                className="input"
                 placeholder="Level"
                 value={level.toString()}
                 onChange={this.handleChange}
@@ -57,7 +56,6 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
               <InputGroup
                 id="classType-input"
                 name="classType"
-                className="input"
                 placeholder="Class"
                 value={classType}
                 onChange={this.handleChange}
@@ -67,15 +65,14 @@ class CharacterAddPopoverComponent extends React.Component<IProps, IState> {
               <InputGroup
                 id="description-input"
                 name="description"
-                className="input"
                 placeholder="Description"
                 value={description}
                 onChange={this.handleChange}
               />
             </FormGroup>
 
-            <Button className="sb-character-popover-add_button" icon="add" intent={Intent.PRIMARY} text="Add" onClick={this.handleSubmit} />
-          </form>
+            <Button icon="add" intent={Intent.PRIMARY} text="Add" onClick={this.handleSubmit} />
+          </div>
         </div>
       </Popover>
     );

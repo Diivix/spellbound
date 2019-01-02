@@ -43,16 +43,10 @@ export function createCharacter(character: ICharacterBase, token: string): Promi
       if (response.status === 201) {
         return response.json();
       } else {
-        // tslint:disable-next-line:no-console
-        console.log(JSON.stringify(response.json()));
         throw new ApiError(response.status, response.statusText);
       }
     })
     .then((newCharacter: ICharacter) => {
-      // tslint:disable-next-line:no-console
-      console.log("We got here 2...");
-      // tslint:disable-next-line:no-console
-      console.log(JSON.stringify(newCharacter));
       return newCharacter;
     });
 }

@@ -83,8 +83,9 @@ class SigninComponent extends React.Component<IProps, IState> {
             </CssTransitionGroup>
           </div>
           <div className="sb-col">
-            <h2>Welcome to Spellbound</h2>
-              <FormGroup style={{ maxWidth: '350px' }}>
+            <h1>Welcome to Spellbound</h1>
+            <div className="sb-form" style={{ maxWidth: '350px' }}>
+              <FormGroup>
                 <InputGroup
                   id="email-input"
                   name="email"
@@ -96,6 +97,8 @@ class SigninComponent extends React.Component<IProps, IState> {
                   autoComplete="email"
                   onChange={this.handleChange}
                 />
+              </FormGroup>
+              <FormGroup>
                 <InputGroup
                   id="password-input"
                   name="password"
@@ -108,8 +111,9 @@ class SigninComponent extends React.Component<IProps, IState> {
                   onChange={this.handleChange}
                   type="password"
                 />
-                <Button icon="log-in" intent={Intent.PRIMARY} text="Login" loading={isLoading} onClick={this.handleSubmit} />
               </FormGroup>
+              <Button icon="log-in" intent={Intent.PRIMARY} text="Login" loading={isLoading} onClick={this.handleSubmit} />
+            </div>
           </div>
         </div>
       </div>

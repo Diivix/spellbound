@@ -55,7 +55,7 @@ class MultiSelectWrapperComponent extends React.Component<IProps, IState> {
         itemRenderer={this.renderListItem}
         noResults={<MenuItem disabled={true} text="No results." />}
         onItemSelect={this.handleItemSelect}
-        popoverProps={{ minimal: true }}
+        popoverProps={{ minimal: true, targetClassName: "sb-itemselect_popover-target" }}
         tagRenderer={this.renderTag}
         tagInputProps={{ tagProps: getTagProps, onRemove: this.handleTagRemove, rightElement: clearButton }}
         selectedItems={this.state.selectedItems}
