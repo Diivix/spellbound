@@ -1,12 +1,12 @@
-import { IBreadcrumbProps } from '@blueprintjs/core';
+import { Card, IBreadcrumbProps, Icon, Intent } from '@blueprintjs/core';
 import { createCharacter, getCharacters } from 'actions/characters/actions';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { isNull, isNullOrUndefined } from 'util';
 import BreadcrumbsComponent from '../../components/Breadcrumbs';
-import PopoverComponent from '../../components/characters/CharacterAddPopover';
 import CharacterCardComponent from '../../components/characters/CharacterCard';
+import PopoverComponent from '../../components/characters/CharacterPopover';
 import { Loader } from '../../components/loader/Loader';
 import { ICharacter, ICharacterBase, IStoreState } from '../../models';
 import { isBusy } from '../../selectors';
@@ -38,12 +38,20 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
       return <Loader />;
     }
 
-    const breadcrumbs: IBreadcrumbProps[] = [{ text: "Characters" }];
+    const breadcrumbs: IBreadcrumbProps[] = [{ text: 'Characters' }];
     let characterCards: JSX.Element[] = [];
-    if(!isNull(this.props.characters)) {
-      characterCards = this.props.characters.map(character => <CharacterCardComponent key={character.id} changeRoute={this.changeRoute} character={character} />);
+    if (!isNull(this.props.characters)) {
+      characterCards = this.props.characters.map(character => (
+        <CharacterCardComponent key={character.id} changeRoute={this.changeRoute} character={character} />
+      ));
     }
-    characterCards.push(<PopoverComponent key='createcharacter' createCharacter={this.createCharacter}/>)
+    characterCards.push(
+      <PopoverComponent key="createcharacter" isCreate={true} createOrUpdate={this.createOrUpdateCharacter}>
+        <Card className="sb-card sb-card-add sb-center-text" interactive={true}>
+          <Icon icon="add" iconSize={Icon.SIZE_LARGE} intent={Intent.PRIMARY} />
+        </Card>
+      </PopoverComponent>
+    );
 
     return (
       <div className="sb-container">
@@ -55,13 +63,13 @@ class CharacterCompendiumComponent extends React.Component<IStateProps & IDispat
     );
   }
 
-  private createCharacter = (character: ICharacterBase): void => {
+  private createOrUpdateCharacter = (character: ICharacterBase): void => {
     this.props.createCharacter(character);
-  }
+  };
 
   private changeRoute = (characterId: number): void => {
     this.props.changeRoute('/characters/' + characterId);
-  }
+  };
 }
 
 function mapStateToProps(state: IStoreState): IStateProps {

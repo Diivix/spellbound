@@ -54,7 +54,7 @@ export function createCharacter(character: ICharacterBase, token: string): Promi
 // UPDATE
 // Updates a Character, from the current user
 export function updateCharacterMeta(character: { id: number } & ICharacterBase, token: string): Promise<ICharacter> {
-  const url: string = '/api/users/characters/update';
+  const url: string = '/api/characters';
 
   return fetch(url, {
     body: JSON.stringify(character),

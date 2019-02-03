@@ -66,12 +66,9 @@ class CharacterCompoent extends React.Component<IProps, {}> {
         <BreadcrumbsComponent items={breadcrumbs} />
 
         <CharacterDetailsComponent
-          name={character.name}
-          classType={character.classType}
-          level={character.level}
-          description={character.description}
-          updateMeta={updateCharacterMeta}
-          delete={deleteCharacter}
+          character={this.props.character}
+          update={this.props.updateCharacter}
+          delete={this.props.deleteCharacter}
           isBusy={this.props.isBusy}
         />
 

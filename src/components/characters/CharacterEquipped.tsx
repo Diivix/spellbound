@@ -33,7 +33,7 @@ class CharacterEquippedComponent extends React.Component<IProps, {}> {
                 </div>
                 <div className="sb-row sb-margin-top-30">
                   <div className="sb-col sb-center-text">
-                    <p>No spells have been equipped.</p>
+                    <p>No spells equipped.</p>
                   </div>
                 </div>
               </div>

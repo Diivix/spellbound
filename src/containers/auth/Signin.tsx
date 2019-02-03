@@ -85,34 +85,36 @@ class SigninComponent extends React.Component<IProps, IState> {
           <div className="sb-col">
             <h1 className="sb-padding-top-0">Welcome to Spellbound</h1>
             <div className="sb-form" style={{ maxWidth: '350px' }}>
-              <FormGroup>
-                <InputGroup
-                  id="email-input"
-                  name="email"
-                  style={margin}
-                  large={true}
-                  leftIcon="envelope"
-                  placeholder="Enter your email address"
-                  value={email}
-                  autoComplete="email"
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <InputGroup
-                  id="password-input"
-                  name="password"
-                  style={margin}
-                  large={true}
-                  leftIcon="lock"
-                  placeholder="Enter your password"
-                  value={password}
-                  autoComplete="current-password"
-                  onChange={this.handleChange}
-                  type="password"
-                />
-              </FormGroup>
-              <Button icon="log-in" intent={Intent.PRIMARY} text="Login" loading={isLoading} onClick={this.handleSubmit} />
+              <form>
+                <FormGroup>
+                  <InputGroup
+                    id="email-input"
+                    name="email"
+                    style={margin}
+                    large={true}
+                    leftIcon="envelope"
+                    placeholder="Enter your email address"
+                    value={email}
+                    autoComplete="email"
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <InputGroup
+                    id="password-input"
+                    name="password"
+                    style={margin}
+                    large={true}
+                    leftIcon="lock"
+                    placeholder="Enter your password"
+                    value={password}
+                    autoComplete="current-password"
+                    onChange={this.handleChange}
+                    type="password"
+                  />
+                </FormGroup>
+                <Button icon="log-in" intent={Intent.PRIMARY} text="Login" loading={isLoading} onClick={this.handleSubmit} />
+              </form>
             </div>
           </div>
         </div>
