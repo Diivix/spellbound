@@ -1,8 +1,7 @@
 {
-  "name": "spellbound-react",
+  "name": "spellbound",
   "version": "0.3.0",
   "private": true,
-  "proxy": "https://localhost:5001/",
   "dependencies": {
     "@blueprintjs/core": "^3.6.1",
     "@blueprintjs/select": "^3.2.0",

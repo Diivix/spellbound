@@ -4,7 +4,7 @@ import ApiError from './ApiError';
 // GET
 // Gets a spell (full spell), from an id
 export function getSpell(id: string, token: string): Promise<ISpell> {
-  const url: string = '/api/spells/' + id;
+  const url: string = process.env.REACT_APP_API_URL + '/api/spells/' + id;
 
   return fetch(url, {
     headers: {
@@ -28,7 +28,7 @@ export function getSpell(id: string, token: string): Promise<ISpell> {
 // GET
 // Gets all spells
 export function getSpells(partial: boolean = false, token: string): Promise<ISpell[]> {
-  const url: string = '/api/Spells?partial=' + partial;
+  const url: string = process.env.REACT_APP_API_URL + '/api/Spells?partial=' + partial;
 
   return fetch(url, {
     headers: {

@@ -10,6 +10,19 @@ Watch mongo-connect issue with destroying a session, this only affects new versi
 
 ## Development
 
+### Running locally
+
+1. Run `yarn start`
+2. Form the spellbound-api project, run `dotnet run`
+
+### Running in Docker
+
+1. `yarn build`
+2. `docker build --rm -f Dockerfile -t spellbound .`
+3. `docker run --rm -d -p 80:80 spellbound`. NOw navigate to localhost:80
+4. `docker container list`
+5. `docker container stop {{container_id}}`
+
 ### Setup SSL Cert
 
 1. Generate cert:
@@ -22,10 +35,11 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 2. Place in certificates folder of project
 3. Import the genrated certificate into your browser/system.
 
-## Hosting
+## Deployment using Azure Containers
 
-1. The db is hosted at <https://mlab.com/>
-2. the application is hosted at <https://zeit.co>
+- [Deploy Continer as Azure App Service](https://blogs.msdn.microsoft.com/premier_developer/2018/06/15/container-why-not-app-services/)
+- [Deploy a container application](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-deploy-app)
+- [Deploy multi container instance](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-multi-container-yaml)
 
 ## Used Tutorials and Libraries
 
@@ -35,11 +49,11 @@ openssl req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /
 - [Https with Express](https://medium.com/@nileshsingh/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e)
 - [Redux with TypeScript (alternative)](https://levelup.gitconnected.com/react-and-redux-with-typescript-da0c37537a79) - Redux implementation was borrowed from this.
 - [react-router-redux](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux) - Used for the client router.
+- [Run with Docker and NGINX](https://medium.com/yld-engineering-blog/deploy-your-create-react-app-with-docker-and-ngnix-653e94ffb537)
 
 ## TODO
 
-- BUG: Spell filters. Mage Hand should appear when filtering on class 'Wizard' and school 'Conjuration', but it doesn't. It looks like
-all spells with more than one class are removed, leaving spells with only a wizard class.
+- BUG: Spell filters. Mage Hand should appear when filtering on class 'Wizard' and school 'Conjuration', but it doesn't. It looks like all spells with more than one class are removed, leaving spells with only a wizard class.
 - Move menu to it own header component. The menu shouldn;t be shown on the signin page.
 - Fix bug with sorting of the ranges filter.
 - Allow user to upload character avatar

@@ -3,7 +3,7 @@ import { IUserData } from 'models';
 import ApiError from './ApiError';
 
 export function signIn(credentials: ICredentials): Promise<{token: string; user: IUserData}> {
-  const url = '/api/Account/SignIn';
+  const url = process.env.REACT_APP_API_URL + '/api/Account/SignIn';
 
   return fetch(url, {
     body: JSON.stringify(credentials),
@@ -27,7 +27,7 @@ export function signIn(credentials: ICredentials): Promise<{token: string; user:
 }
 
 export function signOut(token: string): Promise<{}> {
-  const url = '/api/Account/SignOut';
+  const url = process.env.REACT_APP_API_URL + '/api/Account/SignOut';
 
   return fetch(url, {
     headers: {

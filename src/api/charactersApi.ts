@@ -4,7 +4,7 @@ import ApiError from './ApiError';
 // GET
 // Gets the characters for the current user
 export function getCharacters(token: string): Promise<ICharacter[]> {
-  const url: string = '/api/characters/user';
+  const url: string = process.env.REACT_APP_API_URL + '/api/characters/user';
 
   return fetch(url, {
     headers: {
@@ -29,7 +29,7 @@ export function getCharacters(token: string): Promise<ICharacter[]> {
 // CREATE
 // Creates a new Character, from the current user
 export function createCharacter(character: ICharacterBase, token: string): Promise<ICharacter> {
-  const url: string = '/api/characters';
+  const url: string = process.env.REACT_APP_API_URL + '/api/characters';
 
   return fetch(url, {
     body: JSON.stringify(character),
@@ -54,7 +54,7 @@ export function createCharacter(character: ICharacterBase, token: string): Promi
 // UPDATE
 // Updates a Character, from the current user
 export function updateCharacterMeta(character: { id: number } & ICharacterBase, token: string): Promise<ICharacter> {
-  const url: string = '/api/characters';
+  const url: string = process.env.REACT_APP_API_URL + '/api/characters';
 
   return fetch(url, {
     body: JSON.stringify(character),
@@ -80,7 +80,7 @@ export function updateCharacterMeta(character: { id: number } & ICharacterBase, 
 // DELETE
 // Deletes a Character, from the current user
 export function deleteCharacter(characterId: { characterId: number }, token: string): Promise<void> {
-  const url: string = '/api/users/characters/delete';
+  const url: string = process.env.REACT_APP_API_URL + '/api/users/characters/delete';
 
   return fetch(url, {
     body: JSON.stringify(characterId),
@@ -100,7 +100,7 @@ export function deleteCharacter(characterId: { characterId: number }, token: str
 // ADD SPELL
 // Adds a spell to a character
 export function addSpell(characterAndSpellId: { characterId: number, spellId: number }, token: string): Promise<ICharacter> {
-  const url: string = '/api/characters/addspell';
+  const url: string = process.env.REACT_APP_API_URL + '/api/characters/addspell';
 
   return fetch(url, {
     body: JSON.stringify(characterAndSpellId),
@@ -126,7 +126,7 @@ export function addSpell(characterAndSpellId: { characterId: number, spellId: nu
 // REMOVE SPELL
 // Removes a spell to a character
 export function removeSpell(characterAndSpellId: { characterId: number, spellId: number }, token: string): Promise<ICharacter> {
-  const url: string = '/api/characters/removespell';
+  const url: string = process.env.REACT_APP_API_URL + '/api/characters/removespell';
 
   return fetch(url, {
     body: JSON.stringify(characterAndSpellId),
