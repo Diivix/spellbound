@@ -11,6 +11,7 @@ interface IProps {
   addFilter: ((type: string, filter: ISelectItem) => void);
   items: ISelectItem[];
   placeholder: string;
+  removeFilter: ((type: string, filter: ISelectItem) => void);
   selectedItems: ISelectItem[]
 }
 
@@ -105,8 +106,14 @@ class MultiSelectWrapperComponent extends React.Component<IProps, IState> {
   }
 
   private deselectItem(index: number) {
-    this.setState({ selectedItems: this.state.selectedItems.filter((item, i) => i !== index) });
-    this.props.addFilter(this.props.type, { key: '', value: '' });
+    this.setState({ selectedItems: this.state.selectedItems.filter((item, i) => {
+      if(i === index) {
+        this.props.removeFilter(this.props.type, item);
+        return false; // remove item from selectedItems
+      } else {
+        return true;
+      }
+    }) });
   }
 
   private handleItemSelect = (item: ISelectItem) => {

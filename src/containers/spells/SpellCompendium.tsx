@@ -136,6 +136,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                   items={namesFilters}
                   addFilter={this.addFilter}
                   placeholder="Names..."
+                  removeFilter={this.removeFilter}
                   selectedItems={appliedFilters.names}
                 />
               </FormGroup>
@@ -146,6 +147,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                   items={classTypesFilters}
                   addFilter={this.addFilter}
                   placeholder="Classes..."
+                  removeFilter={this.removeFilter}
                   selectedItems={appliedFilters.classTypes}
                 />
               </FormGroup>
@@ -156,6 +158,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                   items={schoolsFilters}
                   addFilter={this.addFilter}
                   placeholder="Schools..."
+                  removeFilter={this.removeFilter}
                   selectedItems={appliedFilters.schools}
                 />
               </FormGroup>
@@ -166,6 +169,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                   items={componentsFilters}
                   addFilter={this.addFilter}
                   placeholder="Components..."
+                  removeFilter={this.removeFilter}
                   selectedItems={appliedFilters.components}
                 />
               </FormGroup>
@@ -176,6 +180,7 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
                   items={rangesFilters}
                   addFilter={this.addFilter}
                   placeholder="Range..."
+                  removeFilter={this.removeFilter}
                   selectedItems={appliedFilters.ranges}
                 />
               </FormGroup>
@@ -213,8 +218,28 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
   };
 
   private addFilter = (type: string, filter: ISelectItem): void => {
-    const tempFilters: IFilters = !isUndefined(this.props.appliedFilters)
-      ? this.props.appliedFilters
+    const tempFilters: IFilters = this.getOrCreateFilters(this.props.appliedFilters)
+
+    if (!_.isEmpty(filter.value)) { 
+      tempFilters[type].push(filter);
+    }
+
+    this.props.setAppliedFilters(tempFilters);
+  };
+
+  private removeFilter = (type: string, filter: ISelectItem): void => {
+    const tempFilters: IFilters = this.getOrCreateFilters(this.props.appliedFilters)
+    
+    if (!_.isEmpty(filter.value)) { 
+      tempFilters[type] = tempFilters[type].filter((item: ISelectItem, i: number) => item !== filter);
+    }
+
+    this.props.setAppliedFilters(tempFilters);
+  };
+
+  private getOrCreateFilters = (filters?: IFilters): IFilters => {
+    return !isUndefined(filters)
+      ? filters
       : {
           classTypes: [],
           components: [],
@@ -222,14 +247,6 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
           ranges: [],
           schools: []
         };
-
-    if (_.isEmpty(filter.value) && tempFilters[type]) {
-      tempFilters[type] = [];
-    } else {
-      tempFilters[type] = [filter];
-    }
-
-    this.props.setAppliedFilters(tempFilters);
   };
 }
 
