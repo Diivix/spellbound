@@ -84,7 +84,7 @@ class MultiSelectWrapperComponent extends React.Component<IProps, IState> {
   };
 
   private filterItem: ItemPredicate<ISelectItem> = (query, item) => {
-    return `${item.value}`.indexOf(query.toLowerCase()) >= 0;
+    return `${item.value}`.toLowerCase().indexOf(query.toLowerCase()) >= 0;
   };
 
   private handleTagRemove = (tag: string, index: number) => {

@@ -109,19 +109,10 @@ class SpellCompendiumComponent extends React.Component<IStateProps & IDispatchPr
 
     let rangesFilters: ISelectItem[] = [];
     if (!isUndefined(possibleFilterValues.ranges)) {
-      rangesFilters = possibleFilterValues.ranges.map(filter => {
-        let fullValue = filter.value;
-        if (!isNaN(Number(fullValue))) {
-          fullValue += ' feet';
-        }
-
-        return { key: filter.key, value: filter.value };
+      rangesFilters = possibleFilterValues.ranges.map(x => {
+        return { key: x.key, value: x.value };
       });
-
-      rangesFilters = _.sortBy(rangesFilters, o => {
-        const v = parseInt(o.key, 10);
-        return isNaN(v) ? o : v;
-      });
+      rangesFilters = _.sortBy(rangesFilters, o => o.value);
     }
 
     let componentsFilters: ISelectItem[] = [];
